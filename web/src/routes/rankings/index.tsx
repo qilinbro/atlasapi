@@ -19,6 +19,7 @@ For commercial licensing, please contact support@quantumnous.com
 import { createFileRoute, redirect } from '@tanstack/react-router'
 import z from 'zod'
 
+import { featureConfig } from '@/config/features'
 import { Rankings } from '@/features/rankings'
 import { getFreshModuleAccess } from '@/lib/nav-modules'
 import { useAuthStore } from '@/stores/auth-store'
@@ -33,6 +34,9 @@ const rankingsSearchSchema = z.object({
 export const Route = createFileRoute('/rankings/')({
   validateSearch: rankingsSearchSchema,
   beforeLoad: async ({ location }) => {
+    if (!featureConfig.rankings) {
+      throw redirect({ to: '/' })
+    }
     const access = await getFreshModuleAccess('rankings')
     if (!access.enabled) {
       throw redirect({ to: '/' })

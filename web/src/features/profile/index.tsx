@@ -21,6 +21,7 @@ import {
   CardStaggerContainer,
   CardStaggerItem,
 } from '@/components/page-transition'
+import { featureConfig } from '@/config/features'
 import { useStatus } from '@/hooks/use-status'
 import { useAuthStore } from '@/stores/auth-store'
 
@@ -40,7 +41,8 @@ export function Profile() {
   const { status } = useStatus()
   const permissions = useAuthStore((s) => s.auth.user?.permissions)
 
-  const checkinEnabled = status?.checkin_enabled === true
+  const checkinEnabled =
+    featureConfig.checkin && status?.checkin_enabled === true
   const turnstileEnabled = !!(
     status?.turnstile_check && status?.turnstile_site_key
   )

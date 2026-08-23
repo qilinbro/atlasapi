@@ -17,6 +17,7 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 For commercial licensing, please contact support@quantumnous.com
 */
 import { Link, useSearch } from '@tanstack/react-router'
+import { motion, useReducedMotion, type Variants } from 'motion/react'
 import { useTranslation } from 'react-i18next'
 
 import { useStatus } from '@/hooks/use-status'
@@ -25,21 +26,67 @@ import { AuthLayout } from '../auth-layout'
 import { TermsFooter } from '../components/terms-footer'
 import { UserAuthForm } from './components/user-auth-form'
 
+// 基元律动入场：节拍器式等距交错，与涟漪背景同频
+const SIGN_IN_EASE: [number, number, number, number] = [0.16, 1, 0.3, 1]
+
+const signInContainerVariants: Variants = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.1, delayChildren: 0.55 },
+  },
+}
+
+const signInItemVariants: Variants = {
+  hidden: { opacity: 0, y: 18 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.55, ease: SIGN_IN_EASE },
+  },
+}
+
 export function SignIn() {
   const { t } = useTranslation()
+  const shouldReduceMotion = useReducedMotion()
   const { redirect } = useSearch({ from: '/(auth)/sign-in' })
   const { status } = useStatus()
 
+  const title = t('Sign in')
+  // Unique, content-derived keys so repeated characters don't collide.
+  const titleChars = [...title].map((ch, i) => ({ ch, key: `${i}-${ch}` }))
+
   return (
     <AuthLayout>
-      <div className='w-full space-y-8'>
-        <div className='space-y-2'>
-          <h2 className='text-center text-2xl font-semibold tracking-tight sm:text-left'>
-            {t('Sign in')}
+      <motion.div
+        variants={signInContainerVariants}
+        initial={shouldReduceMotion ? 'visible' : 'hidden'}
+        animate='visible'
+        className='w-full space-y-6'
+      >
+        <motion.div variants={signInItemVariants} className='space-y-3'>
+          {/* Mono overline — 工坊铭牌 */}
+          <p className='text-primary/80 font-mono text-[10px] font-medium tracking-[0.3em] uppercase'>
+            Atlas · Sign In
+          </p>
+          {/* 展示标题：艺术毛笔楷书，逐字上浮揭示 */}
+          <h2
+            aria-label={title}
+            className='font-artistic text-primary/95 text-[clamp(2.75rem,6vw,3.5rem)] leading-[1.1] tracking-normal'
+          >
+            {titleChars.map(({ ch, key }, i) => (
+              <span
+                key={key}
+                aria-hidden='true'
+                className='luxe-char'
+                style={{ '--d': `${0.6 + i * 0.07}s` } as React.CSSProperties}
+              >
+                {ch === ' ' ? '\u00A0' : ch}
+              </span>
+            ))}
           </h2>
           {!status?.self_use_mode_enabled &&
             status?.register_enabled !== false && (
-              <p className='text-muted-foreground text-left text-sm sm:text-base'>
+              <p className='text-muted-foreground pt-1 text-left text-sm sm:text-base'>
                 {t("Don't have an account?")}{' '}
                 <Link
                   to='/sign-up'
@@ -50,16 +97,20 @@ export function SignIn() {
                 .
               </p>
             )}
-        </div>
+        </motion.div>
 
-        <UserAuthForm redirectTo={redirect} />
+        <motion.div variants={signInItemVariants}>
+          <UserAuthForm redirectTo={redirect} />
+        </motion.div>
 
-        <TermsFooter
-          variant='sign-in'
-          status={status}
-          className='text-center'
-        />
-      </div>
+        <motion.div variants={signInItemVariants}>
+          <TermsFooter
+            variant='sign-in'
+            status={status}
+            className='text-center'
+          />
+        </motion.div>
+      </motion.div>
     </AuthLayout>
   )
 }

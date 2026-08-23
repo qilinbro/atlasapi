@@ -20,6 +20,7 @@ import { Link } from '@tanstack/react-router'
 import { Fragment, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { featureConfig } from '@/config/features'
 import { useStatus } from '@/hooks/use-status'
 import { useSystemConfig } from '@/hooks/use-system-config'
 import { cn } from '@/lib/utils'
@@ -163,8 +164,8 @@ export function Footer(props: FooterProps) {
   const isDemoSiteMode = Boolean(demoSiteEnabled)
   const currentYear = new Date().getFullYear()
 
-  const fallbackColumns = useMemo<FooterColumnProps[]>(
-    () => [
+  const fallbackColumns = useMemo<FooterColumnProps[]>(() => {
+    const cols: FooterColumnProps[] = [
       {
         title: t('footer.columns.about.title'),
         links: [
@@ -182,7 +183,10 @@ export function Footer(props: FooterProps) {
           },
         ],
       },
-      {
+    ]
+
+    if (featureConfig.docs) {
+      cols.push({
         title: t('footer.columns.docs.title'),
         links: [
           {
@@ -198,27 +202,29 @@ export function Footer(props: FooterProps) {
             href: 'https://docs.newapi.pro/api/',
           },
         ],
-      },
-      {
-        title: t('footer.columns.related.title'),
-        links: [
-          {
-            text: t('footer.columns.related.links.oneApi'),
-            href: 'https://github.com/songquanpeng/one-api',
-          },
-          {
-            text: t('footer.columns.related.links.midjourney'),
-            href: 'https://github.com/novicezk/midjourney-proxy',
-          },
-          {
-            text: t('footer.columns.related.links.newApiKeyTool'),
-            href: 'https://github.com/Calcium-Ion/new-api-key-tool',
-          },
-        ],
-      },
-    ],
-    [t]
-  )
+      })
+    }
+
+    cols.push({
+      title: t('footer.columns.related.title'),
+      links: [
+        {
+          text: t('footer.columns.related.links.oneApi'),
+          href: 'https://github.com/songquanpeng/one-api',
+        },
+        {
+          text: t('footer.columns.related.links.midjourney'),
+          href: 'https://github.com/novicezk/midjourney-proxy',
+        },
+        {
+          text: t('footer.columns.related.links.newApiKeyTool'),
+          href: 'https://github.com/Calcium-Ion/new-api-key-tool',
+        },
+      ],
+    })
+
+    return cols
+  }, [t])
 
   const displayColumns = props.columns ?? fallbackColumns
 
@@ -234,6 +240,7 @@ export function Footer(props: FooterProps) {
           <div className='bg-muted/20 border-border/50 flex flex-col items-center justify-between gap-4 rounded-2xl border px-4 py-4 backdrop-blur-sm sm:flex-row sm:px-5'>
             <div
               className='custom-footer text-muted-foreground min-w-0 text-center text-sm sm:text-left'
+              // eslint-disable-next-line react/no-danger -- footerHtml is admin-configured trusted content (super-admin only, same trust level as HomePageContent)
               dangerouslySetInnerHTML={{ __html: footerHtml }}
             />
             <div className='border-border/60 text-muted-foreground/45 flex w-full flex-wrap items-center justify-center gap-x-3 gap-y-1 border-t pt-4 text-xs sm:w-auto sm:justify-end sm:border-t-0 sm:border-l sm:pt-0 sm:pl-5'>
@@ -272,14 +279,14 @@ export function Footer(props: FooterProps) {
           {/* Links columns */}
           {isDemoSiteMode && (
             <div className='grid grid-cols-3 gap-8 md:gap-16'>
-              {displayColumns.map((column, index) => (
-                <div key={index}>
+              {displayColumns.map((column) => (
+                <div key={column.title}>
                   <p className='text-muted-foreground/50 mb-3 text-xs font-medium tracking-wider uppercase'>
                     {t(column.title)}
                   </p>
                   <ul className='space-y-2.5'>
-                    {column.links.map((link, linkIndex) => (
-                      <li key={linkIndex}>
+                    {column.links.map((link) => (
+                      <li key={link.href}>
                         <FooterLinkItem link={link} />
                       </li>
                     ))}

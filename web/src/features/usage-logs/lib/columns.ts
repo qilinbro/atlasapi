@@ -35,9 +35,13 @@ export function useColumnsByCategory(
   isAdmin: boolean
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): ColumnDef<any>[] {
-  const commonColumns = useCommonLogsColumns(isAdmin)
-  const drawingColumns = useDrawingLogsColumns(isAdmin)
-  const taskColumns = useTaskLogsColumns(isAdmin)
+  // 惰性构造：仅为当前类别构建列定义，其余 hooks 返回空数组
+  const commonColumns = useCommonLogsColumns(isAdmin, logCategory === 'common')
+  const drawingColumns = useDrawingLogsColumns(
+    isAdmin,
+    logCategory === 'drawing'
+  )
+  const taskColumns = useTaskLogsColumns(isAdmin, logCategory === 'task')
 
   switch (logCategory) {
     case 'common':

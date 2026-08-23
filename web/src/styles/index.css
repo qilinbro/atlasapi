@@ -26,6 +26,12 @@ For commercial licensing, please contact support@quantumnous.com
  * that activates it. Loaded globally so font-switching is instantaneous
  * with no FOUT once the variable is fetched. */
 @import '@fontsource-variable/lora';
+/* Artistic display faces: Ma Shan Zheng (brush kaishu, CJK titles —
+ * fontsource unicode-range subsets fetch only the glyphs in use) and
+ * Cormorant (high-contrast Latin display serif + italic axis). */
+@import '@fontsource/ma-shan-zheng';
+@import '@fontsource-variable/cormorant';
+@import '@fontsource-variable/cormorant/wght-italic.css';
 
 @import './theme.css';
 @import './theme-presets.css';
@@ -100,6 +106,13 @@ For commercial licensing, please contact support@quantumnous.com
      * (defined in theme.css, swapped by `[data-theme-font='...']` blocks
      * in theme-presets.css). Defaults to the project's humanist sans. */
     font-family: var(--font-body);
+    /* Subtle cool tint from the top for depth — barely-there, premium. */
+    background-image: linear-gradient(
+      to bottom,
+      color-mix(in oklch, var(--primary) 4%, var(--background)) 0%,
+      var(--background) 22rem
+    );
+    background-attachment: fixed;
   }
 
   /* Keep sticky headers stable while primitives lock body scrolling. */
@@ -513,6 +526,16 @@ For commercial licensing, please contact support@quantumnous.com
     transform: translateX(0);
   }
 }
+@keyframes landing-fade-down {
+  from {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 .landing-animate-fade-up {
   animation: landing-fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
@@ -529,15 +552,393 @@ For commercial licensing, please contact support@quantumnous.com
 .landing-animate-fade-right {
   animation: landing-fade-right 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
+.landing-animate-fade-down {
+  animation: landing-fade-down 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
 
 @media (prefers-reduced-motion: reduce) {
   .landing-animate-fade-up,
   .landing-animate-fade-in,
   .landing-animate-scale-in,
   .landing-animate-fade-left,
-  .landing-animate-fade-right {
+  .landing-animate-fade-right,
+  .landing-animate-fade-down {
     animation: none !important;
     opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* ── Premium motion primitives (web-motion-design) ──────────────────────
+   GPU-only properties (transform/opacity/filter), principled easing,
+   and full prefers-reduced-motion fallbacks. */
+
+/* Slow drift for ambient background glows — follow-through, never linear */
+@keyframes drift-a {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(2.5%, 3%, 0) scale(1.06);
+  }
+}
+@keyframes drift-b {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-3%, -2%, 0) scale(1.08);
+  }
+}
+.animate-drift-a {
+  animation: drift-a 14s ease-in-out infinite;
+  will-change: transform;
+}
+.animate-drift-b {
+  animation: drift-b 18s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Gentle floating for the brand mark — arc via independent X/Y */
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+.animate-float {
+  animation: float-y 5s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  will-change: transform;
+}
+
+/* Secondary-action glow that breathes behind the brand mark */
+@keyframes glow-pulse {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.12);
+  }
+}
+.animate-glow-pulse {
+  animation: glow-pulse 4.5s ease-in-out infinite;
+  will-change: opacity, transform;
+}
+
+/* Sheen sweep across the headline gradient — staging accent */
+@keyframes sheen {
+  0% {
+    background-position: 200% center;
+  }
+  100% {
+    background-position: -200% center;
+  }
+}
+.animate-sheen {
+  background-size: 200% auto;
+  animation: sheen 6s linear infinite;
+}
+
+/* Squash & stretch press feedback for premium buttons (volume preserved) */
+.btn-motion {
+  transition:
+    transform 120ms cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 200ms cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-motion:hover {
+  transform: translateY(-1px) scale(1.03);
+}
+.btn-motion:active {
+  transform: scale(0.96, 1.04);
+  transition-duration: 100ms;
+}
+
+/* Feature card: exaggerated lift + icon follow-through on hover */
+.card-motion {
+  transition:
+    transform 280ms cubic-bezier(0.34, 1.4, 0.64, 1),
+    box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 280ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.card-motion:hover {
+  transform: translateY(-6px) scale(1.02);
+}
+.card-motion .card-icon {
+  transition: transform 320ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.card-motion:hover .card-icon {
+  transform: scale(1.15) rotate(-6deg);
+}
+
+/* ── Platinum luxury line motion ────────────────────────────────────── */
+
+/* A hairline that draws itself outward from center (scaleX, GPU-only). */
+@keyframes hairline-x {
+  from {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+.animate-hairline-x {
+  transform-origin: center;
+  animation: hairline-x 1.1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.animate-hairline-x[data-origin='left'] {
+  transform-origin: left;
+}
+.animate-hairline-x[data-origin='right'] {
+  transform-origin: right;
+}
+
+/* A vertical rule that draws itself top-to-bottom. */
+@keyframes hairline-y {
+  from {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+  to {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+.animate-hairline-y {
+  transform-origin: top;
+  animation: hairline-y 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* SVG stroke self-drawing. Pair with pathLength=1 on the element. */
+.animate-line-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: line-draw 1.4s cubic-bezier(0.5, 0, 0.2, 1) forwards;
+}
+@keyframes line-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* A light bead travelling along a hairline (luxury "shine" accent). */
+@keyframes line-shine {
+  0% {
+    transform: translateX(-100%);
+  }
+  60%,
+  100% {
+    transform: translateX(300%);
+  }
+}
+.animate-line-shine {
+  animation: line-shine 3.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  will-change: transform;
+}
+
+/* Vertical sibling: a bead sliding down a divider, on a lazy loop. */
+@keyframes line-shine-y {
+  0% {
+    transform: translateY(-100%);
+  }
+  60%,
+  100% {
+    transform: translateY(300%);
+  }
+}
+.animate-line-shine-y {
+  animation: line-shine-y 5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation-delay: 1.2s;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-hairline-x,
+  .animate-hairline-y {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .animate-line-draw {
+    animation: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+  .animate-line-shine {
+    animation: none !important;
+  }
+  .animate-line-shine-y {
+    animation: none !important;
+    opacity: 0 !important;
+  }
+}
+
+/* ── Dark-luxe landing primitives ─────────────────────────────────────── */
+
+/* Film grain: fixed, pointer-events-none, cheap steps() loop. */
+.luxe-grain {
+  position: fixed;
+  inset: -100px;
+  z-index: 5;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: luxe-grain 7s steps(8) infinite;
+}
+@keyframes luxe-grain {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  20% {
+    transform: translate(-40px, 30px);
+  }
+  40% {
+    transform: translate(30px, -50px);
+  }
+  60% {
+    transform: translate(-50px, -20px);
+  }
+  80% {
+    transform: translate(40px, 40px);
+  }
+}
+
+/* Per-character hero reveal: rises with a slight rotate, staggered via --d. */
+.luxe-char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.35em) rotate(2deg);
+  animation: luxe-char-in 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: var(--d, 0s);
+}
+@keyframes luxe-char-in {
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(0);
+  }
+}
+
+/* Soft rise used by the supporting copy blocks. */
+.luxe-rise {
+  opacity: 0;
+  transform: translateY(26px);
+  animation: luxe-rise 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: var(--d, 0s);
+}
+@keyframes luxe-rise {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .luxe-grain {
+    animation: none !important;
+  }
+  .luxe-char,
+  .luxe-rise {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* ── Platinum Atelier auth surface ───────────────────────────────────── */
+
+/* Gold baseline that draws itself under a focused field (GPU scaleX). */
+.auth-field::after {
+  content: '';
+  position: absolute;
+  right: 8%;
+  bottom: 0;
+  left: 8%;
+  height: 1.5px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--primary),
+    transparent
+  );
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 480ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.auth-field:focus-within::after {
+  transform: scaleX(1);
+}
+
+/* A band of light sweeping across the card's top edge, on a lazy loop. */
+@keyframes card-sweep {
+  0% {
+    transform: translateX(-160%);
+  }
+  55%,
+  100% {
+    transform: translateX(320%);
+  }
+}
+.animate-card-sweep {
+  animation: card-sweep 6s cubic-bezier(0.45, 0, 0.25, 1) infinite;
+  will-change: transform;
+}
+
+/* Corner ticks fading in around the hairline frame, staggered via --d. */
+@keyframes corner-in {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.animate-corner-in {
+  animation: corner-in 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--d, 0s);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .auth-field::after,
+  .auth-field:focus-within::after {
+    transition: none !important;
+  }
+  .animate-card-sweep,
+  .animate-corner-in {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-drift-a,
+  .animate-drift-b,
+  .animate-float,
+  .animate-glow-pulse,
+  .animate-sheen {
+    animation: none !important;
+  }
+  .btn-motion,
+  .btn-motion:hover,
+  .btn-motion:active,
+  .card-motion,
+  .card-motion:hover,
+  .card-motion .card-icon,
+  .card-motion:hover .card-icon {
+    transition: none !important;
     transform: none !important;
   }
 }

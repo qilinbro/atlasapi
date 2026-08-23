@@ -34,6 +34,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
+import { featureConfig } from '@/config/features'
 import { formatNumber } from '@/lib/format'
 import { cn } from '@/lib/utils'
 
@@ -131,11 +132,13 @@ export function RechargeFormCard({
   }
 
   const hasConfigurableTopup =
-    topupInfo?.enable_online_topup ||
-    topupInfo?.enable_stripe_topup ||
-    enableWaffoTopup ||
-    enableWaffoPancakeTopup
-  const hasAnyTopup = hasConfigurableTopup || enableCreemTopup
+    featureConfig.onlineTopup &&
+    (topupInfo?.enable_online_topup ||
+      topupInfo?.enable_stripe_topup ||
+      enableWaffoTopup ||
+      enableWaffoPancakeTopup)
+  const hasAnyTopup =
+    featureConfig.onlineTopup && (hasConfigurableTopup || enableCreemTopup)
   const hasStandardPaymentMethods =
     Array.isArray(topupInfo?.pay_methods) && topupInfo.pay_methods.length > 0
   const hasWaffoPaymentMethods =
@@ -488,7 +491,8 @@ export function RechargeFormCard({
       )}
 
       {/* Creem Products Section */}
-      {enableCreemTopup &&
+      {featureConfig.onlineTopup &&
+        enableCreemTopup &&
         Array.isArray(creemProducts) &&
         creemProducts.length > 0 &&
         onCreemProductSelect && (

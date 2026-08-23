@@ -154,7 +154,13 @@ export function OAuthProviders({
       <div className={cn('space-y-3', className)}>
         <div className='relative'>
           <div className='absolute inset-0 flex items-center'>
-            <span className='w-full border-t' />
+            <span className='border-border/70 relative w-full overflow-hidden border-t'>
+              {/* 光珠沿分隔线滑行 */}
+              <span
+                aria-hidden
+                className='animate-line-shine via-primary/60 absolute top-0 left-0 h-px w-1/3 bg-gradient-to-r from-transparent to-transparent'
+              />
+            </span>
           </div>
           <div className='relative flex justify-center text-xs uppercase'>
             <span className='bg-background text-muted-foreground px-2'>

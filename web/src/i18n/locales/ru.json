@@ -3,6 +3,13 @@
     "360": "360",
     "1000": "1000",
     "10000": "10000",
+    "Enterprise AI Gateway": "Enterprise AI Gateway",
+    "Unified Access": "Unified Access",
+    "One key for every model, behind a single standard API.": "One key for every model, behind a single standard API.",
+    "Usage Analytics": "Usage Analytics",
+    "Real-time insight into consumption, cost, and trends.": "Real-time insight into consumption, cost, and trends.",
+    "Quota Control": "Quota Control",
+    "Fine-grained quota and permission management for teams.": "Fine-grained quota and permission management for teams.",
     "_copy": "_копировать",
     "，": ", ",
     ", and": ", и",
@@ -122,6 +129,7 @@
     "80,443,8080": "80,443,8080",
     "A billing multiplier. Lower ratios mean lower API call costs.": "Множитель тарификации. Чем ниже коэффициент, тем ниже стоимость вызовов API.",
     "A focused home for keys, balance, routing, and service health.": "Единый экран для ключей, баланса, маршрутов и состояния сервиса.",
+    "A unified AI gateway: one key for every model, with usage analytics and quota management.": "A unified AI gateway: one key for every model, with usage analytics and quota management.",
     "About": "О проекте",
     "About {{days}} days left": "Примерно {{days}} дней",
     "Accept Unpriced Models": "Принимать модели без цены",
@@ -5233,6 +5241,7 @@
     "Weighted by request count": "Взвешено по количеству запросов",
     "Welcome back!": "Добро пожаловать обратно!",
     "Welcome to our New API...": "Добро пожаловать в наш New API...",
+    "Welcome to {{name}}": "Welcome to {{name}}",
     "Well-Known URL": "Известный эксперт",
     "Well-Known URL must start with http:// or https://": "Well-Known URL должен начинаться с http:// или https://",
     "What would you like to know?": "Что вы хотели бы узнать?",
@@ -5316,6 +5325,16 @@
     "Zero retention": "Без хранения данных",
     "Zhipu": "Zhipu",
     "Zhipu V4": "Zhipu V4",
-    "Zoom": "Zoom"
-  }
+    "Zoom": "Zoom",
+    "One gateway for every model.": "One gateway for every model."
+  },
+  "Enterprise AI Gateway": "Enterprise AI Gateway",
+  "Welcome to": "Welcome to",
+  "Unified Access": "Unified Access",
+  "One key for every model, behind a single standard API.": "One key for every model, behind a single standard API.",
+  "Usage Analytics": "Usage Analytics",
+  "Real-time insight into consumption, cost, and trends.": "Real-time insight into consumption, cost, and trends.",
+  "Quota Control": "Quota Control",
+  "Fine-grained quota and permission management for teams.": "Fine-grained quota and permission management for teams.",
+  "Secure, observable, and ready for production.": "Secure, observable, and ready for production."
 }

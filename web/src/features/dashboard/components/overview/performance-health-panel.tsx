@@ -16,14 +16,12 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 For commercial licensing, please contact support@quantumnous.com
 */
-import { useQuery } from '@tanstack/react-query'
 import { Gauge, HeartPulse, Timer } from 'lucide-react'
-import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { IconBadge, type IconBadgeTone } from '@/components/ui/icon-badge'
 import { Skeleton } from '@/components/ui/skeleton'
-import { getPerfMetricsSummary } from '@/features/performance-metrics/api'
+import { usePerformanceSummary } from '@/features/dashboard/hooks/use-performance-summary'
 import {
   formatLatency,
   formatThroughput,
@@ -31,65 +29,11 @@ import {
   getSuccessRateDotClass,
   getSuccessRateTextClass,
 } from '@/features/performance-metrics/lib/format'
-import type { PerfModelSummary } from '@/features/performance-metrics/types'
 import { cn } from '@/lib/utils'
-
-const PERFORMANCE_WINDOW_HOURS = 24
-const TOP_MODEL_LIMIT = 6
-
-type WeightedMetric = 'avg_latency_ms' | 'avg_tps' | 'success_rate'
-
-function simpleAverage(
-  rows: PerfModelSummary[],
-  metric: WeightedMetric,
-  isValid: (value: number) => boolean
-): number {
-  let total = 0
-  let count = 0
-  for (const row of rows) {
-    const value = Number(row[metric])
-    if (!isValid(value)) continue
-    total += value
-    count++
-  }
-  return count > 0 ? total / count : Number.NaN
-}
 
 export function PerformanceHealthPanel() {
   const { t } = useTranslation()
-  const metricsQuery = useQuery({
-    queryKey: ['perf-metrics-summary', PERFORMANCE_WINDOW_HOURS],
-    queryFn: () => getPerfMetricsSummary(PERFORMANCE_WINDOW_HOURS),
-    staleTime: 60 * 1000,
-    retry: false,
-  })
-
-  const models = useMemo(
-    () => metricsQuery.data?.data.models ?? [],
-    [metricsQuery.data]
-  )
-
-  const summary = useMemo(() => {
-    return {
-      avgLatencyMs: Math.round(
-        simpleAverage(
-          models,
-          'avg_latency_ms',
-          (v) => Number.isFinite(v) && v > 0
-        )
-      ),
-      avgTps: simpleAverage(
-        models,
-        'avg_tps',
-        (v) => Number.isFinite(v) && v > 0
-      ),
-      successRate: simpleAverage(models, 'success_rate', Number.isFinite),
-    }
-  }, [models])
-
-  const topModels = useMemo(() => models.slice(0, TOP_MODEL_LIMIT), [models])
-  const loading = metricsQuery.isLoading
-  const hasData = models.length > 0
+  const { loading, hasData, topModels, summary } = usePerformanceSummary()
 
   return (
     <section className='bg-card h-full overflow-hidden rounded-2xl border shadow-xs'>

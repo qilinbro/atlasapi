@@ -23,6 +23,7 @@ import { useTranslation } from 'react-i18next'
 import { SectionPageLayout } from '@/components/layout'
 import type { NavGroup } from '@/components/layout/types'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { featureConfig } from '@/config/features'
 import { CacheStatsDialog } from '@/features/system-settings/general/channel-affinity/cache-stats-dialog'
 import { useSidebarConfig } from '@/hooks/use-sidebar-config'
 
@@ -41,7 +42,11 @@ import {
 } from './section-registry'
 
 const route = getRouteApi('/_authenticated/usage-logs/$section')
-const TASK_LOG_SECTIONS = ['drawing', 'task'] as const
+const TASK_LOG_SECTIONS: UsageLogsSectionId[] = (
+  ['drawing', 'task'] as const
+).filter((section) =>
+  section === 'drawing' ? featureConfig.drawingLogs : featureConfig.taskLogs
+)
 
 const SECTION_META: Record<UsageLogsSectionId, { titleKey: string }> = {
   common: {

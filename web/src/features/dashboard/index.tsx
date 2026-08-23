@@ -31,7 +31,9 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
+import { useThemeCustomization } from '@/context/theme-customization-provider'
 import { ROLE } from '@/lib/roles'
+import { useThemeRadiusPx } from '@/lib/theme-radius'
 import { cn } from '@/lib/utils'
 import { useAuthStore } from '@/stores/auth-store'
 
@@ -44,6 +46,7 @@ import {
   getDefaultDays,
   getSavedChartPreferences,
   getSavedGranularity,
+  processChartData,
   saveChartPreferences,
 } from './lib'
 import {
@@ -218,6 +221,27 @@ export function Dashboard() {
   )
   const [flowSensitiveVisible, setFlowSensitiveVisible] = useState(true)
 
+  const { customization } = useThemeCustomization()
+  const chartRadius = useThemeRadiusPx(
+    '--radius-md',
+    `${customization.preset}:${customization.radius}`
+  )
+
+  // 单次计算共享图表 spec：额度分布图与模型分析图使用同一份数据，
+  // 提升到此处算一次，避免两个组件各自重复计算全部 5 个 spec。
+  const modelsChartTimeGranularity =
+    modelFilters.time_granularity || DEFAULT_TIME_GRANULARITY
+  const processedChartData = useMemo(
+    () =>
+      processChartData(
+        dataLoading ? [] : modelData,
+        modelsChartTimeGranularity,
+        t,
+        chartRadius
+      ),
+    [modelData, dataLoading, modelsChartTimeGranularity, t, chartRadius]
+  )
+
   const handleFilterChange = useCallback((filters: DashboardFilters) => {
     setModelFilters(filters)
   }, [])
@@ -365,13 +389,10 @@ export function Dashboard() {
               <FadeIn delay={0.1}>
                 <Suspense fallback={<ModelChartsFallback />}>
                   <LazyConsumptionDistributionChart
-                    data={modelData}
+                    chartData={processedChartData}
                     loading={dataLoading}
                     defaultChartType={
                       chartPreferences.consumptionDistributionChart
-                    }
-                    timeGranularity={
-                      modelFilters.time_granularity || DEFAULT_TIME_GRANULARITY
                     }
                   />
                 </Suspense>
@@ -379,12 +400,9 @@ export function Dashboard() {
               <FadeIn delay={0.15}>
                 <Suspense fallback={<ModelChartsFallback />}>
                   <LazyModelCharts
-                    data={modelData}
+                    chartData={processedChartData}
                     loading={dataLoading}
                     defaultChartTab={chartPreferences.modelAnalyticsChart}
-                    timeGranularity={
-                      modelFilters.time_granularity || DEFAULT_TIME_GRANULARITY
-                    }
                   />
                 </Suspense>
               </FadeIn>

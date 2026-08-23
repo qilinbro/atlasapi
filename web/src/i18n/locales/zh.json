@@ -3,6 +3,13 @@
     "360": "360",
     "1000": "1000",
     "10000": "10000",
+    "Enterprise AI Gateway": "企业级 AI 网关",
+    "Unified Access": "统一接入",
+    "One key for every model, behind a single standard API.": "一把密钥，全部模型，一个标准 API。",
+    "Usage Analytics": "用量分析",
+    "Real-time insight into consumption, cost, and trends.": "实时洞察消耗、成本与趋势。",
+    "Quota Control": "额度管控",
+    "Fine-grained quota and permission management for teams.": "为团队提供细粒度的额度与权限管理。",
     "_copy": "_复制",
     "，": "，",
     ", and": "，和",
@@ -122,6 +129,7 @@
     "80,443,8080": "80,443,8080",
     "A billing multiplier. Lower ratios mean lower API call costs.": "计费乘数，倍率越低，API 调用费用越低。",
     "A focused home for keys, balance, routing, and service health.": "集中展示密钥、余额、路由和服务健康状态。",
+    "A unified AI gateway: one key for every model, with usage analytics and quota management.": "统一 AI 网关：一把钥匙访问全部模型，并提供用量分析与额度管理。",
     "About": "关于",
     "About {{days}} days left": "约剩 {{days}} 天",
     "Accept Unpriced Models": "接受未定价模型",
@@ -5233,6 +5241,7 @@
     "Weighted by request count": "按请求数加权",
     "Welcome back!": "欢迎回来！",
     "Welcome to our New API...": "欢迎使用我们的 New API...",
+    "Welcome to {{name}}": "欢迎使用 {{name}}",
     "Well-Known URL": "Well-Known URL",
     "Well-Known URL must start with http:// or https://": "知名 URL 必须以 http:// 或 https:// 开头",
     "What would you like to know?": "您想了解什么？",
@@ -5316,6 +5325,16 @@
     "Zero retention": "零数据保留",
     "Zhipu": "智谱",
     "Zhipu V4": "智谱 V4",
-    "Zoom": "缩放"
-  }
+    "Zoom": "缩放",
+    "One gateway for every model.": "一个网关，连接所有模型。"
+  },
+  "Enterprise AI Gateway": "Enterprise AI Gateway",
+  "Welcome to": "Welcome to",
+  "Unified Access": "Unified Access",
+  "One key for every model, behind a single standard API.": "One key for every model, behind a single standard API.",
+  "Usage Analytics": "Usage Analytics",
+  "Real-time insight into consumption, cost, and trends.": "Real-time insight into consumption, cost, and trends.",
+  "Quota Control": "Quota Control",
+  "Fine-grained quota and permission management for teams.": "Fine-grained quota and permission management for teams.",
+  "Secure, observable, and ready for production.": "Secure, observable, and ready for production."
 }

@@ -90,8 +90,13 @@ function AudioPreviewCell({ log }: { log: TaskLog }) {
   )
 }
 
-export function useTaskLogsColumns(isAdmin: boolean): ColumnDef<TaskLog>[] {
+export function useTaskLogsColumns(
+  isAdmin: boolean,
+  enabled = true
+): ColumnDef<TaskLog>[] {
   const { t } = useTranslation()
+  // 非当前类别时跳过整套列构造（hook 仍在调用，遵守 hooks 规则）
+  if (!enabled) return []
   const columns: ColumnDef<TaskLog>[] = [
     {
       accessorKey: 'submit_time',

@@ -182,37 +182,16 @@ export function DataTableRowActions<TData>({
     }
   }
 
-  let statusIcon = <Power className='size-4' />
+  // 启停收纳进菜单，行内只保留「编辑」直达
+  let toggleMenuIcon = <Power className='size-4' />
   if (isTogglingStatus) {
-    statusIcon = <Loader2 className='size-4 animate-spin' />
+    toggleMenuIcon = <Loader2 className='size-4 animate-spin' />
   } else if (isEnabled) {
-    statusIcon = <PowerOff className='size-4' />
+    toggleMenuIcon = <PowerOff className='size-4' />
   }
 
   return (
     <div className='-ml-1.5 flex items-center gap-1'>
-      <Tooltip>
-        <TooltipTrigger
-          render={
-            <Button
-              variant='ghost'
-              size='icon-sm'
-              onClick={handleToggleStatus}
-              disabled={isTogglingStatus}
-              aria-label={toggleLabel}
-              className={
-                isEnabled
-                  ? 'text-destructive hover:text-destructive'
-                  : 'text-emerald-600 hover:text-emerald-600 dark:text-emerald-400 dark:hover:text-emerald-400'
-              }
-            />
-          }
-        >
-          {statusIcon}
-        </TooltipTrigger>
-        <TooltipContent>{toggleLabel}</TooltipContent>
-      </Tooltip>
-
       <Tooltip>
         <TooltipTrigger
           render={
@@ -238,6 +217,15 @@ export function DataTableRowActions<TData>({
         modal={false}
         onOpenChange={handleMenuOpenChange}
       >
+        {/* 启停收纳进菜单，行内只保留「编辑」直达 */}
+        <DropdownMenuItem
+          onClick={() => void handleToggleStatus()}
+          disabled={isTogglingStatus}
+        >
+          {toggleLabel}
+          <DropdownMenuShortcut>{toggleMenuIcon}</DropdownMenuShortcut>
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
         <DropdownMenuItem
           onClick={async () => {
             const realKey = getCachedRealKey()

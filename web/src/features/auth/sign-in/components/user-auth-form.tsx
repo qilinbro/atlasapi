@@ -20,6 +20,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Link } from '@tanstack/react-router'
 import axios from 'axios'
 import { Loader2, LogIn, KeyRound } from 'lucide-react'
+import { motion, useAnimate, useReducedMotion } from 'motion/react'
 import { useEffect, useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
@@ -48,6 +49,7 @@ import { useAuthRedirect } from '@/features/auth/hooks/use-auth-redirect'
 import { useTurnstile } from '@/features/auth/hooks/use-turnstile'
 import { beginPasskeyLogin, finishPasskeyLogin } from '@/features/auth/passkey'
 import type { AuthFormProps } from '@/features/auth/types'
+import { useMagnetic } from '@/hooks/use-magnetic'
 import { useStatus } from '@/hooks/use-status'
 import { isAuthBundle } from '@/lib/api'
 import {
@@ -65,6 +67,9 @@ export function UserAuthForm({
   ...props
 }: AuthFormProps) {
   const { t } = useTranslation()
+  const shouldReduceMotion = useReducedMotion()
+  const [shakeScope, animateShake] = useAnimate()
+  const submitRef = useMagnetic<HTMLDivElement>()
   const [isLoading, setIsLoading] = useState(false)
   const [wechatCode, setWeChatCode] = useState('')
   const [agreedToLegal, setAgreedToLegal] = useState(false)
@@ -192,6 +197,13 @@ export function UserAuthForm({
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) return
       toast.error(error instanceof Error ? error.message : loginFailedMessage)
+      if (!shouldReduceMotion && shakeScope.current) {
+        animateShake(
+          shakeScope.current,
+          { x: [0, -10, 10, -6, 6, 0] },
+          { duration: 0.45, ease: 'easeInOut' }
+        )
+      }
     } finally {
       setIsLoading(false)
     }
@@ -350,11 +362,12 @@ export function UserAuthForm({
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className={cn('grid gap-4', className)}
-        {...props}
-      >
+      <motion.div ref={shakeScope}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className={cn('grid gap-4', className)}
+          {...props}
+        >
         {hasAlternativeLogin && alternativeLoginMethods}
 
         {passwordLoginEnabled && (
@@ -365,12 +378,16 @@ export function UserAuthForm({
               name='username'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t('Username or Email')}</FormLabel>
+                  <FormLabel className='tracking-wider'>
+                    {t('Username or Email')}
+                  </FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder={t('Enter your username or email')}
-                      {...field}
-                    />
+                    <div className='auth-field relative'>
+                      <Input
+                        placeholder={t('Enter your username or email')}
+                        {...field}
+                      />
+                    </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -383,12 +400,16 @@ export function UserAuthForm({
               name='password'
               render={({ field }) => (
                 <FormItem className='relative'>
-                  <FormLabel>{t('Password')}</FormLabel>
+                  <FormLabel className='tracking-wider'>
+                    {t('Password')}
+                  </FormLabel>
                   <FormControl>
-                    <PasswordInput
-                      placeholder={t('Enter password')}
-                      {...field}
-                    />
+                    <div className='auth-field relative'>
+                      <PasswordInput
+                        placeholder={t('Enter password')}
+                        {...field}
+                      />
+                    </div>
                   </FormControl>
                   <FormMessage />
                   <Link
@@ -401,15 +422,17 @@ export function UserAuthForm({
               )}
             />
 
-            {/* Submit Button */}
-            <Button
-              type='submit'
-              className='mt-2 w-full justify-center gap-2'
-              disabled={isLoading || (requiresLegalConsent && !agreedToLegal)}
-            >
-              {isLoading ? <Loader2 className='animate-spin' /> : <LogIn />}
-              {t('Sign in')}
-            </Button>
+            {/* Submit Button — 磁吸 + 金光 */}
+            <div ref={submitRef} className='mt-2'>
+              <Button
+                type='submit'
+                className='btn-motion shadow-primary/20 hover:shadow-[0_10px_36px_-6px_rgba(201,162,78,0.45)] w-full justify-center gap-2 tracking-wide shadow-md transition-shadow duration-300'
+                disabled={isLoading || (requiresLegalConsent && !agreedToLegal)}
+              >
+                {isLoading ? <Loader2 className='animate-spin' /> : <LogIn />}
+                {t('Sign in')}
+              </Button>
+            </div>
 
             {/* Turnstile */}
             {isTurnstileEnabled && (
@@ -433,7 +456,8 @@ export function UserAuthForm({
         />
 
         {!hasAlternativeLogin && alternativeLoginMethods}
-      </form>
+        </form>
+      </motion.div>
 
       {hasWeChatLogin && (
         <Dialog

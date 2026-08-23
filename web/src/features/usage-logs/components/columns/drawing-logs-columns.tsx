@@ -82,9 +82,12 @@ function getDrawingTypeIcon(action: string): LucideIcon {
 }
 
 export function useDrawingLogsColumns(
-  isAdmin: boolean
+  isAdmin: boolean,
+  enabled = true
 ): ColumnDef<MidjourneyLog>[] {
   const { t } = useTranslation()
+  // 非当前类别时跳过整套列构造（hook 仍在调用，遵守 hooks 规则）
+  if (!enabled) return []
   const columns: ColumnDef<MidjourneyLog>[] = [
     {
       accessorKey: 'submit_time',

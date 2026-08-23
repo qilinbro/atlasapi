@@ -282,6 +282,13 @@ export function ApiKeysTable() {
     enableRowSelection: true,
     columnFilters,
     columnVisibilityStorageKey: API_KEYS_COLUMN_VISIBILITY_STORAGE_KEY,
+    // 默认隐藏低频列（模型限制 / 允许 IP / 创建时间），可在列显隐中打开；
+    // 已保存过列偏好的用户不受影响（localStorage 覆盖默认值）。
+    initialColumnVisibility: {
+      model_limits: false,
+      allow_ips: false,
+      created_time: false,
+    },
     globalFilter,
     pagination,
     globalFilterFn: () => true,

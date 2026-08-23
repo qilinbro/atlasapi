@@ -19,6 +19,7 @@ For commercial licensing, please contact support@quantumnous.com
 import { createFileRoute, redirect } from '@tanstack/react-router'
 import z from 'zod'
 
+import { featureConfig } from '@/config/features'
 import { UsageLogs } from '@/features/usage-logs'
 import {
   isUsageLogsSectionId,
@@ -52,6 +53,15 @@ const usageLogsSearchSchema = z.object({
 export const Route = createFileRoute('/_authenticated/usage-logs/$section')({
   beforeLoad: ({ params, search }) => {
     if (!isUsageLogsSectionId(params.section)) {
+      throw redirect({
+        to: '/usage-logs/$section',
+        params: { section: USAGE_LOGS_DEFAULT_SECTION },
+      })
+    }
+    const sectionClosed =
+      (params.section === 'drawing' && !featureConfig.drawingLogs) ||
+      (params.section === 'task' && !featureConfig.taskLogs)
+    if (sectionClosed) {
       throw redirect({
         to: '/usage-logs/$section',
         params: { section: USAGE_LOGS_DEFAULT_SECTION },

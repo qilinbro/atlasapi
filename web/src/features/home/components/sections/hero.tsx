@@ -19,12 +19,33 @@ For commercial licensing, please contact support@quantumnous.com
 import { CherryStudio } from '@lobehub/icons'
 import { Link } from '@tanstack/react-router'
 import { ArrowRight, BookOpen } from 'lucide-react'
+import { motion, useReducedMotion, type Variants } from 'motion/react'
 import { useTranslation } from 'react-i18next'
 
+import { PrimitiveRhythmBackdrop } from '@/components/primitive-rhythm'
 import { Button } from '@/components/ui/button'
 import { useStatus } from '@/hooks/use-status'
 
 import { HeroTerminalDemo } from '../hero-terminal-demo'
+
+// 基元律动入场编排：统一节拍的交错入场，节拍器式的 step 间隔
+const HERO_EASE: [number, number, number, number] = [0.16, 1, 0.3, 1]
+
+const heroContainerVariants: Variants = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.09, delayChildren: 0.05 },
+  },
+}
+
+const heroItemVariants: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: HERO_EASE },
+  },
+}
 
 interface HeroProps {
   className?: string
@@ -47,6 +68,7 @@ const MoreIcon = () => (
 
 export function Hero(props: HeroProps) {
   const { t } = useTranslation()
+  const shouldReduceMotion = useReducedMotion()
   const { status } = useStatus()
   const docsUrl =
     (status?.docs_link as string | undefined) || 'https://docs.newapi.pro'
@@ -81,6 +103,8 @@ export function Hero(props: HeroProps) {
 
   return (
     <section className='relative z-10 overflow-hidden px-6 pt-24 pb-16 md:pt-32 md:pb-24 lg:pt-36 lg:pb-28'>
+      {/* 基元律动背景：点阵涟漪 + 呼吸圆环 + 轨道点 */}
+      <PrimitiveRhythmBackdrop variant='hero' />
       {/* Radial gradient background */}
       <div
         aria-hidden
@@ -99,43 +123,48 @@ export function Hero(props: HeroProps) {
         className='absolute inset-0 -z-10 bg-[linear-gradient(to_right,var(--border)_1px,transparent_1px),linear-gradient(to_bottom,var(--border)_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_30%,black_20%,transparent_100%)] bg-[size:4rem_4rem] opacity-[0.08]'
       />
 
-      <div className='mx-auto grid max-w-6xl grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-8'>
+      <motion.div
+        variants={heroContainerVariants}
+        initial={shouldReduceMotion ? 'visible' : 'hidden'}
+        animate='visible'
+        className='mx-auto grid max-w-6xl grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-8'
+      >
         {/* Left Column: Title, description, action buttons and application support */}
         <div className='flex flex-col items-start text-left lg:col-span-6'>
           {/* Top Pill Badge */}
-          <div
-            className='landing-animate-fade-up mb-5 inline-flex items-center gap-1.5 rounded-full border border-blue-500/20 bg-blue-500/5 px-3 py-1.5 text-[11px] font-medium text-blue-600 opacity-0 shadow-xs dark:border-blue-400/20 dark:bg-blue-400/5 dark:text-blue-400'
-            style={{ animationDelay: '0ms' }}
+          <motion.div
+            variants={heroItemVariants}
+            className='mb-5 inline-flex items-center gap-1.5 rounded-full border border-blue-500/20 bg-blue-500/5 px-3 py-1.5 text-[11px] font-medium text-blue-600 shadow-xs dark:border-blue-400/20 dark:bg-blue-400/5 dark:text-blue-400'
           >
             <span className='relative flex size-1.5'>
               <span className='absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-400 opacity-75' />
               <span className='relative inline-flex size-1.5 rounded-full bg-blue-500 dark:bg-blue-400' />
             </span>
             <span>{t('AI Application Infrastructure Foundation')}</span>
-          </div>
+          </motion.div>
 
-          <h1
-            className='landing-animate-fade-up text-[clamp(2.25rem,4.5vw,3.25rem)] leading-[1.15] font-bold tracking-tight'
-            style={{ animationDelay: '60ms' }}
+          <motion.h1
+            variants={heroItemVariants}
+            className='text-[clamp(2.25rem,4.5vw,3.25rem)] leading-[1.15] font-bold tracking-tight'
           >
             {t('Unified API Gateway for')}
             <br />
             <span className='bg-gradient-to-r from-blue-400 via-violet-400 to-purple-500 bg-clip-text text-transparent'>
               {t('Vast Range of AI Models')}
             </span>
-          </h1>
-          <p
-            className='landing-animate-fade-up text-muted-foreground/80 mt-5 max-w-xl text-base leading-relaxed opacity-0 md:text-[15px]'
-            style={{ animationDelay: '120ms' }}
+          </motion.h1>
+          <motion.p
+            variants={heroItemVariants}
+            className='text-muted-foreground/80 mt-5 max-w-xl text-base leading-relaxed md:text-[15px]'
           >
             {t(
               'Access a vast selection of models via a standard, unified API protocol. Power AI applications, manage digital assets, and connect the Future.'
             )}
-          </p>
+          </motion.p>
 
-          <div
-            className='landing-animate-fade-up mt-8 flex flex-wrap items-center gap-3 opacity-0'
-            style={{ animationDelay: '180ms' }}
+          <motion.div
+            variants={heroItemVariants}
+            className='mt-8 flex flex-wrap items-center gap-3'
           >
             {props.isAuthenticated ? (
               <>
@@ -167,12 +196,12 @@ export function Hero(props: HeroProps) {
                 {renderDocsButton()}
               </>
             )}
-          </div>
+          </motion.div>
 
           {/* Supported Apps (参考图二样式，进行卡片化和信息扩充设计，增加视觉高度) */}
-          <div
-            className='landing-animate-fade-up mt-10 w-full max-w-xl opacity-0'
-            style={{ animationDelay: '240ms' }}
+          <motion.div
+            variants={heroItemVariants}
+            className='mt-10 w-full max-w-xl'
           >
             <div className='mb-4 flex flex-col gap-1'>
               <span className='text-muted-foreground/50 text-[10px] font-bold tracking-[0.15em] uppercase'>
@@ -229,17 +258,17 @@ export function Hero(props: HeroProps) {
                 <span>{t('More Apps')}</span>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
 
         {/* Right Column: Hero Terminal API Demo */}
-        <div
-          className='landing-animate-fade-up flex w-full justify-center opacity-0 lg:col-span-6'
-          style={{ animationDelay: '320ms' }}
+        <motion.div
+          variants={heroItemVariants}
+          className='flex w-full justify-center lg:col-span-6'
         >
           <HeroTerminalDemo className='mt-8 lg:mt-0' />
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </section>
   )
 }
