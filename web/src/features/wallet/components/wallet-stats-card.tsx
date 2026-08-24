@@ -77,19 +77,35 @@ export function WalletStatsCard(props: WalletStatsCardProps) {
   ]
 
   return (
-    <div className='grid grid-cols-3 divide-x rounded-lg border'>
-      {stats.map((item) => (
-        <div key={item.label} className='min-w-0 px-2.5 py-2.5 sm:px-5 sm:py-4'>
+    <div className='platinum-panel relative grid grid-cols-3 divide-x overflow-hidden rounded-lg border border-border/60'>
+      <div aria-hidden className='platinum-hairline absolute inset-x-10 top-0' />
+      {stats.map((item, index) => (
+        <div
+          key={item.label}
+          className='min-w-0 px-2.5 py-2.5 sm:px-5 sm:py-4'
+        >
           <div className='flex items-center gap-1.5 sm:gap-2.5'>
             <IconBadge tone={item.tone} size='stat'>
               <item.icon />
             </IconBadge>
-            <div className='text-muted-foreground truncate text-[11px] font-medium tracking-wider uppercase sm:text-xs'>
+            <div
+              className={
+                index === 0
+                  ? 'platinum-label truncate text-[11px] font-bold uppercase sm:text-xs'
+                  : 'text-muted-foreground truncate text-[11px] font-medium tracking-wider uppercase sm:text-xs'
+              }
+            >
               {item.label}
             </div>
           </div>
 
-          <div className='text-foreground mt-1.5 font-mono text-sm font-bold tracking-tight break-all tabular-nums sm:mt-2.5 sm:text-2xl'>
+          <div
+            className={
+              index === 0
+                ? 'text-foreground mt-1.5 font-serif text-lg font-semibold tracking-wide break-all tabular-nums sm:mt-2.5 sm:text-3xl'
+                : 'text-foreground mt-1.5 font-mono text-sm font-bold tracking-tight break-all tabular-nums sm:mt-2.5 sm:text-2xl'
+            }
+          >
             {item.value}
           </div>
           <div className='text-muted-foreground/60 mt-1 hidden text-xs md:block'>
