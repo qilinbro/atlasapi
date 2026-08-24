@@ -301,7 +301,7 @@ export function DynamicPricingBreakdown({
                   <div className='mb-1.5 flex flex-wrap items-center gap-1.5'>
                     <Badge
                       variant='secondary'
-                      className='bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-300'
+                      className='bg-[var(--platinum)]/15 text-[var(--platinum-ink)] dark:bg-[var(--platinum)]/15 dark:text-[var(--platinum-ink)]'
                     >
                       {tier.label || t('Default')}
                     </Badge>
@@ -386,7 +386,7 @@ export function DynamicPricingBreakdown({
                       <div className='flex flex-wrap items-center gap-1.5'>
                         <Badge
                           variant='secondary'
-                          className='bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-300'
+                          className='bg-[var(--platinum)]/15 text-[var(--platinum-ink)] dark:bg-[var(--platinum)]/15 dark:text-[var(--platinum-ink)]'
                         >
                           {tier.label || t('Default')}
                         </Badge>
