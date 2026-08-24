@@ -116,7 +116,12 @@ A 版 · 国产模型叙事（完整落地于 `features/home`）：主标题"大
 
 ## 6. 构建与部署
 
-- 镜像：在仓库根目录 `docker build -t new-api:brand-rc.25 .`（多阶段：bun 前端 → Go embed → 运行镜像）。
+- **低资源构建流程（本机构建必须遵守，防止并行构建压垮服务器）**：分三个顺序阶段，每阶段完成再跑下一个，全程 `nice -n 19`：
+  1. `nice -n 19 docker build --target builder -t brand-web-check .`（前端）
+  2. `nice -n 19 docker build --build-arg GO_MAXPROCS=2 --target builder2 -t brand-go-check .`（Go，限 2 核）
+  3. `nice -n 19 docker build -t new-api:brand-rc.25 .`（全缓存命中，仅打包）
+  - 禁止直接一步全量 build（BuildKit 三阶段并行会在 4C/3.6G 主机上造成 OOM 风险）。
+  - `VERSION` 文件须携带基线版本号（上游 tag 中为空文件，自建镜像需自行填入）。
 - 部署目录：`/opt/new-api`（docker-compose + PostgreSQL + Redis + OpenResty）。切换时仅改 `image:` 字段；`data/`、`postgres/` 卷永不动。
 - 上线流程：新镜像先在 **3001 端口**起验证容器 → 浏览器双模式实测通过 → 改 compose 正式切换；回滚 = 改回官方镜像 tag。
 
