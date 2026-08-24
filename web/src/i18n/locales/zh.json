@@ -5331,6 +5331,7 @@
     "Standard API protocols, drop-in compatible": "标准 API 协议，无缝兼容",
     "Domestic models": "国产模型",
     "Pay as you go": "按量计费",
-    "Stable gateway": "稳定网关"
+    "Stable gateway": "稳定网关",
+    "Built on open-source technology licensed under AGPL v3.0. Source availability is provided in compliance with the license.": "本平台基于 AGPL v3.0 许可的开源技术构建，并按许可要求提供源码可得性。"
   }
 }
