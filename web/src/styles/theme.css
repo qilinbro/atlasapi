@@ -94,7 +94,6 @@ For commercial licensing, please contact support@quantumnous.com
 }
 
 :root {
-  --radius: 1rem;
   --app-header-height: 3rem;
   /* Static build-channel fallback consumed when JS hasn't booted yet. */
   --app-rev: '2k6e8r7p';
@@ -103,51 +102,61 @@ For commercial licensing, please contact support@quantumnous.com
    * in theme-presets.css. Default mirrors `--font-sans` so behavior is
    * identical when no font preference is set. */
   --font-body: var(--font-sans);
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.692 0.141 243.716);
-  --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.95 0 0);
-  --secondary-foreground: oklch(0.42 0.16 250);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.49 0 0);
+  /* ============================================================
+   * Atlas brand palette — Platinum × Emerald, understated luxury.
+   * Light (primary look): ivory canvas / emerald primary / champagne
+   * platinum reserved for hairlines & highlights. Dark: deep emerald
+   * canvas / platinum accents. Hex values are the source of truth;
+   * color-mix() derived tokens keep working unchanged.
+   * ============================================================ */
+  --radius: 0.5rem;
+  --background: #f8f6f1; /* ivory */
+  --foreground: #1c2420; /* emerald ink */
+  --card: #fdfcf9;
+  --card-foreground: #1c2420;
+  --popover: #fdfcf9;
+  --popover-foreground: #1c2420;
+  --primary: #1a4d3e; /* deep emerald */
+  --primary-foreground: #f5f2e9;
+  --secondary: #efeae0; /* warm beige */
+  --secondary-foreground: #2e4a3e;
+  --muted: #f0ede4;
+  --muted-foreground: #6b6f68;
   --accent: color-mix(in oklch, var(--primary) 12%, var(--background));
-  --accent-foreground: oklch(0.145 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.985 0 0);
-  --success: oklch(0.596 0.145 163.225);
-  --success-foreground: oklch(0.985 0 0);
-  --warning: oklch(0.681 0.162 75.834);
-  --warning-foreground: oklch(0.145 0 0);
-  --info: oklch(0.588 0.158 241.966);
-  --info-foreground: oklch(0.985 0 0);
-  --neutral: oklch(0.708 0 0);
-  --neutral-foreground: oklch(0.145 0 0);
-  --border: oklch(0.93 0 0);
-  --input: oklch(0.93 0 0);
-  --ring: oklch(0.708 0.16 249.003);
-  --chart-1: oklch(0.72 0.18 250);
-  --chart-2: oklch(0.65 0.15 200);
-  --chart-3: oklch(0.7 0.12 280);
-  --chart-4: oklch(0.68 0.19 325);
-  --chart-5: oklch(0.68 0.16 155);
-  --overview-accent-1: oklch(0.72 0.18 250);
-  --overview-accent-2: oklch(0.65 0.15 200);
-  --overview-accent-3: oklch(0.7 0.12 280);
-  --sidebar: color-mix(in oklch, var(--foreground) 0.5%, var(--background));
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.64 0.197 253.892);
-  --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent: color-mix(in oklch, var(--primary) 12%, var(--background));
-  --sidebar-accent-foreground: oklch(0.579 0.196 255.909);
-  --sidebar-border: oklch(0.93 0 0);
-  --sidebar-ring: oklch(0.58 0.2 250);
-  --skeleton-base: oklch(0.97 0 0);
-  --skeleton-highlight: oklch(0.985 0 0);
+  --accent-foreground: #1a4d3e;
+  --destructive: #a8433f; /* brick red, warm to match ivory */
+  --destructive-foreground: #fbf9f4;
+  --success: #55704f; /* muted olive */
+  --success-foreground: #fbf9f4;
+  --warning: #c68f4e; /* amber, distinct from platinum */
+  --warning-foreground: #241a0c;
+  --info: #6a8fa8; /* hazy blue */
+  --info-foreground: #fbf9f4;
+  --neutral: #6b6f68;
+  --neutral-foreground: #1c2420;
+  --border: #e5dfd2; /* hairline, warm greige */
+  --input: #e5dfd2;
+  --ring: #1a4d3e; /* emerald focus ring */
+  --chart-1: #1a4d3e;
+  --chart-2: #c8a96a;
+  --chart-3: #2e6b57;
+  --chart-4: #6a8fa8;
+  --chart-5: #a8433f;
+  --overview-accent-1: #1a4d3e;
+  --overview-accent-2: #c8a96a;
+  --overview-accent-3: #2e6b57;
+  /* Sidebar: deep emerald lacquer even in light mode — the signature
+   * "ivory canvas against emerald panel" pairing. */
+  --sidebar: #14342a;
+  --sidebar-foreground: #e8e3d5;
+  --sidebar-primary: #c8a96a; /* platinum reads well on deep emerald */
+  --sidebar-primary-foreground: #14342a;
+  --sidebar-accent: #1d4237;
+  --sidebar-accent-foreground: #efead8;
+  --sidebar-border: rgba(200, 169, 106, 0.25);
+  --sidebar-ring: #c8a96a;
+  --skeleton-base: #efeae0;
+  --skeleton-highlight: #f6f3ea;
   --table-row: var(--background);
   --table-header: color-mix(
     in oklch,
@@ -176,52 +185,87 @@ For commercial licensing, please contact support@quantumnous.com
     var(--foreground) 16%,
     var(--background)
   );
+
+  /* --- Atlas material & motion utilities (light) --- */
+  --platinum: #c8a96a;
+  --platinum-grad: linear-gradient(
+    135deg,
+    #efead8 0%,
+    #c8a96a 55%,
+    #a98f55 100%
+  );
+  --lacquer: linear-gradient(180deg, #2a6b54 0%, #1a4d3e 62%, #143d30 100%);
+  --lacquer-shine: inset 0 1px 0 rgba(244, 238, 216, 0.28);
+  --lacquer-border: #143d30;
+  --lacquer-shadow: 0 6px 18px rgba(20, 61, 48, 0.28);
+  --canvas-grad: radial-gradient(
+    120% 90% at 50% 20%,
+    #fbfaf6 0%,
+    #f8f6f1 45%,
+    #efeae0 100%
+  );
+  --paper-texture: repeating-linear-gradient(
+    45deg,
+    rgba(200, 169, 106, 0.022) 0 2px,
+    transparent 2px 4px
+  );
+  --shadow-raised: 0 6px 18px rgba(28, 36, 32, 0.08);
+  /* Motion budget: subtle reveals & tactile presses only. No particle /
+   * scroll-driven / typing effects — see AGENTS.md §2. */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-fast: 160ms;
+  --dur-mid: 320ms;
+  --dur-slow: 560ms;
 }
 
 .dark {
-  /* OpenAI-like dark mode with a crisp charcoal canvas. */
-  --background: oklch(0.235 0 0);
-  --foreground: oklch(0.965 0 0);
-  --card: oklch(0.285 0 0);
-  --card-foreground: oklch(0.965 0 0);
-  --popover: oklch(0.305 0 0);
-  --popover-foreground: oklch(0.965 0 0);
-  --primary: oklch(0.54 0.142 248.516);
-  --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.335 0 0);
-  --secondary-foreground: oklch(0.9 0.05 250);
-  --muted: oklch(0.305 0 0);
-  --muted-foreground: oklch(0.78 0 0);
+  /* Atlas dark: deep emerald canvas, platinum promoted to accents. */
+  --background: #0c1f19;
+  --foreground: #e8e3d5;
+  --card: #122b22;
+  --card-foreground: #e8e3d5;
+  --popover: #143027;
+  --popover-foreground: #e8e3d5;
+  --primary: #2e6b57;
+  --primary-foreground: #efead8;
+  --secondary: #1a3a2f;
+  --secondary-foreground: #c9d6cb;
+  --muted: #16332a;
+  --muted-foreground: #9ba89f;
   --accent: color-mix(in oklch, var(--primary) 20%, var(--background));
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --destructive-foreground: oklch(0.985 0 0);
-  --success: oklch(0.696 0.17 162.48);
-  --success-foreground: oklch(0.145 0 0);
-  --warning: oklch(0.769 0.188 70.08);
-  --warning-foreground: oklch(0.145 0 0);
-  --info: oklch(0.613 0.14 239.919);
-  --info-foreground: oklch(0.145 0 0);
-  --neutral: oklch(0.76 0 0);
-  --neutral-foreground: oklch(0.155 0 0);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 17%);
-  --ring: oklch(0.554 0.148 250.726);
-  --chart-1: oklch(0.76 0.14 250);
-  --chart-2: oklch(0.76 0.13 200);
-  --chart-3: oklch(0.76 0.13 285);
-  --chart-4: oklch(0.75 0.16 325);
-  --chart-5: oklch(0.76 0.14 155);
-  --sidebar: oklch(0.225 0 0);
-  --sidebar-foreground: oklch(0.95 0 0);
-  --sidebar-primary: oklch(0.588 0.123 246.488);
-  --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent: color-mix(in oklch, var(--primary) 20%, var(--background));
-  --sidebar-accent-foreground: oklch(0.9 0.05 250);
-  --sidebar-border: oklch(1 0 0 / 11%);
-  --sidebar-ring: oklch(0.7 0.17 250);
-  --skeleton-base: oklch(0.335 0 0);
-  --skeleton-highlight: oklch(0.44 0 0);
+  --accent-foreground: #efead8;
+  --destructive: #c96a62;
+  --destructive-foreground: #14100e;
+  --success: #7fa37b;
+  --success-foreground: #0e1a12;
+  --warning: #d3a75e;
+  --warning-foreground: #1e1508;
+  --info: #8fb3c9;
+  --info-foreground: #0d1620;
+  --neutral: #9ba89f;
+  --neutral-foreground: #0c1f19;
+  --border: rgba(232, 227, 213, 0.1);
+  --input: rgba(232, 227, 213, 0.16);
+  --ring: #d3b981; /* platinum ring on deep emerald */
+  --chart-1: #6fa98f;
+  --chart-2: #d3b981;
+  --chart-3: #4e8a70;
+  --chart-4: #8fb3c9;
+  --chart-5: #c96a62;
+  --overview-accent-1: #6fa98f;
+  --overview-accent-2: #d3b981;
+  --overview-accent-3: #4e8a70;
+  --sidebar: #0a1a15;
+  --sidebar-foreground: #d9d4c5;
+  --sidebar-primary: #d3b981;
+  --sidebar-primary-foreground: #0a1a15;
+  --sidebar-accent: #14342a;
+  --sidebar-accent-foreground: #efead8;
+  --sidebar-border: rgba(211, 185, 129, 0.22);
+  --sidebar-ring: #d3b981;
+  --skeleton-base: #14342a;
+  --skeleton-highlight: #1d4237;
   --table-row: var(--background);
   --table-header: color-mix(in oklch, var(--foreground) 6%, var(--background));
   --table-header-hover: color-mix(
@@ -244,4 +288,29 @@ For commercial licensing, please contact support@quantumnous.com
     var(--foreground) 24%,
     var(--background)
   );
+
+  /* --- Atlas material & motion utilities (dark) --- */
+  --platinum: #d3b981;
+  --platinum-grad: linear-gradient(
+    135deg,
+    #f2ecd9 0%,
+    #d3b981 55%,
+    #b2965c 100%
+  );
+  --lacquer: linear-gradient(180deg, #37806a 0%, #2e6b57 62%, #245746 100%);
+  --lacquer-shine: inset 0 1px 0 rgba(242, 236, 217, 0.24);
+  --lacquer-border: #1f4e3e;
+  --lacquer-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+  --canvas-grad: radial-gradient(
+    130% 100% at 50% 12%,
+    #14332a 0%,
+    #0c1f19 55%,
+    #081511 100%
+  );
+  --paper-texture: repeating-linear-gradient(
+    45deg,
+    rgba(211, 185, 129, 0.02) 0 2px,
+    transparent 2px 4px
+  );
+  --shadow-raised: 0 6px 18px rgba(0, 0, 0, 0.35);
 }

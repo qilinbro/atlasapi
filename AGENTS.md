@@ -50,7 +50,8 @@
 
 - **材质**：`--lacquer`（墨绿漆面：纵向深浅渐变 + 顶部内高光 `--lacquer-shine`，用于主按钮/侧边栏）、纸纹（极淡 45° 斜纹叠加于卡片底色）、`--platinum-grad`（香槟多停靠渐变，仅品牌字/装饰线）、暗色玻璃（半透明 + backdrop-blur + 白金 hairline）。
 - **渐变纪律**：只做同色系深浅渐变（墨绿系、香槟系），禁止跨色相彩虹渐变；大面积渐变仅用于画布与 hero；`--canvas-grad` 为画布径向渐变。
-- **动效**：缓动与时长 token 化（微交互 150–250ms、区块过渡 400–600ms、沉浸场景 800ms+；spring/expo-out 曲线）；只用 `transform`/`opacity` 保证合成层性能；按压态做位移 + 阴影变化（拟物物理感）。
+- **动效**：缓动与时长 token 化（`--dur-fast/mid/slow` + `--ease-out-expo`/`--ease-spring`）；只用 `transform`/`opacity` 保证合成层性能；按压态做位移 + 阴影变化（拟物物理感）。
+- **动效减法（定稿）**：**禁用**粒子系统、滚动驱动编排（sticky/视差/count-up）、打字机效果、逐词 stagger 等重特效；允许的动效仅限：一次性入场浮现（淡入/上浮，短时长）、hover 状态变化（光泽/倾斜/阴影）、按钮按压物理感、Canvas 静态色晕（可极慢漂移）。
 - **降级**：`prefers-reduced-motion` 全部动效退化为淡入；移动端 Canvas 艺术层降级为静态渐变。
 
 ### 首页 hero 定稿
