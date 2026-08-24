@@ -27,9 +27,18 @@ interface HeroProps {
   isAuthenticated?: boolean
 }
 
+/** Cover strap facts — the magazine "cover lines" strip at the fold. */
+const COVER_FACTS = [
+  { key: 'Vendors', value: '08' },
+  { key: 'Models', value: '30+' },
+  { key: 'Single API Key', value: '01' },
+] as const
+
 /**
  * Atlas cover — editorial one-screen opening of the three-act page.
  * Giant platinum serif wordmark, one-line subtitle, inline index links.
+ * The right column carries a bleeding platinum "A" glyph watermark over
+ * the canvas aura; the fold closes with a mono data strap.
  * Static composition; entrance is a single fade-up pass.
  */
 export function Hero(props: HeroProps) {
@@ -38,21 +47,44 @@ export function Hero(props: HeroProps) {
   return (
     <section
       id='cover'
-      className='relative flex min-h-[calc(100svh-3.5rem)] flex-col justify-center overflow-hidden px-6 py-20 md:px-12'
+      className='relative flex min-h-[calc(100svh-3.5rem)] flex-col overflow-hidden px-6 py-16 md:px-12 md:py-20'
     >
-      {/* Static champagne aurora */}
+      {/* Static champagne canvas with a faint platinum aura on the right */}
       <div
         aria-hidden
         className='pointer-events-none absolute inset-0 -z-10'
         style={{ background: 'var(--canvas-grad)' }}
       />
+      {/* Bleeding platinum glyph watermark — fills the right column */}
+      <div
+        aria-hidden
+        className='pointer-events-none absolute top-1/2 right-[-14%] -z-10 hidden -translate-y-1/2 opacity-[0.13] select-none sm:block lg:right-[-8%]'
+      >
+        <svg
+          viewBox='0 0 48 48'
+          className='h-[48vw] max-h-[580px] w-[48vw] max-w-[580px]'
+        >
+          <defs>
+            <linearGradient id='atlas-watermark' x1='0' y1='0' x2='1' y2='1'>
+              <stop offset='0%' stopColor='#e0d3a8' />
+              <stop offset='52%' stopColor='#b99f63' />
+              <stop offset='100%' stopColor='#8a744a' />
+            </linearGradient>
+          </defs>
+          <path
+            fillRule='evenodd'
+            d='M24 10.5 L36.5 37.5 H31.4 L28.1 29.6 H19.9 L16.6 37.5 H11.5 Z M24 19.2 L26.7 25.6 H21.3 Z'
+            fill='url(#atlas-watermark)'
+          />
+        </svg>
+      </div>
       {/* Vertical hairline marking the asymmetric split */}
       <div
         aria-hidden
-        className='platinum-hairline absolute top-24 bottom-24 right-[38%] hidden opacity-50 lg:block'
+        className='platinum-hairline absolute top-24 bottom-24 right-[38%] hidden opacity-40 lg:block'
       />
 
-      <div className='mx-auto w-full max-w-6xl'>
+      <div className='mx-auto my-auto w-full max-w-6xl'>
         <p className='platinum-label landing-animate-fade-up mb-6 text-[11px] font-bold uppercase opacity-0'>
           {t('LLM API Service Platform')}
         </p>
@@ -130,6 +162,37 @@ export function Hero(props: HeroProps) {
           >
             {t('View Pricing')}
           </Button>
+        </div>
+      </div>
+
+      {/* Data strap — cover lines set at the fold, mono numerals */}
+      <div
+        className='landing-animate-fade-up border-border/70 mx-auto mt-10 w-full max-w-6xl border-t pt-5 opacity-0'
+        style={{ animationDelay: '380ms' }}
+      >
+        <div className='flex flex-wrap items-baseline gap-x-10 gap-y-2'>
+          {COVER_FACTS.map((fact) => (
+            <span
+              key={fact.key}
+              className='inline-flex items-baseline gap-2.5'
+            >
+              <span className='text-[color:var(--platinum-ink)] font-mono text-sm font-semibold tabular-nums'>
+                {fact.value}
+              </span>
+              <span className='text-muted-foreground text-[11px] tracking-[0.18em] uppercase'>
+                {t(fact.key)}
+              </span>
+            </span>
+          ))}
+          <span className='inline-flex items-baseline gap-2.5'>
+            <span
+              aria-hidden
+              className='inline-block size-1.5 translate-y-[-1px] rotate-45 bg-[var(--platinum)]'
+            />
+            <span className='text-muted-foreground text-[11px] tracking-[0.18em] uppercase'>
+              {t('Transparent Billing')}
+            </span>
+          </span>
         </div>
       </div>
     </section>

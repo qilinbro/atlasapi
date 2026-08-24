@@ -61,6 +61,9 @@ const VENDOR_SCALE: Record<Plate['scale'], string> = {
   md: 'text-2xl md:text-3xl',
 }
 
+/** Folio numerals — each plate is numbered like a print in an edition. */
+const FOLIO = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII']
+
 /**
  * Plates — the model wall. Each domestic vendor gets one editorial
  * "plate" on an asymmetric grid: giant serif wordmark, model ids set
@@ -71,7 +74,10 @@ export function Features(_props: FeaturesProps) {
   const { t } = useTranslation()
 
   return (
-    <section id='plates' className='relative px-6 py-24 md:px-12 md:py-32'>
+    <section
+      id='plates'
+      className='border-border/60 relative border-t px-6 py-24 md:px-12 md:py-32'
+    >
       <div className='mx-auto max-w-6xl'>
         <AnimateInView className='mb-14 flex flex-wrap items-end justify-between gap-6'>
           <div>
@@ -105,6 +111,12 @@ export function Features(_props: FeaturesProps) {
                 aria-hidden
                 className='platinum-hairline absolute inset-x-8 top-0 opacity-70'
               />
+              <span
+                aria-hidden
+                className='text-[color:var(--platinum-ink)] absolute top-5 right-6 font-mono text-[10px] tracking-[0.22em] opacity-75'
+              >
+                PL. {FOLIO[i]}
+              </span>
               <h3
                 className={`font-serif font-semibold tracking-[0.06em] ${VENDOR_SCALE[plate.scale]}`}
               >

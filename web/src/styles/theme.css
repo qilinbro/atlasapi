@@ -210,12 +210,18 @@ For commercial licensing, please contact support@quantumnous.com
   --lacquer-shine: inset 0 1px 0 rgba(244, 238, 216, 0.28);
   --lacquer-border: #143d30;
   --lacquer-shadow: 0 6px 18px rgba(20, 61, 48, 0.24);
-  --canvas-grad: radial-gradient(
-    120% 90% at 50% 18%,
-    #faf6ea 0%,
-    #f6f0e2 48%,
-    #ede4cd 100%
-  );
+  --canvas-grad:
+    radial-gradient(
+      58% 46% at 82% 26%,
+      rgba(200, 169, 106, 0.1) 0%,
+      transparent 100%
+    ),
+    radial-gradient(
+      120% 90% at 50% 18%,
+      #faf6ea 0%,
+      #f6f0e2 48%,
+      #ede4cd 100%
+    );
   --paper-texture: repeating-linear-gradient(
     45deg,
     rgba(200, 169, 106, 0.02) 0 2px,
@@ -325,12 +331,18 @@ For commercial licensing, please contact support@quantumnous.com
   --lacquer-shine: inset 0 1px 0 rgba(242, 236, 217, 0.24);
   --lacquer-border: #1f4e3e;
   --lacquer-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
-  --canvas-grad: radial-gradient(
-    130% 100% at 50% 12%,
-    #122019 0%,
-    #0b1613 55%,
-    #070f0d 100%
-  );
+  --canvas-grad:
+    radial-gradient(
+      58% 46% at 82% 22%,
+      rgba(211, 185, 129, 0.07) 0%,
+      transparent 100%
+    ),
+    radial-gradient(
+      130% 100% at 50% 12%,
+      #122019 0%,
+      #0b1613 55%,
+      #070f0d 100%
+    );
   --paper-texture: repeating-linear-gradient(
     45deg,
     rgba(211, 185, 129, 0.018) 0 2px,
