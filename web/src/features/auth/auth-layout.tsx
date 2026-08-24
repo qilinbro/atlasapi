@@ -19,7 +19,9 @@ For commercial licensing, please contact support@quantumnous.com
 import { Link } from '@tanstack/react-router'
 import { useTranslation } from 'react-i18next'
 
+import { AtlasMark } from '@/components/brand/atlas-mark'
 import { Skeleton } from '@/components/ui/skeleton'
+import { DEFAULT_LOGO } from '@/lib/constants'
 import { useSystemConfig } from '@/hooks/use-system-config'
 
 type AuthLayoutProps = {
@@ -59,7 +61,9 @@ export function AuthLayout({ children }: AuthLayoutProps) {
           >
             <div className='relative h-9 w-9'>
               {loading ? (
-                <Skeleton className='absolute inset-0 rounded-full' />
+                <Skeleton className='absolute inset-0 rounded-lg' />
+              ) : !logo || logo === DEFAULT_LOGO ? (
+                <AtlasMark className='h-9 w-9 rounded-lg' />
               ) : (
                 <img
                   src={logo}
@@ -107,7 +111,9 @@ export function AuthLayout({ children }: AuthLayoutProps) {
         >
           <div className='relative h-8 w-8'>
             {loading ? (
-              <Skeleton className='absolute inset-0 rounded-full' />
+              <Skeleton className='absolute inset-0 rounded-lg' />
+            ) : !logo || logo === DEFAULT_LOGO ? (
+              <AtlasMark className='h-8 w-8 rounded-lg' />
             ) : (
               <img
                 src={logo}

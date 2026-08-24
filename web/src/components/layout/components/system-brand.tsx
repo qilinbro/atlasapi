@@ -66,11 +66,15 @@ export function SystemBrand(props: SystemBrandProps) {
         )}
       >
         <div className='flex size-5 items-center justify-center overflow-hidden rounded-md'>
-          <img
-            src={logo}
-            alt={t('Logo')}
-            className='size-full rounded-md object-cover'
-          />
+          {!logo || logo === DEFAULT_LOGO ? (
+            <AtlasMark className='size-5 rounded-md' />
+          ) : (
+            <img
+              src={logo}
+              alt={t('Logo')}
+              className='size-full rounded-md object-cover'
+            />
+          )}
         </div>
         <span className='max-w-[12rem] truncate font-serif tracking-[0.14em] text-[color:var(--platinum-ink)]'>
           {name}
@@ -88,11 +92,15 @@ export function SystemBrand(props: SystemBrandProps) {
           render={<div />}
         >
           <div className='flex aspect-square size-8 items-center justify-center overflow-hidden rounded-lg'>
-            <img
-              src={logo}
-              alt={t('Logo')}
-              className='size-full rounded-lg object-cover'
-            />
+            {!logo || logo === DEFAULT_LOGO ? (
+              <AtlasMark className='size-8 rounded-lg' />
+            ) : (
+              <img
+                src={logo}
+                alt={t('Logo')}
+                className='size-full rounded-lg object-cover'
+              />
+            )}
           </div>
           <div className='grid flex-1 text-start text-sm leading-tight group-data-[collapsible=icon]:hidden'>
             <span className='truncate font-semibold font-serif tracking-[0.1em] text-[color:var(--platinum-ink)]'>
