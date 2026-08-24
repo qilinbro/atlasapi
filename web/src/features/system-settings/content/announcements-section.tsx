@@ -106,7 +106,7 @@ const typeOptions = [
   {
     value: 'ongoing',
     label: 'Ongoing',
-    color: 'bg-blue-500',
+    color: 'bg-[var(--info)]',
     badgeVariant: 'info' as const,
   },
   {
