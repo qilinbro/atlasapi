@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atlas · Hero 文案预览（A 版定稿 · 国产模型）</title>
+<style>
+  :root {
+    --background: #F8F6F1;
+    --card: #FDFCF9;
+    --primary: #1A4D3E;
+    --primary-lift: #2A6B54;
+    --foreground: #1C2420;
+    --muted-foreground: #6B6F68;
+    --platinum: #C8A96A;
+    --border: #E5DFD2;
+    --platinum-grad: linear-gradient(135deg, #EFEAD8 0%, #C8A96A 55%, #A98F55 100%);
+    /* 画布径向渐变：象牙中心 → 暖米边缘 */
+    --canvas-grad: radial-gradient(120% 90% at 50% 20%, #FBFAF6 0%, #F8F6F1 45%, #EFEAE0 100%);
+    /* 墨绿漆面：深浅纵向 + 顶部内高光 */
+    --lacquer: linear-gradient(180deg, var(--primary-lift) 0%, var(--primary) 62%, #143D30 100%);
+    --lacquer-shine: inset 0 1px 0 rgba(244, 238, 216, .28);
+  }
+  .dark {
+    --background: #0C1F19;
+    --card: #122B22;
+    --primary: #2E6B57;
+    --primary-lift: #357860;
+    --foreground: #E8E3D5;
+    --muted-foreground: #9BA89F;
+    --platinum: #D3B981;
+    --border: #24443A;
+    --canvas-grad: radial-gradient(130% 100% at 50% 12%, #14332A 0%, #0C1F19 55%, #081511 100%);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--canvas-grad);
+    color: var(--foreground);
+    font-family: Georgia, 'Times New Roman', 'Songti SC', 'STSong', 'SimSun', serif;
+    transition: background .4s, color .3s;
+    min-height: 100vh;
+  }
+  /* ---- 控制条（仅预览用） ---- */
+  .controls {
+    position: sticky; top: 0; z-index: 10;
+    display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
+    padding: 12px 24px;
+    background: color-mix(in srgb, var(--card) 92%, transparent);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(8px);
+    font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    font-size: 13px;
+  }
+  .controls .seg { display: flex; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .controls button {
+    padding: 6px 14px; border: none; cursor: pointer;
+    background: transparent; color: var(--muted-foreground);
+    font-size: 13px; transition: all .2s;
+  }
+  .controls button.on { background: var(--primary); color: #FDFCF9; }
+  .controls .label { color: var(--muted-foreground); }
+  .controls .spacer { flex: 1; }
+  .controls .final { color: var(--platinum); letter-spacing: .1em; }
+
+  /* ---- Hero ---- */
+  .hero {
+    min-height: calc(100vh - 54px);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 64px 24px; position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 24px;
+    border: 1px solid var(--border); pointer-events: none;
+  }
+  .hero::after {
+    content: ''; position: absolute; inset: 27px;
+    border: 1px solid color-mix(in srgb, var(--platinum) 35%, transparent); pointer-events: none;
+  }
+  .brand-mark {
+    font-size: 15px; letter-spacing: .55em; text-indent: .55em;
+    background: var(--platinum-grad);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    margin-bottom: 28px;
+  }
+  .hero h1 {
+    font-size: clamp(34px, 5.2vw, 56px);
+    font-weight: 500; letter-spacing: .06em;
+    color: var(--foreground); margin-bottom: 20px;
+  }
+  .hero .sub {
+    font-size: clamp(16px, 2vw, 20px);
+    color: var(--muted-foreground); letter-spacing: .12em;
+    margin-bottom: 44px;
+  }
+  .cta-row { display: flex; gap: 16px; justify-content: center; margin-bottom: 56px; }
+  .btn {
+    padding: 13px 40px; font-size: 15px; letter-spacing: .2em; text-indent: .2em;
+    border-radius: 2px; cursor: pointer; transition: all .25s;
+    font-family: inherit;
+  }
+  /* 墨绿漆面主按钮：渐变 + 顶部内高光 + 柔和投影，按压有物理感 */
+  .btn-primary {
+    background: var(--lacquer);
+    box-shadow: var(--lacquer-shine), 0 6px 18px rgba(20, 61, 48, .28);
+    color: #F5F2E9; border: 1px solid #143D30;
+  }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: var(--lacquer-shine), 0 10px 24px rgba(20, 61, 48, .34); }
+  .btn-primary:active { transform: translateY(1px); box-shadow: var(--lacquer-shine), 0 2px 8px rgba(20, 61, 48, .3); }
+  .btn-ghost {
+    background: transparent; color: var(--foreground); border: 1px solid var(--border);
+  }
+  .btn-ghost:hover { border-color: var(--platinum); color: var(--platinum); }
+
+  /* 特性卡：纸纹质感（极淡斜纹）+ 顶部白金高光线 */
+  .features { display: flex; gap: 24px; margin-top: 8px; }
+  .feature {
+    width: 220px; padding: 28px 22px; text-align: center;
+    background:
+      repeating-linear-gradient(45deg, rgba(200,169,106,.022) 0 2px, transparent 2px 4px),
+      var(--card);
+    border: 1px solid var(--border); border-radius: 2px;
+    box-shadow: inset 0 1px 0 rgba(200,169,106,.28), 0 4px 14px rgba(28,36,32,.05);
+    position: relative; transition: transform .3s, box-shadow .3s;
+  }
+  .feature:hover { transform: translateY(-3px); box-shadow: inset 0 1px 0 rgba(200,169,106,.4), 0 10px 22px rgba(28,36,32,.09); }
+  .feature h3 { font-size: 16px; font-weight: 500; letter-spacing: .2em; margin-bottom: 10px; color: var(--foreground); }
+  .feature p { font-size: 13px; color: var(--muted-foreground); line-height: 1.8; letter-spacing: .05em; }
+
+  .variant { display: none; }
+  .variant.show { display: flex; }
+
+  .note {
+    position: fixed; bottom: 16px; right: 16px; font-size: 12px;
+    color: var(--muted-foreground); letter-spacing: .1em;
+    font-family: -apple-system, 'PingFang SC', sans-serif;
+  }
+</style>
+</head>
+<body>
+  <div class="controls">
+    <span class="label">文案版本</span>
+    <div class="seg" id="seg-variant">
+      <button data-v="a" class="on">A 定稿</button>
+      <button data-v="b">B 企业</button>
+      <button data-v="d">AB 融合</button>
+    </div>
+    <span class="spacer"></span>
+    <span class="final">A 版已定稿 · 国产模型叙事</span>
+    <span class="label">模式</span>
+    <div class="seg" id="seg-mode">
+      <button data-m="light" class="on">亮色</button>
+      <button data-m="dark">暗色</button>
+    </div>
+  </div>
+
+  <!-- A 克制版 · 定稿（国产模型） -->
+  <section class="hero variant show" data-variant="a">
+    <div style="display:flex;flex-direction:column;align-items:center">
+      <div class="brand-mark">ATLAS</div>
+      <h1>大模型 API 服务平台</h1>
+      <div class="sub">一个密钥，调用国产主流模型</div>
+      <div class="cta-row">
+        <button class="btn btn-primary">开始使用</button>
+        <button class="btn btn-ghost">查看定价</button>
+      </div>
+      <div class="features">
+        <div class="feature"><h3>国产模型</h3><p>主流大模型<br>一站接入</p></div>
+        <div class="feature"><h3>按量计费</h3><p>用多少付多少<br>额度透明</p></div>
+        <div class="feature"><h3>稳定可靠</h3><p>企业级网关<br>实时监控</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- B 企业版 -->
+  <section class="hero variant" data-variant="b">
+    <div style="display:flex;flex-direction:column;align-items:center">
+      <div class="brand-mark">ATLAS</div>
+      <h1>企业级国产模型聚合网关</h1>
+      <div class="sub">多模型接入 · 按量计费 · 稳定可靠</div>
+      <div class="cta-row">
+        <button class="btn btn-primary">立即接入</button>
+        <button class="btn btn-ghost">查看定价</button>
+      </div>
+      <div class="features">
+        <div class="feature"><h3>统一接口</h3><p>标准 API 协议<br>无缝迁移</p></div>
+        <div class="feature"><h3>用量报表</h3><p>调用明细<br>实时可查</p></div>
+        <div class="feature"><h3>访问控制</h3><p>密钥级权限<br>额度管控</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AB 融合版 -->
+  <section class="hero variant" data-variant="d">
+    <div style="display:flex;flex-direction:column;align-items:center">
+      <div class="brand-mark">ATLAS</div>
+      <h1>大模型 API 服务平台</h1>
+      <div class="sub">一个密钥，调用国产主流模型。稳定透明，按量计费</div>
+      <div class="cta-row">
+        <button class="btn btn-primary">开始使用</button>
+        <button class="btn btn-ghost">查看定价</button>
+      </div>
+      <div class="trust-row" style="display:flex;gap:40px;font-size:13px;letter-spacing:.15em;color:var(--muted-foreground)">
+        <span>国产模型</span><span style="color:var(--platinum)">·</span>
+        <span>按量计费</span><span style="color:var(--platinum)">·</span>
+        <span>稳定可靠</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="note">Atlas 品牌预览 · A 版定稿 + 拟物材质方向</div>
+
+<script>
+  document.getElementById('seg-variant').addEventListener('click', e => {
+    const btn = e.target.closest('button'); if (!btn) return;
+    document.querySelectorAll('#seg-variant button').forEach(b => b.classList.toggle('on', b === btn));
+    document.querySelectorAll('.variant').forEach(v => v.classList.toggle('show', v.dataset.variant === btn.dataset.v));
+  });
+  document.getElementById('seg-mode').addEventListener('click', e => {
+    const btn = e.target.closest('button'); if (!btn) return;
+    document.querySelectorAll('#seg-mode button').forEach(b => b.classList.toggle('on', b === btn));
+    document.body.classList.toggle('dark', btn.dataset.m === 'dark');
+  });
+</script>
+</body>
+</html>
