@@ -16,7 +16,7 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 For commercial licensing, please contact support@quantumnous.com
 */
-import { useRef, useEffect, useCallback } from 'react'
+import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
 interface CounterProps {
@@ -28,9 +28,7 @@ interface CounterProps {
 }
 
 function Counter(props: CounterProps) {
-  const { end, suffix = '', prefix = '', duration = 1600, decimals = 0 } = props
-  const ref = useRef<HTMLSpanElement>(null)
-  const startedRef = useRef(false)
+  const { end, suffix = '', prefix = '', decimals = 0 } = props
 
   const formatValue = useCallback(
     (v: number) =>
@@ -38,47 +36,13 @@ function Counter(props: CounterProps) {
     [decimals]
   )
 
-  const animate = useCallback(() => {
-    const el = ref.current
-    if (!el) return
-    const start = performance.now()
-    const step = (now: number) => {
-      const progress = Math.min((now - start) / duration, 1)
-      const eased = 1 - Math.pow(1 - progress, 3)
-      el.textContent = `${prefix}${formatValue(eased * end)}${suffix}`
-      if (progress < 1) requestAnimationFrame(step)
-    }
-    requestAnimationFrame(step)
-  }, [end, duration, prefix, suffix, formatValue])
-
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-
-    const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
-    if (mq.matches) {
-      el.textContent = `${prefix}${formatValue(end)}${suffix}`
-      return
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !startedRef.current) {
-          startedRef.current = true
-          animate()
-          observer.unobserve(el)
-        }
-      },
-      { threshold: 0.5 }
-    )
-
-    observer.observe(el)
-    return () => observer.disconnect()
-  }, [animate, end, prefix, suffix, formatValue])
-
+  // Static render — Atlas motion budget bans scroll-driven count-ups
+  // (AGENTS.md §2); the final value is printed directly.
   return (
-    <span ref={ref} className='tabular-nums'>
-      {prefix}0{suffix}
+    <span className='tabular-nums'>
+      {prefix}
+      {formatValue(end)}
+      {suffix}
     </span>
   )
 }

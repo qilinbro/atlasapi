@@ -46,14 +46,14 @@ export function Features(_props: FeaturesProps) {
         'Optimized network architecture ensures millisecond response times'
       ),
       span: 'md:col-span-2',
-      icon: <Zap className='size-4 text-blue-400' />,
+      icon: <Zap className='size-4 text-[var(--platinum-ink)]' />,
       visual: (
         <div className='mt-4 grid grid-cols-3 gap-2'>
-          {['OpenAI', 'Claude', 'Gemini', 'DeepSeek', 'Qwen', 'Llama'].map(
+          {['DeepSeek', 'Qwen', 'GLM', 'Kimi', 'Doubao', 'Hunyuan', 'Ernie', 'MiniMax'].map(
             (name) => (
               <div
                 key={name}
-                className='border-border/30 bg-muted/20 text-muted-foreground flex items-center justify-center rounded-lg border px-3 py-2 text-xs transition-colors duration-300 hover:border-blue-500/30 hover:bg-blue-500/5'
+                className='border-border/30 bg-muted/20 text-muted-foreground flex items-center justify-center rounded-lg border px-3 py-2 text-xs transition-colors duration-300 hover:border-[var(--platinum)]/40 hover:bg-[var(--platinum)]/10'
               >
                 {name}
               </div>
@@ -102,10 +102,10 @@ export function Features(_props: FeaturesProps) {
     {
       id: 'global',
       num: '03',
-      title: t('Global Coverage'),
-      desc: t('Multi-region deployment for stable global access'),
+      title: t('Domestic Model Matrix'),
+      desc: t('Leading domestic models, one integration away'),
       span: 'md:col-span-1',
-      icon: <Globe className='size-4 text-violet-400' />,
+      icon: <Globe className='size-4 text-[var(--platinum-ink)]' />,
       visual: (
         <div className='mt-4 space-y-2'>
           {[t('Load Balancing'), t('Rate Limiting'), t('Cost Tracking')].map(
@@ -114,7 +114,7 @@ export function Features(_props: FeaturesProps) {
                 <div
                   className={`flex size-6 items-center justify-center rounded-full text-[10px] font-bold ${
                     i === 1
-                      ? 'border border-blue-500/30 bg-blue-500/20 text-blue-500'
+                      ? 'border border-[var(--platinum)]/40 bg-[var(--platinum)]/15 text-[var(--platinum-ink)]'
                       : 'border-border/40 bg-muted text-muted-foreground border'
                   }`}
                 >
@@ -134,7 +134,7 @@ export function Features(_props: FeaturesProps) {
       title: t('Developer Friendly'),
       desc: t('Compatible API routes for common AI application workflows'),
       span: 'md:col-span-2',
-      icon: <Code className='size-4 text-amber-400' />,
+      icon: <Code className='size-4 text-[var(--platinum-ink)]' />,
       visual: (
         <div className='mt-4 flex items-center gap-3'>
           <div className='flex -space-x-2'>
@@ -148,7 +148,7 @@ export function Features(_props: FeaturesProps) {
             ))}
           </div>
           <div className='text-muted-foreground flex items-center gap-1.5 text-xs'>
-            <Code className='size-3.5 text-blue-500' />
+            <Code className='size-3.5 text-[var(--platinum-ink)]' />
             {t('Multi-protocol Compatible')}
           </div>
         </div>
@@ -174,8 +174,8 @@ export function Features(_props: FeaturesProps) {
     },
     {
       icon: <HeartHandshake className='size-5' strokeWidth={1.5} />,
-      title: t('Open Source'),
-      desc: t('Community driven, self-hosted, and extensible'),
+      title: t('Open Standards'),
+      desc: t('Standard API protocols, drop-in compatible'),
     },
   ]
 

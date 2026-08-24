@@ -2069,7 +2069,7 @@
     "footer.columns.related.links.oneApi": "One API",
     "footer.columns.related.title": "相关项目",
     "footer.defaultCopyright": "版权所有。",
-    "footer.new\u0061pi.projectAttributionSuffix": "版权所有，由项目贡献者设计与开发。",
+    "footer.newapi.projectAttributionSuffix": "版权所有，由项目贡献者设计与开发。",
     "For channels added after May 10, 2025, no need to remove \".\" from model names during deployment": "对于 2025 年 5 月 10 日之后添加的渠道，在部署时无需从模型名称中移除 \".\"",
     "For private deployments, format: https://fastgpt.run/api/openapi": "对于私有部署，格式为：https://fastgpt.run/api/openapi",
     "For security, existing access tokens cannot be displayed. Regenerate only when you need a new token.": "出于安全考虑，现有访问令牌无法再次显示。仅在需要新令牌时重新生成。",
@@ -5316,6 +5316,18 @@
     "Zero retention": "零数据保留",
     "Zhipu": "智谱",
     "Zhipu V4": "智谱 V4",
-    "Zoom": "缩放"
+    "Zoom": "缩放",
+    "LLM API Service Platform": "大模型 API 服务平台",
+    "One key, every leading domestic model.": "一个密钥，调用国产主流模型。",
+    "Start Using": "开始使用",
+    "Trusted client apps": "兼容主流客户端",
+    "Works out of the box with popular chat clients.": "主流对话客户端即配即用。",
+    "Quick start": "快速开始",
+    "Replace with your Atlas key": "替换为你的 Atlas 密钥",
+    "Protocol": "协议",
+    "Domestic Model Matrix": "国产模型矩阵",
+    "Leading domestic models, one integration away": "主流国产大模型，一步接入",
+    "Open Standards": "开放标准",
+    "Standard API protocols, drop-in compatible": "标准 API 协议，无缝兼容"
   }
 }
