@@ -85,8 +85,12 @@ export function SectionPageLayout(props: SectionPageLayoutProps) {
           )}
           <div className='flex flex-wrap items-center justify-between gap-x-3 gap-y-2 sm:gap-x-4'>
             <div className='min-w-0 flex-1'>
-              <h2 className='truncate font-serif text-base font-bold tracking-wide sm:text-lg'>
-                {title}
+              <h2 className='flex min-w-0 items-center gap-2.5 truncate font-serif text-base font-bold tracking-wide sm:text-xl'>
+                <span
+                  aria-hidden
+                  className='inline-block size-1.5 shrink-0 rotate-45 bg-[var(--platinum)]'
+                />
+                <span className='truncate'>{title}</span>
               </h2>
             </div>
             {actions != null && (
@@ -95,7 +99,7 @@ export function SectionPageLayout(props: SectionPageLayoutProps) {
               </div>
             )}
           </div>
-          <div aria-hidden className='platinum-hairline mt-2.5 w-16 opacity-80' />
+          <div aria-hidden className='platinum-hairline mt-3 w-32 opacity-90' />
         </div>
 
         <div
