@@ -20,65 +20,80 @@ import { Link } from '@tanstack/react-router'
 import { ArrowRight } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
-import { AnimateInView } from '@/components/animate-in-view'
 import { Button } from '@/components/ui/button'
 
 interface CTAProps {
-  className?: string
   isAuthenticated?: boolean
 }
 
+/**
+ * Back cover — a full-bleed emerald lacquer closing act with a giant
+ * platinum serif line. On lacquer the interactive green would sink, so
+ * the primary action is a platinum-hairline button (brand exception,
+ * documented in AGENTS.md §2): emerald remains the interactive color
+ * everywhere on canvas; here it arrives on hover fill.
+ */
 export function CTA(props: CTAProps) {
   const { t } = useTranslation()
 
-  if (props.isAuthenticated) {
-    return null
-  }
-
   return (
-    <section className='relative z-10 overflow-hidden px-6 py-24 md:py-32'>
-      {/* Gradient mesh background */}
+    <section
+      id='back'
+      className='relative flex min-h-[85svh] flex-col items-center justify-center overflow-hidden px-6 py-24 text-center'
+      style={{
+        background:
+          'linear-gradient(160deg, #14342a 0%, #0f2a21 55%, #0b1f18 100%)',
+      }}
+    >
       <div
         aria-hidden
-        className='absolute inset-0 -z-10 opacity-20 dark:opacity-[0.08]'
-        style={{
-          background: [
-            'radial-gradient(ellipse 50% 50% at 30% 50%, oklch(0.7 0.15 250 / 70%) 0%, transparent 70%)',
-            'radial-gradient(ellipse 40% 40% at 70% 40%, oklch(0.65 0.12 200 / 50%) 0%, transparent 70%)',
-          ].join(', '),
-        }}
+        className='platinum-hairline absolute inset-x-16 top-16 opacity-60'
+      />
+      <div
+        aria-hidden
+        className='platinum-hairline absolute inset-x-16 bottom-16 opacity-60'
       />
 
-      <AnimateInView
-        className='mx-auto max-w-2xl text-center'
-        animation='scale-in'
+      <p className='platinum-label landing-animate-fade-up mb-8 text-[11px] font-bold uppercase opacity-0'>
+        02 · Atlas
+      </p>
+
+      <h2
+        className='platinum-title landing-animate-fade-up font-serif text-[clamp(2.6rem,7vw,5.5rem)] leading-[1.15] font-semibold tracking-[0.1em] opacity-0'
+        style={{ animationDelay: '80ms' }}
       >
-        <h2 className='text-2xl leading-tight font-bold tracking-tight md:text-4xl'>
-          {t('Ready to simplify')}
-          <br />
-          <span className='platinum-title'>
-            {t('your AI integration?')}
-          </span>
-        </h2>
-        <p className='text-muted-foreground/80 mx-auto mt-5 max-w-md text-sm leading-relaxed md:text-base'>
-          {t(
-            'Deploy your own gateway and start routing requests through your configured upstream services.'
-          )}
-        </p>
-        <div className='mt-8 flex items-center justify-center gap-3'>
-          <Button className='group rounded-lg' render={<Link to='/sign-up' />}>
-            {t('Get Started')}
-            <ArrowRight className='ml-1 size-3.5 transition-transform duration-200 group-hover:translate-x-0.5' />
-          </Button>
+        {t('One key, every leading domestic model.')}
+      </h2>
+
+      <div
+        className='landing-animate-fade-up mt-12 flex flex-wrap items-center justify-center gap-4 opacity-0'
+        style={{ animationDelay: '180ms' }}
+      >
+        {props.isAuthenticated ? (
           <Button
-            variant='outline'
-            className='border-border/50 hover:border-border hover:bg-muted/50 rounded-lg'
-            render={<Link to='/pricing' />}
+            className='group h-12 rounded-lg border border-[color:var(--platinum)]/50 bg-transparent px-8 text-sm font-medium tracking-widest text-[color:var(--platinum)] hover:bg-[var(--primary)] hover:text-[color:var(--primary-foreground)]'
+            render={<Link to='/dashboard' />}
           >
-            {t('View Pricing')}
+            {t('Go to Dashboard')}
+            <ArrowRight className='ml-2 size-4 transition-transform duration-200 group-hover:translate-x-0.5' />
           </Button>
-        </div>
-      </AnimateInView>
+        ) : (
+          <Button
+            className='group h-12 rounded-lg border border-[color:var(--platinum)]/50 bg-transparent px-8 text-sm font-medium tracking-widest text-[color:var(--platinum)] hover:bg-[var(--primary)] hover:text-[color:var(--primary-foreground)]'
+            render={<Link to='/sign-up' />}
+          >
+            {t('Start Using')}
+            <ArrowRight className='ml-2 size-4 transition-transform duration-200 group-hover:translate-x-0.5' />
+          </Button>
+        )}
+        <Button
+          variant='outline'
+          className='h-12 rounded-lg border-[color:var(--platinum)]/35 bg-transparent px-8 text-sm font-medium tracking-widest text-[color:var(--platinum-ink)] hover:border-[color:var(--platinum)]/70 hover:bg-transparent hover:text-[color:var(--platinum)]'
+          render={<Link to='/pricing' />}
+        >
+          {t('View Pricing')}
+        </Button>
+      </div>
     </section>
   )
 }
