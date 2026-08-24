@@ -718,3 +718,136 @@ For commercial licensing, please contact support@quantumnous.com
     display: none;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+ * Atlas Platinum Material Layer (brand v2 — platinum-led)
+ * Applied via data-slot attribute selectors so every page inherits
+ * the reset without touching component files. Emerald stays the
+ * only interactive color; metal shine is reserved for titles, CTA
+ * outlines, hover glints and active states. See AGENTS.md §2.
+ * ═══════════════════════════════════════════════════════════════ */
+@layer components {
+  /* Cards: matte champagne surface + paper grain + metal top hairline */
+  [data-slot='card'] {
+    background-image: var(--paper-texture);
+    box-shadow:
+      inset 0 1px 0 rgba(200, 169, 106, 0.22),
+      var(--shadow-raised);
+  }
+  [data-slot='card']::after {
+    content: '';
+    position: absolute;
+    inset-inline: 12%;
+    top: 0;
+    height: 1px;
+    background: var(--hairline-metal);
+    pointer-events: none;
+  }
+  [data-slot='card'] {
+    position: relative;
+  }
+
+  /* Primary buttons: emerald lacquer + champagne outer hairline.
+   * background-color still comes from the bg-primary utility; the
+   * lacquer gradient and tactile press live here. */
+  .bg-primary[data-slot='button'] {
+    background-image: var(--lacquer);
+    border: 1px solid var(--lacquer-border);
+    box-shadow:
+      var(--lacquer-shine),
+      0 0 0 1px rgba(200, 169, 106, 0.35),
+      var(--lacquer-shadow);
+    transition:
+      transform var(--dur-fast) var(--ease-out-expo),
+      box-shadow var(--dur-fast) var(--ease-out-expo);
+  }
+  .bg-primary[data-slot='button']:hover {
+    background-image: var(--lacquer);
+    transform: translateY(-1px);
+    box-shadow:
+      var(--lacquer-shine),
+      0 0 0 1px rgba(200, 169, 106, 0.55),
+      0 10px 24px rgba(20, 61, 48, 0.32);
+  }
+  .bg-primary[data-slot='button']:active {
+    transform: translateY(1px);
+    box-shadow:
+      var(--lacquer-shine),
+      0 0 0 1px rgba(200, 169, 106, 0.3),
+      0 2px 8px rgba(20, 61, 48, 0.28);
+  }
+
+  /* Secondary / outline buttons: champagne hover tint */
+  [data-slot='button']:not(.bg-primary):not(.bg-destructive):hover {
+    border-color: color-mix(in srgb, var(--platinum) 55%, transparent);
+  }
+
+  /* Inputs: recessed well with champagne inner shadow */
+  [data-slot='input'],
+  [data-slot='textarea'],
+  [data-slot='select-trigger'] {
+    box-shadow: inset 0 1px 3px rgba(58, 48, 28, 0.06);
+    transition:
+      border-color var(--dur-fast) var(--ease-out-expo),
+      box-shadow var(--dur-fast) var(--ease-out-expo);
+  }
+  [data-slot='input']:focus-visible,
+  [data-slot='textarea']:focus-visible,
+  [data-slot='select-trigger']:focus-visible {
+    box-shadow:
+      inset 0 1px 3px rgba(58, 48, 28, 0.05),
+      0 0 0 2px color-mix(in srgb, var(--platinum) 30%, transparent);
+  }
+
+  /* Tables: champagne hairline under the header row */
+  [data-slot='table'] thead th,
+  [data-slot='table'] thead [data-slot='table-head'] {
+    background-image: linear-gradient(
+      180deg,
+      transparent calc(100% - 1px),
+      color-mix(in srgb, var(--platinum) 40%, transparent) calc(100% - 1px)
+    );
+  }
+
+  /* Sidebar active item: champagne metal glint on the left rail */
+  [data-slot='sidebar-menu-item'][data-active='true'],
+  [data-slot='sidebar-menu-button'][data-active='true'] {
+    box-shadow: inset 2px 0 0 0 var(--platinum);
+  }
+
+  /* Dialogs / popovers keep the raised champagne plane */
+  [data-slot='dialog-content'],
+  [data-slot='popover-content'],
+  [data-slot='sheet-content'] {
+    background-image: var(--paper-texture);
+    box-shadow:
+      inset 0 1px 0 rgba(200, 169, 106, 0.18),
+      var(--shadow-raised);
+  }
+}
+
+@layer utilities {
+  /* Brand typography & decoration helpers for marketing surfaces. */
+  .platinum-title {
+    background: var(--platinum-metal);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .platinum-hairline {
+    height: 1px;
+    background: var(--hairline-metal);
+  }
+  .platinum-panel {
+    background-color: var(--platinum-matte);
+    background-image: var(--paper-texture);
+    box-shadow: inset 0 1px 0 rgba(200, 169, 106, 0.2);
+  }
+  .platinum-label {
+    color: var(--platinum-ink);
+    letter-spacing: 0.18em;
+  }
+  .emerald-accent {
+    color: var(--primary);
+  }
+}

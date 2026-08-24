@@ -103,69 +103,70 @@ For commercial licensing, please contact support@quantumnous.com
    * identical when no font preference is set. */
   --font-body: var(--font-sans);
   /* ============================================================
-   * Atlas brand palette — Platinum × Emerald, understated luxury.
-   * Light (primary look): ivory canvas / emerald primary / champagne
-   * platinum reserved for hairlines & highlights. Dark: deep emerald
-   * canvas / platinum accents. Hex values are the source of truth;
-   * color-mix() derived tokens keep working unchanged.
+   * Atlas brand palette v2 — PLATINUM-LED, emerald as accent.
+   * Light (primary look): champagne-platinum canvas & surfaces,
+   * matte by default with metal shine reserved for titles / CTA
+   * outline / hover / active states. Emerald = accent text + the
+   * ONLY interactive color. Dark: deep emerald-black canvas with
+   * large-area platinum text and hairlines; emerald stays interactive.
    * ============================================================ */
   --radius: 0.5rem;
-  --background: #f8f6f1; /* ivory */
-  --foreground: #1c2420; /* emerald ink */
-  --card: #fdfcf9;
-  --card-foreground: #1c2420;
-  --popover: #fdfcf9;
-  --popover-foreground: #1c2420;
-  --primary: #1a4d3e; /* deep emerald */
-  --primary-foreground: #f5f2e9;
-  --secondary: #efeae0; /* warm beige */
-  --secondary-foreground: #2e4a3e;
-  --muted: #f0ede4;
-  --muted-foreground: #6b6f68;
-  --accent: color-mix(in oklch, var(--primary) 12%, var(--background));
-  --accent-foreground: #1a4d3e;
-  --destructive: #a8433f; /* brick red, warm to match ivory */
-  --destructive-foreground: #fbf9f4;
-  --success: #55704f; /* muted olive */
-  --success-foreground: #fbf9f4;
-  --warning: #c68f4e; /* amber, distinct from platinum */
+  --background: #f6f0e2; /* champagne platinum canvas */
+  --foreground: #2a2622; /* warm deep charcoal */
+  --card: #fbf7ec;
+  --card-foreground: #2a2622;
+  --popover: #fdfaf1;
+  --popover-foreground: #2a2622;
+  --primary: #1a4d3e; /* emerald — accent text & the only button color */
+  --primary-foreground: #f6f0e2;
+  --secondary: #efe7d2; /* matte platinum surface */
+  --secondary-foreground: #3d3428;
+  --muted: #f1ead9;
+  --muted-foreground: #6e675c;
+  --accent: #ede4ce;
+  --accent-foreground: #2a2622;
+  --destructive: #a8433f;
+  --destructive-foreground: #fbf7ec;
+  --success: #55704f;
+  --success-foreground: #fbf7ec;
+  --warning: #c68f4e;
   --warning-foreground: #241a0c;
-  --info: #6a8fa8; /* hazy blue */
-  --info-foreground: #fbf9f4;
-  --neutral: #6b6f68;
-  --neutral-foreground: #1c2420;
-  --border: #e5dfd2; /* hairline, warm greige */
-  --input: #e5dfd2;
-  --ring: #1a4d3e; /* emerald focus ring */
-  --chart-1: #1a4d3e;
-  --chart-2: #c8a96a;
-  --chart-3: #2e6b57;
-  --chart-4: #6a8fa8;
-  --chart-5: #a8433f;
-  --overview-accent-1: #1a4d3e;
-  --overview-accent-2: #c8a96a;
-  --overview-accent-3: #2e6b57;
-  /* Sidebar: deep emerald lacquer even in light mode — the signature
-   * "ivory canvas against emerald panel" pairing. */
-  --sidebar: #14342a;
-  --sidebar-foreground: #e8e3d5;
-  --sidebar-primary: #c8a96a; /* platinum reads well on deep emerald */
-  --sidebar-primary-foreground: #14342a;
-  --sidebar-accent: #1d4237;
-  --sidebar-accent-foreground: #efead8;
-  --sidebar-border: rgba(200, 169, 106, 0.25);
+  --info: #6a8fa8;
+  --info-foreground: #fbf7ec;
+  --neutral: #6e675c;
+  --neutral-foreground: #2a2622;
+  --border: #e3d9c2; /* champagne hairline */
+  --input: #e3d9c2;
+  --ring: #1a4d3e;
+  --chart-1: #c8a96a;
+  --chart-2: #1a4d3e;
+  --chart-3: #a98f55;
+  --chart-4: #6fa98f;
+  --chart-5: #2a2622;
+  --overview-accent-1: #c8a96a;
+  --overview-accent-2: #1a4d3e;
+  --overview-accent-3: #a98f55;
+  /* Sidebar joins the platinum canvas: matte champagne surface,
+   * emerald for the active state only. */
+  --sidebar: #f1e9d6;
+  --sidebar-foreground: #2a2622;
+  --sidebar-primary: #1a4d3e;
+  --sidebar-primary-foreground: #f6f0e2;
+  --sidebar-accent: #eae0c8;
+  --sidebar-accent-foreground: #2a2622;
+  --sidebar-border: #e0d5ba;
   --sidebar-ring: #c8a96a;
-  --skeleton-base: #efeae0;
-  --skeleton-highlight: #f6f3ea;
+  --skeleton-base: #f0e9d8;
+  --skeleton-highlight: #f7f2e4;
   --table-row: var(--background);
   --table-header: color-mix(
     in oklch,
-    var(--foreground) 1.5%,
+    var(--foreground) 2%,
     var(--background)
   );
   --table-header-hover: color-mix(
     in oklch,
-    var(--foreground) 3%,
+    var(--foreground) 3.5%,
     var(--background)
   );
   /* Disabled rows: kept subtle so they read as "quiet", not as a colored
@@ -186,30 +187,41 @@ For commercial licensing, please contact support@quantumnous.com
     var(--background)
   );
 
-  /* --- Atlas material & motion utilities (light) --- */
+  /* --- Platinum material & motion utilities (light) --- */
   --platinum: #c8a96a;
-  --platinum-grad: linear-gradient(
+  --platinum-matte: #efe7d2;
+  --platinum-deep: #a98f55;
+  --platinum-ink: #8a744a; /* readable champagne for small labels */
+  --platinum-metal: linear-gradient(
     135deg,
-    #efead8 0%,
-    #c8a96a 55%,
-    #a98f55 100%
+    #f2ecd9 0%,
+    #d9c68c 45%,
+    #b99f63 70%,
+    #e5d9b5 100%
   );
+  --hairline-metal: linear-gradient(
+    90deg,
+    transparent,
+    rgba(200, 169, 106, 0.55),
+    transparent
+  );
+  /* Emerald buttons keep a lacquer body under the champagne outline. */
   --lacquer: linear-gradient(180deg, #2a6b54 0%, #1a4d3e 62%, #143d30 100%);
   --lacquer-shine: inset 0 1px 0 rgba(244, 238, 216, 0.28);
   --lacquer-border: #143d30;
-  --lacquer-shadow: 0 6px 18px rgba(20, 61, 48, 0.28);
+  --lacquer-shadow: 0 6px 18px rgba(20, 61, 48, 0.24);
   --canvas-grad: radial-gradient(
-    120% 90% at 50% 20%,
-    #fbfaf6 0%,
-    #f8f6f1 45%,
-    #efeae0 100%
+    120% 90% at 50% 18%,
+    #faf6ea 0%,
+    #f6f0e2 48%,
+    #ede4cd 100%
   );
   --paper-texture: repeating-linear-gradient(
     45deg,
-    rgba(200, 169, 106, 0.022) 0 2px,
+    rgba(200, 169, 106, 0.02) 0 2px,
     transparent 2px 4px
   );
-  --shadow-raised: 0 6px 18px rgba(28, 36, 32, 0.08);
+  --shadow-raised: 0 6px 18px rgba(58, 48, 28, 0.08);
   /* Motion budget: subtle reveals & tactile presses only. No particle /
    * scroll-driven / typing effects — see AGENTS.md §2. */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -220,21 +232,23 @@ For commercial licensing, please contact support@quantumnous.com
 }
 
 .dark {
-  /* Atlas dark: deep emerald canvas, platinum promoted to accents. */
-  --background: #0c1f19;
+  /* Atlas dark: deep emerald-black canvas, platinum carries the page —
+   * large-area platinum text, hairlines and panel strokes; emerald stays
+   * the interactive color (one step brighter for dark). */
+  --background: #0b1613;
   --foreground: #e8e3d5;
-  --card: #122b22;
+  --card: #12241e;
   --card-foreground: #e8e3d5;
-  --popover: #143027;
+  --popover: #142a22;
   --popover-foreground: #e8e3d5;
   --primary: #2e6b57;
   --primary-foreground: #efead8;
-  --secondary: #1a3a2f;
+  --secondary: #1a2f27;
   --secondary-foreground: #c9d6cb;
-  --muted: #16332a;
+  --muted: #16291f;
   --muted-foreground: #9ba89f;
-  --accent: color-mix(in oklch, var(--primary) 20%, var(--background));
-  --accent-foreground: #efead8;
+  --accent: #1d332a;
+  --accent-foreground: #e8e3d5;
   --destructive: #c96a62;
   --destructive-foreground: #14100e;
   --success: #7fa37b;
@@ -244,28 +258,28 @@ For commercial licensing, please contact support@quantumnous.com
   --info: #8fb3c9;
   --info-foreground: #0d1620;
   --neutral: #9ba89f;
-  --neutral-foreground: #0c1f19;
-  --border: rgba(232, 227, 213, 0.1);
-  --input: rgba(232, 227, 213, 0.16);
-  --ring: #d3b981; /* platinum ring on deep emerald */
-  --chart-1: #6fa98f;
-  --chart-2: #d3b981;
-  --chart-3: #4e8a70;
+  --neutral-foreground: #0b1613;
+  --border: rgba(211, 185, 129, 0.18); /* champagne hairline */
+  --input: rgba(211, 185, 129, 0.26);
+  --ring: #d3b981;
+  --chart-1: #d3b981;
+  --chart-2: #6fa98f;
+  --chart-3: #b2965c;
   --chart-4: #8fb3c9;
   --chart-5: #c96a62;
-  --overview-accent-1: #6fa98f;
-  --overview-accent-2: #d3b981;
-  --overview-accent-3: #4e8a70;
-  --sidebar: #0a1a15;
+  --overview-accent-1: #d3b981;
+  --overview-accent-2: #6fa98f;
+  --overview-accent-3: #b2965c;
+  --sidebar: #0d1a15;
   --sidebar-foreground: #d9d4c5;
   --sidebar-primary: #d3b981;
-  --sidebar-primary-foreground: #0a1a15;
-  --sidebar-accent: #14342a;
+  --sidebar-primary-foreground: #0d1a15;
+  --sidebar-accent: #173028;
   --sidebar-accent-foreground: #efead8;
-  --sidebar-border: rgba(211, 185, 129, 0.22);
+  --sidebar-border: rgba(211, 185, 129, 0.2);
   --sidebar-ring: #d3b981;
-  --skeleton-base: #14342a;
-  --skeleton-highlight: #1d4237;
+  --skeleton-base: #142620;
+  --skeleton-highlight: #1d342b;
   --table-row: var(--background);
   --table-header: color-mix(in oklch, var(--foreground) 6%, var(--background));
   --table-header-hover: color-mix(
@@ -289,13 +303,23 @@ For commercial licensing, please contact support@quantumnous.com
     var(--background)
   );
 
-  /* --- Atlas material & motion utilities (dark) --- */
+  /* --- Platinum material & motion utilities (dark) --- */
   --platinum: #d3b981;
-  --platinum-grad: linear-gradient(
+  --platinum-matte: #1c2f28;
+  --platinum-deep: #b2965c;
+  --platinum-ink: #c9b184;
+  --platinum-metal: linear-gradient(
     135deg,
     #f2ecd9 0%,
-    #d3b981 55%,
-    #b2965c 100%
+    #d9c68c 45%,
+    #b2965c 70%,
+    #e5d9b5 100%
+  );
+  --hairline-metal: linear-gradient(
+    90deg,
+    transparent,
+    rgba(211, 185, 129, 0.5),
+    transparent
   );
   --lacquer: linear-gradient(180deg, #37806a 0%, #2e6b57 62%, #245746 100%);
   --lacquer-shine: inset 0 1px 0 rgba(242, 236, 217, 0.24);
@@ -303,13 +327,13 @@ For commercial licensing, please contact support@quantumnous.com
   --lacquer-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
   --canvas-grad: radial-gradient(
     130% 100% at 50% 12%,
-    #14332a 0%,
-    #0c1f19 55%,
-    #081511 100%
+    #122019 0%,
+    #0b1613 55%,
+    #070f0d 100%
   );
   --paper-texture: repeating-linear-gradient(
     45deg,
-    rgba(211, 185, 129, 0.02) 0 2px,
+    rgba(211, 185, 129, 0.018) 0 2px,
     transparent 2px 4px
   );
   --shadow-raised: 0 6px 18px rgba(0, 0, 0, 0.35);
