@@ -5332,6 +5332,12 @@
     "Domestic models": "国产模型",
     "Pay as you go": "按量计费",
     "Stable gateway": "稳定网关",
-    "Built on open-source technology licensed under AGPL v3.0. Source availability is provided in compliance with the license.": "本平台基于 AGPL v3.0 许可的开源技术构建，并按许可要求提供源码可得性。"
+    "Built on open-source technology licensed under AGPL v3.0. Source availability is provided in compliance with the license.": "本平台基于 AGPL v3.0 许可的开源技术构建，并按许可要求提供源码可得性。",
+    "Good night": "夜深了",
+    "Good morning": "早上好",
+    "Good afternoon": "下午好",
+    "Good evening": "晚上好",
+    "Create key": "创建密钥",
+    "Top up": "充值"
   }
 }
