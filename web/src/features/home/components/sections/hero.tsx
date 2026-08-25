@@ -48,7 +48,7 @@ export function Hero(props: HeroProps) {
   return (
     <section
       id='cover'
-      className='relative flex min-h-[calc(100svh-3.5rem)] flex-col overflow-hidden px-6 py-14 md:px-12 md:py-16'
+      className='relative flex min-h-[calc(100svh-3.5rem)] flex-col overflow-hidden px-6 pt-24 pb-14 md:px-12 md:pt-28 md:pb-16'
     >
       {/* Static champagne canvas: visible paper grain + platinum aura */}
       <div
@@ -56,6 +56,51 @@ export function Hero(props: HeroProps) {
         className='pointer-events-none absolute inset-0 -z-10'
         style={{ backgroundImage: 'var(--paper-texture), var(--canvas-grad)' }}
       />
+      {/* Emerald masthead banner — full-bleed lacquer band carrying the
+          label and table of contents. The band IS the masthead: horizontal,
+          content-bearing, edge-to-edge (why this reads as structure). */}
+      <div
+        className='landing-animate-fade-up absolute inset-x-0 top-0 z-10 flex h-14 items-center md:h-16'
+        style={{
+          background:
+            'linear-gradient(180deg, #2a6b54 0%, #1a4d3e 58%, #143d30 100%)',
+          boxShadow: '0 1px 0 rgba(244, 238, 216, 0.28)',
+        }}
+      >
+        <div className='mx-auto flex w-full max-w-6xl items-baseline justify-between gap-x-8 px-6 md:px-12'>
+          <p className='text-[11px] font-bold tracking-[0.22em] text-[#e8dfc6] uppercase'>
+            {t('LLM API Service Platform')}
+          </p>
+          <nav className='flex flex-wrap gap-x-8 gap-y-2'>
+            <a
+              href='#plates'
+              className='group inline-flex items-baseline gap-2.5 text-xs tracking-widest text-[#e8dfc6]/85 transition-colors hover:text-[#f4eed8]'
+            >
+              <span className='font-semibold text-[color:var(--platinum)]'>
+                01
+              </span>
+              {t('Domestic Model Matrix')}
+              <span
+                aria-hidden
+                className='h-px w-6 bg-[#e8dfc6]/35 transition-colors group-hover:bg-[color:var(--platinum)]'
+              />
+            </a>
+            <a
+              href='#back'
+              className='group inline-flex items-baseline gap-2.5 text-xs tracking-widest text-[#e8dfc6]/85 transition-colors hover:text-[#f4eed8]'
+            >
+              <span className='font-semibold text-[color:var(--platinum)]'>
+                02
+              </span>
+              {t('Start Using')}
+              <span
+                aria-hidden
+                className='h-px w-6 bg-[#e8dfc6]/35 transition-colors group-hover:bg-[color:var(--platinum)]'
+              />
+            </a>
+          </nav>
+        </div>
+      </div>
       {/* Book-cover double rule frame with corner diamonds */}
       <div
         aria-hidden
@@ -81,37 +126,6 @@ export function Hero(props: HeroProps) {
       ))}
 
       <div className='mx-auto flex w-full max-w-6xl flex-1 flex-col'>
-        {/* Masthead row — label and table of contents share one baseline */}
-        <div className='landing-animate-fade-up border-border/70 flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3 border-b pb-5 opacity-0'>
-          <p className='platinum-label text-[11px] font-bold uppercase'>
-            {t('LLM API Service Platform')}
-          </p>
-          <nav className='flex flex-wrap gap-x-8 gap-y-2'>
-            <a
-              href='#plates'
-              className='group text-muted-foreground hover:text-foreground inline-flex items-baseline gap-2.5 text-xs tracking-widest transition-colors'
-            >
-              <span className='text-[var(--platinum)] font-semibold'>01</span>
-              {t('Domestic Model Matrix')}
-              <span
-                aria-hidden
-                className='bg-border group-hover:bg-[var(--platinum)] h-px w-6 transition-colors'
-              />
-            </a>
-            <a
-              href='#back'
-              className='group text-muted-foreground hover:text-foreground inline-flex items-baseline gap-2.5 text-xs tracking-widest transition-colors'
-            >
-              <span className='text-[var(--platinum)] font-semibold'>02</span>
-              {t('Start Using')}
-              <span
-                aria-hidden
-                className='bg-border group-hover:bg-[var(--platinum)] h-px w-6 transition-colors'
-              />
-            </a>
-          </nav>
-        </div>
-
         {/* Breathing void — the luxury of confident emptiness */}
         <div className='flex-1' />
 
