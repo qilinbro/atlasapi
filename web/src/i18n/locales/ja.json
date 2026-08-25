@@ -5379,5 +5379,14 @@
   "Tokens": "Tokens",
   "Cost": "Cost",
   "Model calls, tokens and cost for the selected time range.": "Model calls, tokens and cost for the selected time range.",
-  "Model statistics will appear here after the first API call.": "Model statistics will appear here after the first API call."
+  "Model statistics will appear here after the first API call.": "Model statistics will appear here after the first API call.",
+  "Model Square": "Model Square",
+  "Chat": "Chat",
+  "Image": "Image",
+  "Embeddings": "Embeddings",
+  "Video": "Video",
+  "Search models...": "Search models...",
+  "No models found": "No models found",
+  "Try adjusting the search or category filter.": "Try adjusting the search or category filter.",
+  "{{count}} models": "{{count}} models"
 }

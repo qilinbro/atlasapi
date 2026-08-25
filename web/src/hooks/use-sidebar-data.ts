@@ -19,6 +19,7 @@ For commercial licensing, please contact support@quantumnous.com
 import {
   Activity,
   Box,
+  Boxes,
   CreditCard,
   FileText,
   FlaskConical,
@@ -75,6 +76,11 @@ export function useSidebarData(): SidebarData {
       title: t('Dashboard'),
       url: '/dashboard/models',
       icon: LayoutDashboard,
+    },
+    {
+      title: t('Model Square'),
+      url: '/model-square',
+      icon: Boxes,
     },
     {
       title: t('API Keys'),

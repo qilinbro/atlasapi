@@ -5379,5 +5379,14 @@
   "Tokens": "Token",
   "Cost": "成本",
   "Model calls, tokens and cost for the selected time range.": "按當前時間範圍統計模型調用、Token 與成本。",
-  "Model statistics will appear here after the first API call.": "發起第一次 API 調用後，模型統計將顯示在這裡。"
+  "Model statistics will appear here after the first API call.": "發起第一次 API 調用後，模型統計將顯示在這裡。",
+  "Model Square": "模型廣場",
+  "Chat": "對話模型",
+  "Image": "繪圖模型",
+  "Embeddings": "嵌入模型",
+  "Video": "影片模型",
+  "Search models...": "搜尋模型...",
+  "No models found": "未找到模型",
+  "Try adjusting the search or category filter.": "試試調整搜尋關鍵詞或分類篩選。",
+  "{{count}} models": "{{count}} 個模型"
 }
