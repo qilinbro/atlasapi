@@ -142,10 +142,10 @@ function ApiKeysMobileList({
           >
             <div className='flex items-start justify-between gap-3'>
               <div className='min-w-0'>
-                <div className='truncate text-sm font-semibold'>
+                <div className='truncate text-base font-semibold'>
                   {apiKey.name}
                 </div>
-                <div className='text-muted-foreground text-[11px]'>
+                <div className='text-muted-foreground text-xs'>
                   {t('API Key')}
                 </div>
               </div>
@@ -165,7 +165,7 @@ function ApiKeysMobileList({
               <DataTableRowActions row={row} />
             </div>
 
-            <div className='flex items-center justify-between gap-2 text-xs'>
+            <div className='flex items-center justify-between gap-2 text-sm'>
               <span className='text-muted-foreground'>{t('Quota')}</span>
               {apiKey.unlimited_quota ? (
                 <UnlimitedQuotaBadge used={apiKey.used_quota} />
@@ -282,9 +282,11 @@ export function ApiKeysTable() {
     enableRowSelection: true,
     columnFilters,
     columnVisibilityStorageKey: API_KEYS_COLUMN_VISIBILITY_STORAGE_KEY,
-    // 默认隐藏低频列（模型限制 / 允许 IP / 创建时间），可在列显隐中打开；
+    // 默认隐藏低频列（分组 / 过期 / 模型限制 / 允许 IP / 创建时间），可在列显隐中打开；
     // 已保存过列偏好的用户不受影响（localStorage 覆盖默认值）。
     initialColumnVisibility: {
+      group: false,
+      expired_time: false,
       model_limits: false,
       allow_ips: false,
       created_time: false,

@@ -32,6 +32,16 @@ For commercial licensing, please contact support@quantumnous.com
 @import '@fontsource/ma-shan-zheng';
 @import '@fontsource-variable/cormorant';
 @import '@fontsource-variable/cormorant/wght-italic.css';
+/* unfds.com landing faces: Fraunces (optical-size display serif + italic)
+ * for the hero title, IBM Plex Mono for code/labels, and Noto Serif SC so
+ * CJK display glyphs match the Latin serif instead of falling back to a
+ * system serif. */
+@import '@fontsource-variable/fraunces';
+@import '@fontsource-variable/fraunces/wght-italic.css';
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/500.css';
+@import '@fontsource/noto-serif-sc/300.css';
+@import '@fontsource/noto-serif-sc/400.css';
 
 @import './theme.css';
 @import './theme-presets.css';
@@ -284,6 +294,24 @@ For commercial licensing, please contact support@quantumnous.com
 }
 
 /* Launch UI Animations and Effects - Matching Template Exactly */
+/* Brand gradient utilities: all colors derive from --primary so every
+ * theme preset and dark mode follow automatically. Declared with
+ * @utility so variants (before:, hover:, ...) compose with them. */
+@utility bg-gradient-brand {
+  background-image: var(--gradient-brand);
+}
+
+@utility bg-gradient-brand-soft {
+  background-image: var(--gradient-brand-soft);
+}
+
+@utility text-gradient-brand {
+  background-image: var(--gradient-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
 @layer utilities {
   /* Gradient utilities */
   .bg-radial {

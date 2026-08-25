@@ -16,83 +16,75 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 For commercial licensing, please contact support@quantumnous.com
 */
+import { Link } from '@tanstack/react-router'
 import { ArrowRight, ArrowUpRight } from 'lucide-react'
-import type { CSSProperties } from 'react'
+import { useState, type CSSProperties } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import {
-  RhythmBars,
-  RhythmDots,
-  RhythmRings,
-} from '@/components/primitive-rhythm'
-import { ShaderBackdrop } from '@/components/shader-backdrop'
 import { useSystemConfig } from '@/hooks/use-system-config'
 
 import { MagneticLink } from '../magnetic-link'
+import { StrobeCode } from '../strobe-code'
 import { WaveCanvas } from '../wave-canvas'
 
 interface BusinessLandingProps {
   isAuthenticated: boolean
 }
 
-/* Platinum-luxe palette, locked for this surface (independent of app theme). */
-const INK = '#1c1812'
-const MUTED = '#867e70'
+/* Dark-luxe palette, locked for this surface (independent of app theme). */
+const INK = '#f5f1e6'
+const MUTED = '#a89e8a'
 const GOLD = '#b8923e'
-const GOLD_BRIGHT = '#a17a2c'
-const LINE = 'rgba(28,24,18,0.14)'
-const CANVAS = '#f7f4ec'
+const GOLD_BRIGHT = '#d3b878'
+const GOLD_DEEP = '#8a6a24'
+const LINE = 'rgba(245, 241, 230, 0.16)'
+const CANVAS = '#120f0a'
+const PAPER = '#1a160f'
+/* Champagne-gold metallic gradient for the display title (bright stops for the dark canvas). */
+const GOLD_TEXT_GRADIENT = `linear-gradient(165deg, ${GOLD_BRIGHT} 0%, ${GOLD} 45%, #e8c87e 75%, ${GOLD_DEEP} 100%)`
 
-/** Numbered editorial section, in the tokenrhythm.studio rhythm. */
+/** Section shell in the tokenrhythm.studio rhythm: medium H2 + muted lead. */
 function Section({
-  index,
-  label,
   title,
+  lead,
   children,
   delaySeconds,
 }: {
-  index: string
-  label: string
   title: string
+  lead?: string
   children?: React.ReactNode
   delaySeconds: number
 }) {
   return (
     <section
-      className='luxe-rise mt-24'
+      className='luxe-rise mt-20 sm:mt-28'
       style={{ '--d': `${delaySeconds}s` } as CSSProperties}
     >
-      <div className='flex items-baseline gap-4'>
-        <span className='font-mono text-sm' style={{ color: GOLD_BRIGHT }}>
-          {index}
-        </span>
-        <span
-          className='font-mono text-[11px] tracking-[0.3em] uppercase'
-          style={{ color: MUTED }}
-        >
-          {label}
-        </span>
-        <span className='h-px flex-1' style={{ background: LINE }} />
-      </div>
-      <h2 className='mt-6 font-serif text-3xl font-light tracking-tight sm:text-4xl'>
+      <h2 className='text-3xl font-medium tracking-tight sm:text-4xl'>
         {title}
       </h2>
+      {lead && (
+        <p className='mt-3 max-w-2xl text-lg leading-relaxed' style={{ color: MUTED }}>
+          {lead}
+        </p>
+      )}
       {children}
     </section>
   )
 }
 
 /**
- * Platinum-luxury editorial landing in the tokenrhythm.studio layout:
- * repeated brand wordmark, an English tagline, then numbered sections
- * (capability pillars, a curl request sample, docs CTA) on a warm platinum
- * canvas with the flowing-gold wave and film grain. Motion collapses under
- * prefers-reduced-motion. Upstream attribution lives in the site footer
- * (project policy) and is not part of this surface.
+ * Dark-luxe editorial landing following tokenrhythm.studio: repeated
+ * brand wordmark and English tagline, a giant gold-gradient serif title,
+ * then numbered capability cards, a four-step quickstart, a curl request
+ * sample, and quick links — all on a warm near-black canvas with hairline
+ * borders, champagne-gold accents, and flowing gold wave lines.
+ * Entrance motion collapses under prefers-reduced-motion.
  */
 export function BusinessLanding({ isAuthenticated }: BusinessLandingProps) {
   const { t } = useTranslation()
   const { systemName } = useSystemConfig()
+  const [copied, setCopied] = useState(false)
 
   const name = systemName || 'Atlas'
   // Unique, content-derived keys so repeated characters don't collide.
@@ -102,18 +94,71 @@ export function BusinessLanding({ isAuthenticated }: BusinessLandingProps) {
   const delay = (seconds: number): CSSProperties =>
     ({ '--d': `${seconds}s` }) as CSSProperties
 
-  const pillars = [
+  const capabilities = [
     {
+      index: '01',
       title: t('Unified Access'),
       desc: t('One key for every model, behind a single standard API.'),
+      to: '/keys',
     },
     {
+      index: '02',
+      title: t('Model Pricing'),
+      desc: t('Transparent per-model pricing, pay as you go'),
+      to: '/pricing',
+    },
+    {
+      index: '03',
       title: t('Usage Analytics'),
       desc: t('Real-time insight into consumption, cost, and trends.'),
+      to: '/usage-logs/common',
     },
     {
+      index: '04',
       title: t('Quota Control'),
       desc: t('Fine-grained quota and permission management for teams.'),
+      to: '/wallet',
+    },
+  ]
+
+  const steps = [
+    {
+      title: t('Sign Up'),
+      desc: t('Create an account or quick sign-in'),
+      to: '/sign-up',
+    },
+    {
+      title: t('Create API Key'),
+      desc: t('Generate and manage keys in the console'),
+      to: '/keys',
+    },
+    {
+      title: t('Choose a Model'),
+      desc: t('Browse models and transparent pricing'),
+      to: '/pricing',
+    },
+    {
+      title: t('Start Calling'),
+      desc: t('Send your first chat completion request'),
+      to: '/dashboard',
+    },
+  ]
+
+  const quickLinks = [
+    {
+      title: t('Model Pricing'),
+      desc: t('Transparent per-model pricing, pay as you go'),
+      to: '/pricing',
+    },
+    {
+      title: t('API Keys'),
+      desc: t('One key for every model, behind a single standard API.'),
+      to: '/keys',
+    },
+    {
+      title: t('Usage Logs'),
+      desc: t('Real-time insight into consumption, cost, and trends.'),
+      to: '/usage-logs/common',
     },
   ]
 
@@ -125,60 +170,39 @@ export function BusinessLanding({ isAuthenticated }: BusinessLandingProps) {
     "messages": [{"role": "user", "content": "Hello, atlas."}]
   }'`
 
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(curl)
+      setCopied(true)
+      window.setTimeout(() => setCopied(false), 1600)
+    } catch {
+      // Clipboard may be unavailable (permissions / non-secure context).
+    }
+  }
+
   return (
     <section
-      className='relative flex min-h-[calc(100dvh-4rem)] flex-col justify-center overflow-hidden font-light'
+      className='relative min-h-[100dvh] overflow-hidden font-sans'
       style={{ background: CANVAS, color: INK }}
     >
-      {/* 香槟色涟漪颗粒 shader 铺底，画布自身缓慢呼吸 */}
-      <ShaderBackdrop variant='luxe' />
-      <WaveCanvas className='absolute inset-0' />
-      <span className='luxe-grain' />
+      {/* 流动金色曲线铺底：仅首屏范围（与参考站一致，线条密度与峰值都在视口内） */}
+      <WaveCanvas className='absolute inset-x-0 top-0 h-[100dvh]' />
 
-      {/* 基元律动：金色基元按同一节拍呼吸 — 涟漪点阵、呼吸圆环、频谱条 */}
-      <div aria-hidden className='pointer-events-none absolute inset-0'>
-        <RhythmDots
-          cols={6}
-          rows={4}
-          beat={3.2}
-          className='absolute top-[16%] right-[5%] hidden w-64 opacity-55 [mask-image:radial-gradient(ellipse_70%_70%_at_50%_50%,black_30%,transparent_100%)] sm:grid'
-          dotClassName='size-1 bg-[#b8923e]/70'
-        />
-        <RhythmRings
-          count={3}
-          beat={4}
-          className='top-[24%] left-[20%] hidden size-[26rem] opacity-40 [mask-image:radial-gradient(circle,black_55%,transparent_100%)] sm:block'
-          ringClassName='border-[#b8923e]/30'
-        />
-        <RhythmBars
-          count={5}
-          beat={2.4}
-          className='absolute top-[31%] right-[5%] hidden h-7 opacity-50 sm:flex'
-          barClassName='bg-[#b8923e]/60'
-        />
-      </div>
-
-      <div className='relative z-10 mx-auto w-full max-w-5xl px-6 py-24 sm:px-10'>
-        {/* Repeated brand wordmark + English tagline */}
+      <div className='relative z-10 mx-auto w-full max-w-6xl px-6 py-20 sm:px-10 sm:py-28'>
+        {/* English tagline only \u2014 the small scrambled wordmark is removed */}
         <p
-          className='luxe-rise font-mono text-[11px] tracking-[0.3em] uppercase'
-          style={{ color: GOLD, ...delay(0.1) }}
-        >
-          {name}&nbsp;&nbsp;&nbsp;&nbsp;{name}
-        </p>
-        <p
-          className='luxe-rise mt-3 font-serif text-lg italic'
+          className='luxe-rise font-fraunces text-xl italic'
           style={{ color: MUTED, ...delay(0.2) }}
         >
           All Models, One Mind.
         </p>
 
-        {/* Giant serif title, per-character rise */}
+        {/* Giant Fraunces serif title, per-character rise */}
         <h1
           aria-label={name}
-          className='mt-6 font-serif leading-[0.92] font-light'
+          className='mt-8 font-fraunces leading-[0.95] font-light'
           style={{
-            fontSize: 'clamp(3.5rem,13vw,10.5rem)',
+            fontSize: 'clamp(3.5rem, 13vw, 10.5rem)',
             letterSpacing: '-0.02em',
           }}
         >
@@ -187,28 +211,19 @@ export function BusinessLanding({ isAuthenticated }: BusinessLandingProps) {
               key={key}
               aria-hidden='true'
               className='luxe-char'
-              style={delay(0.2 + i * 0.07)}
+              style={{
+                ...delay(0.25 + i * 0.07),
+                backgroundImage: GOLD_TEXT_GRADIENT,
+                WebkitBackgroundClip: 'text',
+                backgroundClip: 'text',
+                color: 'transparent',
+                WebkitTextFillColor: 'transparent',
+              }}
             >
-              {ch === ' ' ? ' ' : ch}
+              {ch === ' ' ? '\u00A0' : ch}
             </span>
           ))}
         </h1>
-
-        {/* Tagline */}
-        <p
-          className='luxe-rise mt-8 font-serif text-2xl font-light sm:text-3xl'
-          style={delay(0.7)}
-        >
-          {t('One gateway for every model.')}
-        </p>
-        <p
-          className='luxe-rise mt-4 max-w-xl text-base leading-relaxed'
-          style={{ color: MUTED, ...delay(0.85) }}
-        >
-          {t(
-            'A unified AI gateway: one key for every model, with usage analytics and quota management.'
-          )}
-        </p>
 
         {/* CTAs */}
         <div
@@ -218,7 +233,7 @@ export function BusinessLanding({ isAuthenticated }: BusinessLandingProps) {
           {isAuthenticated ? (
             <MagneticLink
               to='/dashboard'
-              className='h-12 items-center justify-center gap-2 rounded-full px-8 text-sm font-medium text-[#14110a] transition-shadow duration-300 hover:shadow-[0_8px_40px_rgba(201,162,78,0.25)]'
+              className='h-12 items-center justify-center gap-2 rounded-full px-8 text-base font-medium text-[#14110a] transition-shadow duration-300 hover:shadow-[0_8px_40px_rgba(201,162,78,0.35)]'
               style={{ background: GOLD }}
             >
               {t('Go to Dashboard')}
@@ -228,7 +243,7 @@ export function BusinessLanding({ isAuthenticated }: BusinessLandingProps) {
             <>
               <MagneticLink
                 to='/sign-up'
-                className='h-12 items-center justify-center gap-2 rounded-full px-8 text-sm font-medium text-[#14110a] transition-shadow duration-300 hover:shadow-[0_8px_40px_rgba(201,162,78,0.25)]'
+                className='h-12 items-center justify-center gap-2 rounded-full px-8 text-base font-medium text-[#14110a] transition-shadow duration-300 hover:shadow-[0_8px_40px_rgba(201,162,78,0.35)]'
                 style={{ background: GOLD }}
               >
                 {t('Get Started')}
@@ -236,7 +251,7 @@ export function BusinessLanding({ isAuthenticated }: BusinessLandingProps) {
               </MagneticLink>
               <MagneticLink
                 to='/sign-in'
-                className='h-12 items-center justify-center rounded-full border bg-transparent px-8 text-sm font-medium transition-colors duration-300 hover:bg-black/[0.04]'
+                className='h-12 items-center justify-center rounded-full border bg-transparent px-8 text-base font-medium transition-colors duration-300 hover:bg-white/[0.05]'
                 style={{ borderColor: LINE, color: INK }}
               >
                 {t('Sign In')}
@@ -245,89 +260,136 @@ export function BusinessLanding({ isAuthenticated }: BusinessLandingProps) {
           )}
         </div>
 
-        {/* 01 / Capability — pillar rows */}
+        {/* Core capabilities — numbered link cards */}
         <Section
-          index='01'
-          label='Capability'
-          title={t('Usage Analytics')}
+          title={t('Core Capabilities')}
+          lead={t('One gateway for access, pricing, analytics, and governance')}
           delaySeconds={1.15}
         >
-          <ul className='mt-2'>
-            {pillars.map((p, i) => (
-              <li
-                key={p.title}
-                className='group grid grid-cols-[3rem_1fr_auto] items-center gap-6 border-b py-7'
-                style={{ borderColor: LINE }}
+          <div className='mt-8 grid gap-4 sm:grid-cols-2'>
+            {capabilities.map((cap) => (
+              <Link
+                key={cap.index}
+                to={cap.to}
+                className='group rounded-2xl border border-[rgba(245,241,230,0.14)] bg-[#1a160f] p-6 transition-colors duration-300 hover:bg-[#241e13] sm:p-7'
               >
-                <span
-                  className='font-mono text-sm transition-transform duration-500 group-hover:translate-x-2'
+                <div className='flex items-center justify-between'>
+                  <span
+                    className='font-plex-mono text-base'
+                    style={{ color: GOLD_BRIGHT }}
+                  >
+                    →{cap.index}
+                  </span>
+                  <ArrowUpRight
+                    className='size-5 -translate-x-1 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100'
+                    style={{ color: GOLD_BRIGHT }}
+                  />
+                </div>
+                <h3 className='mt-5 text-xl font-semibold tracking-tight sm:text-2xl'>
+                  {cap.title}
+                </h3>
+                <p
+                  className='mt-2 text-base leading-relaxed'
                   style={{ color: MUTED }}
                 >
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                <div>
-                  <div className='font-serif text-xl font-light transition-transform duration-500 group-hover:translate-x-2 sm:text-2xl'>
-                    {p.title}
-                  </div>
-                  <div
-                    className='mt-1 max-w-md text-sm'
-                    style={{ color: MUTED }}
-                  >
-                    {p.desc}
-                  </div>
-                </div>
-                <ArrowUpRight
-                  className='size-5 -translate-x-2 opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:opacity-100'
-                  style={{ color: GOLD_BRIGHT }}
-                />
-              </li>
+                  {cap.desc}
+                </p>
+              </Link>
             ))}
-          </ul>
+          </div>
         </Section>
 
-        {/* 02 / Request — curl sample */}
+        {/* Four-step quickstart */}
         <Section
-          index='02'
-          label='Request'
-          title={t('One key for every model, behind a single standard API.')}
+          title={t('Get Started in Four Steps')}
+          lead={t('From sign-up to your first request in minutes')}
           delaySeconds={1.3}
         >
-          <pre
-            className='mt-6 overflow-x-auto rounded-2xl border p-6 font-mono text-[13px] leading-relaxed'
-            style={{
-              borderColor: LINE,
-              background: 'rgba(255,253,248,0.72)',
-              color: INK,
-            }}
-          >
-            <code>{curl}</code>
-          </pre>
+          <div className='mt-8 grid grid-cols-1 gap-x-8 gap-y-8 sm:grid-cols-2 lg:grid-cols-4'>
+            {steps.map((step, i) => (
+              <Link key={step.title} to={step.to} className='group block'>
+                <div
+                  className='text-3xl font-bold tracking-tight tabular-nums'
+                  style={{ color: GOLD }}
+                >
+                  {i + 1}
+                </div>
+                <h3 className='mt-3 text-lg font-semibold tracking-tight transition-transform duration-300 group-hover:translate-x-1'>
+                  {step.title}
+                </h3>
+                <p
+                  className='mt-1.5 text-base leading-relaxed'
+                  style={{ color: MUTED }}
+                >
+                  {step.desc}
+                </p>
+              </Link>
+            ))}
+          </div>
         </Section>
 
-        {/* 03 / Docs — closing CTA */}
+        {/* Request sample — curl */}
         <Section
-          index='03'
-          label='Docs'
-          title={t('Get Started')}
+          title={t('Request Sample')}
+          lead={t('Copy the code and start calling right away')}
           delaySeconds={1.45}
         >
-          <p
-            className='mt-4 max-w-xl text-base leading-relaxed'
-            style={{ color: MUTED }}
-          >
-            {t(
-              'A unified AI gateway: one key for every model, with usage analytics and quota management.'
-            )}
-          </p>
-          <div className='mt-8'>
-            <MagneticLink
-              to={isAuthenticated ? '/dashboard' : '/sign-up'}
-              className='group inline-flex h-12 items-center gap-2 rounded-full px-8 text-sm font-medium text-[#14110a] transition-shadow duration-300 hover:shadow-[0_8px_40px_rgba(201,162,78,0.25)]'
-              style={{ background: GOLD }}
+            <div
+              className='mt-8 overflow-hidden rounded-2xl border bg-[#1a160f]'
+              style={{ borderColor: LINE }}
             >
-              {isAuthenticated ? t('Go to Dashboard') : t('Get Started')}
-              <ArrowRight className='size-4 transition-transform duration-200 group-hover:translate-x-1' />
-            </MagneticLink>
+            <div
+              className='flex items-center justify-between border-b px-5 py-3'
+              style={{ borderColor: LINE }}
+            >
+              <span className='font-plex-mono text-xs' style={{ color: MUTED }}>
+                cURL
+              </span>
+              <button
+                type='button'
+                onClick={handleCopy}
+                className='rounded-full border px-4 py-1.5 text-xs font-medium transition-colors duration-300 hover:bg-white/[0.05]'
+                style={{ borderColor: LINE, color: INK }}
+              >
+                {copied ? t('Copied') : t('Copy')}
+              </button>
+            </div>
+            <pre
+              className='overflow-x-auto p-5 font-plex-mono text-sm leading-relaxed'
+              style={{ background: PAPER, color: INK }}
+            >
+              {/* 频闪解码：进入视口时乱码翻滚后逐字落定（unfds.com 风格） */}
+              <StrobeCode text={curl} />
+            </pre>
+          </div>
+        </Section>
+
+        {/* Quick links */}
+        <Section title={t('Quick Links')} delaySeconds={1.6}>
+          <div className='mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3'>
+            {quickLinks.map((linkItem) => (
+              <Link
+                key={linkItem.title}
+                to={linkItem.to}
+                className='group rounded-2xl border border-[rgba(245,241,230,0.14)] bg-[#1a160f] p-5 transition-colors duration-300 hover:bg-[#241e13]'
+              >
+                <div className='flex items-center justify-between gap-2'>
+                  <h3 className='text-base font-semibold tracking-tight'>
+                    {linkItem.title}
+                  </h3>
+                  <ArrowRight
+                    className='size-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1'
+                    style={{ color: GOLD_BRIGHT }}
+                  />
+                </div>
+                <p
+                  className='mt-2 text-base leading-relaxed'
+                  style={{ color: MUTED }}
+                >
+                  {linkItem.desc}
+                </p>
+              </Link>
+            ))}
           </div>
         </Section>
       </div>

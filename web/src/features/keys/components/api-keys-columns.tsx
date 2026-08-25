@@ -108,7 +108,7 @@ export function useApiKeysColumns(now: number): ColumnDef<ApiKey>[] {
       accessorKey: 'name',
       header: t('Name'),
       cell: ({ row }) => (
-        <span className='font-medium'>{row.getValue('name')}</span>
+        <span className='text-base font-semibold'>{row.getValue('name')}</span>
       ),
       size: 180,
       meta: { mobileTitle: true },
@@ -158,8 +158,8 @@ export function useApiKeysColumns(now: number): ColumnDef<ApiKey>[] {
         return (
           <Tooltip>
             <TooltipTrigger render={<div className='w-[150px] space-y-1' />}>
-              <div className='flex justify-between text-xs'>
-                <span className='font-medium tabular-nums'>
+              <div className='flex justify-between text-sm'>
+                <span className='font-semibold tabular-nums'>
                   {formatQuota(remaining)}
                 </span>
                 <span className='text-muted-foreground tabular-nums'>

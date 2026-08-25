@@ -49,6 +49,14 @@ For commercial licensing, please contact support@quantumnous.com
   --font-display:
     'Cormorant Variable', 'Cormorant', 'Lora Variable', 'Noto Serif SC',
     'Source Han Serif SC', 'Songti SC', serif;
+  /* unfds.com landing faces: Fraunces optical-size display serif (CJK walks
+   * to Noto Serif SC) for the giant hero title, and IBM Plex Mono for code
+   * samples and mono labels. */
+  --font-fraunces:
+    'Fraunces Variable', 'Fraunces', 'Noto Serif SC', 'Source Han Serif SC',
+    'Songti SC', 'STSong', 'SimSun', serif;
+  --font-plex-mono:
+    'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -111,7 +119,7 @@ For commercial licensing, please contact support@quantumnous.com
 
 :root {
   --radius: 0.625rem;
-  --app-header-height: 3rem;
+  --app-header-height: 3.75rem;
   /* Static build-channel fallback consumed when JS hasn't booted yet. */
   --app-rev: '2k6e8r7p';
   /* Currently active body font. The font axis swaps this between
@@ -171,6 +179,19 @@ For commercial licensing, please contact support@quantumnous.com
   --sidebar-ring: oklch(0.71 0.09 85);
   --skeleton-base: oklch(0.948 0.008 89);
   --skeleton-highlight: oklch(0.968 0.006 90);
+  /* Brand gradients: derived from --primary so every theme preset keeps its
+   * own accent. Never hardcode hues in components. */
+  --gradient-brand: linear-gradient(
+    135deg,
+    color-mix(in oklch, var(--primary) 80%, var(--foreground)),
+    var(--primary)
+  );
+  --gradient-brand-soft: linear-gradient(
+    135deg,
+    color-mix(in oklch, var(--primary) 10%, var(--card)),
+    color-mix(in oklch, var(--primary) 3%, var(--card))
+  );
+  --glow-brand: 0 8px 24px -8px color-mix(in oklch, var(--primary) 45%, transparent);
   /* Elevation: soft, warm-ink layered shadows for a premium feel. */
   --shadow-color: 40 30% 24%;
   --shadow-sm: 0 1px 2px oklch(0.25 0.02 60 / 6%);
@@ -213,22 +234,22 @@ For commercial licensing, please contact support@quantumnous.com
 }
 
 .dark {
-  /* Midnight-gold dark: warm near-black canvas (the original luxe landing's
-   * ink), ivory type, and gold accents carried over from light mode. */
-  --background: oklch(0.155 0.006 85);
-  --foreground: oklch(0.92 0.01 88);
-  --card: oklch(0.205 0.008 85);
-  --card-foreground: oklch(0.92 0.01 88);
-  --popover: oklch(0.225 0.009 85);
-  --popover-foreground: oklch(0.92 0.01 88);
-  --primary: oklch(0.75 0.095 88);
-  --primary-foreground: oklch(0.13 0.01 85);
-  --secondary: oklch(0.26 0.01 85);
-  --secondary-foreground: oklch(0.85 0.06 85);
-  --muted: oklch(0.24 0.008 85);
-  --muted-foreground: oklch(0.71 0.014 86);
+  /* Dark-luxe palette locked to the landing page (business-landing.tsx):
+   * warm near-black canvas, paper surfaces, ivory ink, champagne gold. */
+  --background: #120f0a;
+  --foreground: #f5f1e6;
+  --card: #1a160f;
+  --card-foreground: #f5f1e6;
+  --popover: #1e1912;
+  --popover-foreground: #f5f1e6;
+  --primary: #d3b878;
+  --primary-foreground: #120f0a;
+  --secondary: #241e14;
+  --secondary-foreground: #e8dfcc;
+  --muted: #221c12;
+  --muted-foreground: #a89e8a;
   --accent: color-mix(in oklch, var(--primary) 20%, var(--background));
-  --accent-foreground: oklch(0.94 0.02 88);
+  --accent-foreground: #e8dfcc;
   --destructive: oklch(0.704 0.191 22.216);
   --destructive-foreground: oklch(0.985 0 0);
   --success: oklch(0.696 0.17 162.48);
@@ -239,24 +260,37 @@ For commercial licensing, please contact support@quantumnous.com
   --info-foreground: oklch(0.145 0 0);
   --neutral: oklch(0.76 0 0);
   --neutral-foreground: oklch(0.155 0 0);
-  --border: oklch(1 0 0 / 11%);
-  --input: oklch(1 0 0 / 17%);
-  --ring: oklch(0.7 0.09 85);
-  --chart-1: oklch(0.75 0.095 88);
+  --border: oklch(0.9761 0.0257 95.793 / 12%);
+  --input: oklch(0.9761 0.0257 95.793 / 18%);
+  --ring: #d3b878;
+  --chart-1: #d3b878;
   --chart-2: oklch(0.68 0.09 62);
   --chart-3: oklch(0.68 0.06 135);
   --chart-4: oklch(0.68 0.015 88);
   --chart-5: oklch(0.62 0.08 255);
-  --sidebar: oklch(0.14 0.006 85);
-  --sidebar-foreground: oklch(0.9 0.01 88);
-  --sidebar-primary: oklch(0.75 0.095 88);
-  --sidebar-primary-foreground: oklch(0.13 0.01 85);
-  --sidebar-accent: color-mix(in oklch, var(--primary) 20%, var(--background));
-  --sidebar-accent-foreground: oklch(0.87 0.06 85);
-  --sidebar-border: oklch(1 0 0 / 11%);
-  --sidebar-ring: oklch(0.7 0.09 85);
-  --skeleton-base: oklch(0.26 0.01 85);
-  --skeleton-highlight: oklch(0.36 0.012 85);
+  --sidebar: #0f0c08;
+  --sidebar-foreground: #ece4d2;
+  --sidebar-primary: #d3b878;
+  --sidebar-primary-foreground: #120f0a;
+  --sidebar-accent: color-mix(in oklch, var(--primary) 16%, var(--sidebar));
+  --sidebar-accent-foreground: #e8dfcc;
+  --sidebar-border: oklch(0.9761 0.0257 95.793 / 10%);
+  --sidebar-ring: #b8923e;
+  --skeleton-base: #221c12;
+  --skeleton-highlight: #2c2517;
+  /* Dark-mode brand gradients: invert the ramp so text stays legible
+   * (light primary first, brighter blend at the end). */
+  --gradient-brand: linear-gradient(
+    135deg,
+    var(--primary),
+    color-mix(in oklch, var(--primary) 55%, var(--foreground))
+  );
+  --gradient-brand-soft: linear-gradient(
+    135deg,
+    color-mix(in oklch, var(--primary) 22%, var(--card)),
+    color-mix(in oklch, var(--primary) 6%, var(--card))
+  );
+  --glow-brand: 0 8px 28px -8px color-mix(in oklch, var(--primary) 35%, transparent);
   --shadow-sm: 0 1px 2px oklch(0 0 0 / 40%);
   --shadow-md: 0 2px 4px oklch(0 0 0 / 35%), 0 8px 20px -6px oklch(0 0 0 / 45%);
   --shadow-lg:

@@ -19,7 +19,6 @@ For commercial licensing, please contact support@quantumnous.com
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { IconBadge } from '@/components/ui/icon-badge'
 import { Skeleton } from '@/components/ui/skeleton'
 import { getUserQuotaDates } from '@/features/dashboard/api'
 import { useModelStatCardsConfig } from '@/features/dashboard/hooks/use-dashboard-config'
@@ -137,31 +136,28 @@ export function LogStatCards(props: LogStatCardsProps) {
       value: formatted.displayValue,
       fullValue: formatted.fullValue,
       desc: config.description,
-      icon: config.icon,
-      iconTone: config.iconTone,
     }
   })
 
   return (
-    <div className='overflow-hidden rounded-lg border'>
+    <div className='overflow-hidden rounded-2xl border'>
       <div className='divide-border/60 grid min-w-0 grid-cols-2 divide-x sm:grid-cols-3 lg:grid-cols-5'>
         {items.map((it, idx) => {
-          const Icon = it.icon
           let valueContent
           if (loading) {
             valueContent = (
-              <div className='mt-1 flex flex-col gap-1 sm:mt-2 sm:gap-1.5'>
-                <Skeleton className='h-5 w-16 sm:h-7 sm:w-20' />
+              <div className='mt-1.5 flex flex-col gap-1.5 sm:mt-2'>
+                <Skeleton className='h-7 w-16 sm:h-9 sm:w-20' />
                 <Skeleton className='hidden h-3.5 w-28 md:block' />
               </div>
             )
           } else if (error) {
             valueContent = (
               <>
-                <div className='text-muted-foreground mt-1 font-mono text-base leading-tight font-bold tracking-tight tabular-nums sm:mt-2 sm:text-2xl sm:leading-normal'>
+                <div className='text-muted-foreground mt-1.5 text-xl leading-tight font-semibold tracking-tight tabular-nums sm:mt-2 sm:text-3xl'>
                   --
                 </div>
-                <div className='text-muted-foreground/40 mt-1 hidden text-xs md:block'>
+                <div className='text-muted-foreground/60 mt-1 hidden text-xs md:block'>
                   {it.desc}
                 </div>
               </>
@@ -170,7 +166,7 @@ export function LogStatCards(props: LogStatCardsProps) {
             valueContent = (
               <>
                 <div
-                  className='text-foreground mt-1 max-w-full truncate font-mono text-base leading-tight font-bold tracking-tight tabular-nums sm:mt-2 sm:text-2xl sm:leading-normal'
+                  className='text-foreground mt-1.5 max-w-full truncate text-xl leading-tight font-semibold tracking-tight tabular-nums sm:mt-2 sm:text-3xl'
                   title={it.fullValue}
                 >
                   {it.value}
@@ -186,23 +182,14 @@ export function LogStatCards(props: LogStatCardsProps) {
             <div
               key={it.title}
               className={cn(
-                'min-w-0 px-2.5 py-1.5 sm:px-5 sm:py-4',
+                'min-w-0 px-4 py-4 sm:px-6 sm:py-5',
                 idx === items.length - 1 &&
                   items.length % 2 !== 0 &&
                   'col-span-2 sm:col-span-1'
               )}
             >
-              <div className='flex min-w-0 items-center gap-1.5 sm:gap-2'>
-                <IconBadge
-                  tone={it.iconTone}
-                  size='stat'
-                  className='size-4 rounded-sm sm:size-7 sm:rounded-md [&>svg]:size-2.5 sm:[&>svg]:size-3.5'
-                >
-                  <Icon />
-                </IconBadge>
-                <div className='text-muted-foreground truncate text-[11px] leading-4 font-medium tracking-wide uppercase sm:text-xs sm:tracking-wider'>
-                  {it.title}
-                </div>
+              <div className='text-muted-foreground truncate text-sm leading-5 font-medium'>
+                {it.title}
               </div>
 
               {valueContent}

@@ -2,5 +2,11 @@
   "Real-time insight into consumption, cost, and trends.": "Real-time insight into consumption, cost, and trends.",
   "Fine-grained quota and permission management for teams.": "Fine-grained quota and permission management for teams.",
   "A unified AI gateway: one key for every model, with usage analytics and quota management.": "A unified AI gateway: one key for every model, with usage analytics and quota management.",
-  "Welcome to {{name}}": "Welcome to {{name}}"
+  "Welcome to {{name}}": "Welcome to {{name}}",
+  "One gateway for access, pricing, analytics, and governance": "One gateway for access, pricing, analytics, and governance",
+  "From sign-up to your first request in minutes": "From sign-up to your first request in minutes",
+  "Create an account or quick sign-in": "Create an account or quick sign-in",
+  "Generate and manage keys in the console": "Generate and manage keys in the console",
+  "Browse models and transparent pricing": "Browse models and transparent pricing",
+  "Copy the code and start calling right away": "Copy the code and start calling right away"
 }
