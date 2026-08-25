@@ -86,29 +86,3 @@ export function useModelStatCardsConfig(): StatCardConfig[] {
     },
   ]
 }
-
-export function useSummaryCardsConfig(totals: {
-  todayUsageDisplay: string
-  usedDisplay: string
-  requestCountDisplay: string
-}) {
-  const { t } = useTranslation()
-
-  return [
-    {
-      key: 'todayUsage',
-      title: t('Last 24h usage'),
-      value: totals.todayUsageDisplay,
-    },
-    {
-      key: 'usage',
-      title: t('Historical Usage'),
-      value: totals.usedDisplay,
-    },
-    {
-      key: 'requests',
-      title: t('Request Count'),
-      value: totals.requestCountDisplay,
-    },
-  ]
-}
