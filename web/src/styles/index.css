@@ -851,3 +851,14 @@ For commercial licensing, please contact support@quantumnous.com
     color: var(--primary);
   }
 }
+
+/* Letterpress relief for the platinum display type — light catches the top
+ * edge, a soft shadow sinks the strokes into the paper. */
+.platinum-press {
+  filter: drop-shadow(0 1px 0 rgba(255, 252, 240, 0.5))
+    drop-shadow(0 2px 4px rgba(58, 48, 28, 0.22));
+}
+.dark .platinum-press {
+  filter: drop-shadow(0 1px 0 rgba(244, 238, 216, 0.14))
+    drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5));
+}

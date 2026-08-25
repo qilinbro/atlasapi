@@ -222,11 +222,17 @@ For commercial licensing, please contact support@quantumnous.com
       #f6f0e2 48%,
       #ede4cd 100%
     );
-  --paper-texture: repeating-linear-gradient(
-    45deg,
-    rgba(200, 169, 106, 0.02) 0 2px,
-    transparent 2px 4px
-  );
+  --paper-texture:
+    repeating-linear-gradient(
+      45deg,
+      rgba(200, 169, 106, 0.035) 0 2px,
+      transparent 2px 5px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(138, 116, 74, 0.016) 0 1px,
+      transparent 1px 6px
+    );
   --shadow-raised: 0 6px 18px rgba(58, 48, 28, 0.08);
   /* Motion budget: subtle reveals & tactile presses only. No particle /
    * scroll-driven / typing effects — see AGENTS.md §2. */
@@ -343,10 +349,16 @@ For commercial licensing, please contact support@quantumnous.com
       #0b1613 55%,
       #070f0d 100%
     );
-  --paper-texture: repeating-linear-gradient(
-    45deg,
-    rgba(211, 185, 129, 0.018) 0 2px,
-    transparent 2px 4px
-  );
+  --paper-texture:
+    repeating-linear-gradient(
+      45deg,
+      rgba(211, 185, 129, 0.03) 0 2px,
+      transparent 2px 5px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(211, 185, 129, 0.015) 0 1px,
+      transparent 1px 6px
+    );
   --shadow-raised: 0 6px 18px rgba(0, 0, 0, 0.35);
 }

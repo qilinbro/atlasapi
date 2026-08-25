@@ -18,6 +18,7 @@ For commercial licensing, please contact support@quantumnous.com
 */
 import { Link } from '@tanstack/react-router'
 import { ArrowRight } from 'lucide-react'
+import { Fragment } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Button } from '@/components/ui/button'
@@ -49,12 +50,41 @@ export function Hero(props: HeroProps) {
       id='cover'
       className='relative flex min-h-[calc(100svh-3.5rem)] flex-col overflow-hidden px-6 py-16 md:px-12 md:py-20'
     >
-      {/* Static champagne canvas with a faint platinum aura on the right */}
+      {/* Static champagne canvas: visible paper grain + platinum aura */}
       <div
         aria-hidden
         className='pointer-events-none absolute inset-0 -z-10'
-        style={{ background: 'var(--canvas-grad)' }}
+        style={{ backgroundImage: 'var(--paper-texture), var(--canvas-grad)' }}
       />
+      {/* Emerald binding ribbon on the page edge */}
+      <div
+        aria-hidden
+        className='pointer-events-none absolute top-0 bottom-0 left-0 w-[5px] shadow-[1px_0_0_rgba(244,238,216,0.22)]'
+        style={{ background: 'var(--lacquer)' }}
+      />
+      {/* Book-cover double rule frame with corner diamonds */}
+      <div
+        aria-hidden
+        className='border-[color:var(--platinum)]/25 pointer-events-none absolute inset-3 border md:inset-5'
+      />
+      <div
+        aria-hidden
+        className='border-[color:var(--platinum)]/12 pointer-events-none absolute inset-4 border md:inset-7'
+      />
+      {(
+        [
+          'top-3 left-3 md:top-5 md:left-5',
+          'top-3 right-3 md:top-5 md:right-5',
+          'bottom-3 left-3 md:bottom-5 md:left-5',
+          'bottom-3 right-3 md:bottom-5 md:right-5',
+        ] as const
+      ).map((pos) => (
+        <span
+          key={pos}
+          aria-hidden
+          className={`bg-[var(--platinum)]/55 pointer-events-none absolute size-1.5 rotate-45 ${pos}`}
+        />
+      ))}
       {/* Bleeding line-art logo watermark — fills the right column */}
       <div
         aria-hidden
@@ -78,7 +108,7 @@ export function Hero(props: HeroProps) {
         </p>
 
         <h1
-          className='platinum-title landing-animate-fade-up font-serif text-[clamp(4.5rem,17vw,15rem)] leading-[0.95] font-semibold tracking-[0.08em] uppercase opacity-0 select-none'
+          className='platinum-title platinum-press landing-animate-fade-up font-serif text-[clamp(4.5rem,17vw,15rem)] leading-[0.95] font-semibold tracking-[0.08em] uppercase opacity-0 select-none'
           style={{ animationDelay: '60ms' }}
         >
           Atlas
@@ -158,24 +188,27 @@ export function Hero(props: HeroProps) {
         className='landing-animate-fade-up border-border/70 mx-auto mt-10 w-full max-w-6xl border-t pt-5 opacity-0'
         style={{ animationDelay: '380ms' }}
       >
-        <div className='flex flex-wrap items-baseline gap-x-10 gap-y-2'>
+        <div className='flex flex-wrap items-baseline gap-x-6 gap-y-2'>
           {COVER_FACTS.map((fact) => (
-            <span
-              key={fact.key}
-              className='inline-flex items-baseline gap-2.5'
-            >
-              <span className='text-[color:var(--platinum-ink)] font-mono text-sm font-semibold tabular-nums'>
-                {fact.value}
+            <Fragment key={fact.key}>
+              <span className='inline-flex items-baseline gap-2.5'>
+                <span className='text-[color:var(--platinum-ink)] font-mono text-sm font-semibold tabular-nums'>
+                  {fact.value}
+                </span>
+                <span className='text-muted-foreground text-[11px] tracking-[0.18em] uppercase'>
+                  {t(fact.key)}
+                </span>
               </span>
-              <span className='text-muted-foreground text-[11px] tracking-[0.18em] uppercase'>
-                {t(fact.key)}
-              </span>
-            </span>
+              <span
+                aria-hidden
+                className='inline-block size-1 translate-y-[-2px] rotate-45 bg-[var(--primary)]/70'
+              />
+            </Fragment>
           ))}
           <span className='inline-flex items-baseline gap-2.5'>
             <span
               aria-hidden
-              className='inline-block size-1.5 translate-y-[-1px] rotate-45 bg-[var(--platinum)]'
+              className='inline-block size-1.5 translate-y-[-1px] rotate-45 bg-[var(--primary)]'
             />
             <span className='text-muted-foreground text-[11px] tracking-[0.18em] uppercase'>
               {t('Transparent Billing')}

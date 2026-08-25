@@ -90,11 +90,18 @@ export function Features(_props: FeaturesProps) {
     >
       <div className='mx-auto max-w-6xl'>
         <AnimateInView className='mb-14 flex flex-wrap items-end justify-between gap-6'>
-          <div>
-            <p className='platinum-label mb-3 text-[11px] font-bold uppercase'>
+          <div className='relative'>
+            {/* Giant emerald-outlined chapter numeral behind the heading */}
+            <span
+              aria-hidden
+              className='font-serif text-[clamp(6rem,15vw,12rem)] leading-none font-semibold tracking-[0.06em] text-transparent opacity-[0.22] absolute -top-15 -left-3 select-none [-webkit-text-stroke:1.5px_var(--primary)]'
+            >
+              01
+            </span>
+            <p className='platinum-label relative z-10 mb-3 text-[11px] font-bold uppercase'>
               01 · {t('Domestic Model Matrix')}
             </p>
-            <h2 className='font-serif text-3xl font-semibold tracking-wide md:text-4xl'>
+            <h2 className='relative z-10 font-serif text-3xl font-semibold tracking-wide md:text-4xl'>
               {t('Leading domestic models, one integration away')}
             </h2>
           </div>
