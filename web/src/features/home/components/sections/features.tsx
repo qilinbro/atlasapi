@@ -58,11 +58,23 @@ const PLATES: Plate[] = [
     scale: 'lg',
     img: '/plates/glm.png',
   },
-  { vendor: 'Kimi', models: ['moonshot-v1'], span: 'md:col-span-2', scale: 'lg' },
+  {
+    vendor: 'Kimi',
+    models: ['moonshot-v1'],
+    span: 'md:col-span-2',
+    scale: 'lg',
+    img: '/plates/kimi.png',
+  },
   { vendor: 'Doubao', models: ['doubao-pro'], span: 'md:col-span-2', scale: 'lg' },
   { vendor: 'Hunyuan', models: ['hunyuan-turbo'], span: 'md:col-span-2', scale: 'md' },
   { vendor: 'Ernie', models: ['ernie-4.0'], span: 'md:col-span-2', scale: 'md' },
-  { vendor: 'MiniMax', models: ['abab6.5'], span: 'md:col-span-2', scale: 'md' },
+  {
+    vendor: 'MiniMax',
+    models: ['abab6.5'],
+    span: 'md:col-span-2',
+    scale: 'md',
+    img: '/plates/minimax.png',
+  },
 ]
 
 const VENDOR_SCALE: Record<Plate['scale'], string> = {

@@ -56,11 +56,16 @@ export function Hero(props: HeroProps) {
         className='pointer-events-none absolute inset-0 -z-10'
         style={{ backgroundImage: 'var(--paper-texture), var(--canvas-grad)' }}
       />
-      {/* Emerald binding ribbon on the page edge */}
+      {/* Emerald binding ribbon on the page edge — literal colors, no
+          var() indirection, so nothing can silently fail to resolve */}
       <div
         aria-hidden
-        className='pointer-events-none absolute top-0 bottom-0 left-0 w-[5px] shadow-[1px_0_0_rgba(244,238,216,0.22)]'
-        style={{ background: 'var(--lacquer)' }}
+        className='pointer-events-none absolute inset-y-0 left-0 z-20 w-2'
+        style={{
+          background:
+            'linear-gradient(180deg, #2a6b54 0%, #1a4d3e 62%, #143d30 100%)',
+          boxShadow: '1px 0 0 rgba(244, 238, 216, 0.28)',
+        }}
       />
       {/* Book-cover double rule frame with corner diamonds */}
       <div
