@@ -32,6 +32,8 @@ type Plate = {
   span: string
   /** display size of the vendor wordmark */
   scale: 'xl' | 'lg' | 'md'
+  /** optional engraved artwork filling the plate (public/plates/) */
+  img?: string
 }
 
 const PLATES: Plate[] = [
@@ -40,14 +42,22 @@ const PLATES: Plate[] = [
     models: ['deepseek-chat', 'deepseek-reasoner'],
     span: 'md:col-span-3 md:row-span-2',
     scale: 'xl',
+    img: '/plates/deepseek.png',
   },
   {
     vendor: 'Qwen',
     models: ['qwen-max', 'qwen-plus', 'qwen-turbo'],
     span: 'md:col-span-3 md:row-span-2',
     scale: 'xl',
+    img: '/plates/qwen.png',
   },
-  { vendor: 'GLM', models: ['glm-4-plus', 'glm-4-air'], span: 'md:col-span-2', scale: 'lg' },
+  {
+    vendor: 'GLM',
+    models: ['glm-4-plus', 'glm-4-air'],
+    span: 'md:col-span-2',
+    scale: 'lg',
+    img: '/plates/glm.png',
+  },
   { vendor: 'Kimi', models: ['moonshot-v1'], span: 'md:col-span-2', scale: 'lg' },
   { vendor: 'Doubao', models: ['doubao-pro'], span: 'md:col-span-2', scale: 'lg' },
   { vendor: 'Hunyuan', models: ['hunyuan-turbo'], span: 'md:col-span-2', scale: 'md' },
@@ -107,26 +117,47 @@ export function Features(_props: FeaturesProps) {
               delay={(i % 4) * 80}
               className={`bg-card group relative flex flex-col justify-between overflow-hidden rounded-lg border border-border/60 p-6 transition-transform duration-300 hover:-translate-y-1 md:p-7 ${plate.span}`}
             >
+              {plate.img && (
+                <>
+                  <img
+                    src={plate.img}
+                    alt=''
+                    loading='lazy'
+                    className='absolute inset-0 h-full w-full object-cover'
+                  />
+                  {/* Paper-tone scrim keeps overlaid text legible on the art */}
+                  <div
+                    aria-hidden
+                    className='absolute inset-0 bg-[linear-gradient(180deg,rgba(246,240,226,0.78)_0%,rgba(246,240,226,0)_30%,rgba(246,240,226,0)_58%,rgba(246,240,226,0.72)_100%)]'
+                  />
+                </>
+              )}
               <div
                 aria-hidden
-                className='platinum-hairline absolute inset-x-8 top-0 opacity-70'
+                className='platinum-hairline absolute inset-x-8 top-0 z-10 opacity-70'
               />
               <span
                 aria-hidden
-                className='text-[color:var(--platinum-ink)] absolute top-5 right-6 font-mono text-[10px] tracking-[0.22em] opacity-75'
+                className={`absolute top-5 right-6 z-10 font-mono text-[10px] tracking-[0.22em] opacity-75 ${
+                  plate.img ? 'text-[#8a744a]' : 'text-[color:var(--platinum-ink)]'
+                }`}
               >
                 PL. {FOLIO[i]}
               </span>
               <h3
-                className={`font-serif font-semibold tracking-[0.06em] ${VENDOR_SCALE[plate.scale]}`}
+                className={`relative z-10 font-serif font-semibold tracking-[0.06em] ${VENDOR_SCALE[plate.scale]} ${
+                  plate.img ? 'text-[#33291c]' : ''
+                }`}
               >
                 {plate.vendor}
               </h3>
-              <div className='mt-6 flex flex-wrap gap-x-5 gap-y-1.5'>
+              <div className='relative z-10 mt-6 flex flex-wrap gap-x-5 gap-y-1.5'>
                 {plate.models.map((m) => (
                   <span
                     key={m}
-                    className='text-muted-foreground font-mono text-xs tracking-wider'
+                    className={`font-mono text-xs tracking-wider ${
+                      plate.img ? 'text-[#6b5c42]' : 'text-muted-foreground'
+                    }`}
                   >
                     {m}
                   </span>

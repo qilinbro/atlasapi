@@ -55,28 +55,16 @@ export function Hero(props: HeroProps) {
         className='pointer-events-none absolute inset-0 -z-10'
         style={{ background: 'var(--canvas-grad)' }}
       />
-      {/* Bleeding platinum glyph watermark — fills the right column */}
+      {/* Bleeding line-art logo watermark — fills the right column */}
       <div
         aria-hidden
-        className='pointer-events-none absolute top-1/2 right-[-14%] -z-10 hidden -translate-y-1/2 opacity-[0.13] select-none sm:block lg:right-[-8%]'
+        className='pointer-events-none absolute top-1/2 right-[-14%] -z-10 hidden -translate-y-1/2 opacity-[0.12] select-none sm:block lg:right-[-8%] dark:opacity-[0.07] dark:invert dark:sepia-[0.3] dark:saturate-[0.5]'
       >
-        <svg
-          viewBox='0 0 48 48'
-          className='h-[48vw] max-h-[580px] w-[48vw] max-w-[580px]'
-        >
-          <defs>
-            <linearGradient id='atlas-watermark' x1='0' y1='0' x2='1' y2='1'>
-              <stop offset='0%' stopColor='#e0d3a8' />
-              <stop offset='52%' stopColor='#b99f63' />
-              <stop offset='100%' stopColor='#8a744a' />
-            </linearGradient>
-          </defs>
-          <path
-            fillRule='evenodd'
-            d='M24 10.5 L36.5 37.5 H31.4 L28.1 29.6 H19.9 L16.6 37.5 H11.5 Z M24 19.2 L26.7 25.6 H21.3 Z'
-            fill='url(#atlas-watermark)'
-          />
-        </svg>
+        <img
+          src='/logo.png'
+          alt=''
+          className='h-[48vw] max-h-[580px] w-[48vw] max-w-[580px] object-contain'
+        />
       </div>
       {/* Vertical hairline marking the asymmetric split */}
       <div
