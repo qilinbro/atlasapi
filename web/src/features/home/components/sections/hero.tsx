@@ -56,15 +56,15 @@ export function Hero(props: HeroProps) {
         className='pointer-events-none absolute inset-0 -z-10'
         style={{ backgroundImage: 'var(--paper-texture), var(--canvas-grad)' }}
       />
-      {/* Emerald binding ribbon on the page edge — literal colors, no
-          var() indirection, so nothing can silently fail to resolve */}
+      {/* Emerald structural color band on the page edge — wide enough to
+          register as composition, not decoration */}
       <div
         aria-hidden
-        className='pointer-events-none absolute inset-y-0 left-0 z-20 w-2'
+        className='pointer-events-none absolute inset-y-0 left-0 z-20 w-6'
         style={{
           background:
             'linear-gradient(180deg, #2a6b54 0%, #1a4d3e 62%, #143d30 100%)',
-          boxShadow: '1px 0 0 rgba(244, 238, 216, 0.28)',
+          boxShadow: '1px 0 0 rgba(244, 238, 216, 0.3), 5px 0 0 rgba(200, 169, 106, 0.18)',
         }}
       />
       {/* Book-cover double rule frame with corner diamonds */}
@@ -90,16 +90,45 @@ export function Hero(props: HeroProps) {
           className={`bg-[var(--platinum)]/55 pointer-events-none absolute size-1.5 rotate-45 ${pos}`}
         />
       ))}
-      {/* Bleeding line-art logo watermark — fills the right column */}
+      {/* Emerald seal — the cover's bookplate anchor, bottom-right of the
+          wordmark zone. Large emerald mass is what reads as luxury at a
+          glance (thin edge decorations do not register). */}
       <div
         aria-hidden
-        className='pointer-events-none absolute top-1/2 right-[-14%] -z-10 hidden -translate-y-1/2 opacity-[0.12] select-none sm:block lg:right-[-8%] dark:opacity-[0.07] dark:invert dark:sepia-[0.3] dark:saturate-[0.5]'
+        className='pointer-events-none absolute right-[6%] bottom-[12%] hidden select-none lg:block'
       >
-        <img
-          src='/logo.png'
-          alt=''
-          className='h-[48vw] max-h-[580px] w-[48vw] max-w-[580px] object-contain'
-        />
+        <div
+          className='border-[color:var(--platinum)]/45 p-1.5'
+          style={{ boxShadow: '0 18px 44px rgba(10, 26, 20, 0.32)' }}
+        >
+          <div
+            className='border-[color:var(--platinum)]/25 flex w-[clamp(160px,15vw,240px)] flex-col items-center gap-6 px-7 py-8'
+            style={{
+              background:
+                'linear-gradient(165deg, #245a47 0%, #1a4d3e 45%, #123528 100%)',
+            }}
+          >
+            <img
+              src='/logo.png'
+              alt=''
+              className='w-14 object-contain invert sepia-[0.25] saturate-[0.45] contrast-[0.92]'
+            />
+            <span
+              aria-hidden
+              className='block h-px w-8 bg-[#e8dfc6]/50'
+            />
+            <div className='flex flex-col items-center gap-1'>
+              {['A', 'T', 'L', 'A', 'S'].map((ch) => (
+                <span
+                  key={ch}
+                  className='font-serif text-base font-semibold text-[#e8dfc6]'
+                >
+                  {ch}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
       {/* Vertical hairline marking the asymmetric split */}
       <div
