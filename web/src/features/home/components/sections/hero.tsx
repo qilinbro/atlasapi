@@ -48,7 +48,7 @@ export function Hero(props: HeroProps) {
   return (
     <section
       id='cover'
-      className='relative flex min-h-[calc(100svh-3.5rem)] flex-col overflow-hidden px-6 pt-24 pb-14 md:px-12 md:pt-28 md:pb-16'
+      className='relative flex min-h-[calc(100svh-3.5rem)] flex-col overflow-hidden px-6 pt-36 pb-14 md:px-12 md:pt-44 md:pb-16'
     >
       {/* Static champagne canvas: visible paper grain + platinum aura */}
       <div
@@ -56,11 +56,137 @@ export function Hero(props: HeroProps) {
         className='pointer-events-none absolute inset-0 -z-10'
         style={{ backgroundImage: 'var(--paper-texture), var(--canvas-grad)' }}
       />
+      {/* Gilded inlay — SVG champagne-gold marquetry set into the cover
+          background: corner foil fans, fading connector lines, and a
+          faint guilloché rosette. Existing gold palette only (#C8A96A
+          family), strokes behind the type. */}
+      <svg
+        aria-hidden
+        className='pointer-events-none absolute inset-0 h-full w-full select-none'
+        viewBox='0 0 1600 900'
+        preserveAspectRatio='xMidYMid slice'
+      >
+        <defs>
+          <linearGradient id='atlas-foil' x1='0' y1='0' x2='1' y2='1'>
+            <stop offset='0' stopColor='#f2ecd9' />
+            <stop offset='0.35' stopColor='#d9c68c' />
+            <stop offset='0.62' stopColor='#b99f63' />
+            <stop offset='1' stopColor='#8a744a' />
+          </linearGradient>
+          <linearGradient id='atlas-foil-fade' x1='0' y1='0' x2='1' y2='0'>
+            <stop offset='0' stopColor='#c8a96a' stopOpacity='0.55' />
+            <stop offset='1' stopColor='#c8a96a' stopOpacity='0' />
+          </linearGradient>
+        </defs>
+
+        {/* Corner foil fans — quarter arcs clipped naturally by the frame */}
+        <g
+          fill='none'
+          stroke='url(#atlas-foil)'
+          strokeWidth='1.1'
+          className='opacity-70 dark:opacity-45'
+        >
+          <g transform='translate(38 38)'>
+            <circle r='15' />
+            <circle r='29' />
+            <circle r='45' />
+            <circle r='63' />
+            <rect
+              x='-4'
+              y='-4'
+              width='8'
+              height='8'
+              transform='rotate(45)'
+              fill='url(#atlas-foil)'
+              stroke='none'
+            />
+          </g>
+          <g transform='translate(1562 38) scale(-1 1)'>
+            <circle r='15' />
+            <circle r='29' />
+            <circle r='45' />
+            <circle r='63' />
+            <rect
+              x='-4'
+              y='-4'
+              width='8'
+              height='8'
+              transform='rotate(45)'
+              fill='url(#atlas-foil)'
+              stroke='none'
+            />
+          </g>
+          <g transform='translate(38 862) scale(1 -1)'>
+            <circle r='15' />
+            <circle r='29' />
+            <circle r='45' />
+            <circle r='63' />
+            <rect
+              x='-4'
+              y='-4'
+              width='8'
+              height='8'
+              transform='rotate(45)'
+              fill='url(#atlas-foil)'
+              stroke='none'
+            />
+          </g>
+          <g transform='translate(1562 862) scale(-1 -1)'>
+            <circle r='15' />
+            <circle r='29' />
+            <circle r='45' />
+            <circle r='63' />
+            <rect
+              x='-4'
+              y='-4'
+              width='8'
+              height='8'
+              transform='rotate(45)'
+              fill='url(#atlas-foil)'
+              stroke='none'
+            />
+          </g>
+        </g>
+
+        {/* Connector lines fading away from each corner */}
+        <g
+          fill='none'
+          stroke='url(#atlas-foil-fade)'
+          strokeWidth='1'
+          className='opacity-40 dark:opacity-25'
+        >
+          <line x1='120' y1='38' x2='380' y2='38' />
+          <line x1='1480' y1='38' x2='1220' y2='38' />
+          <line x1='38' y1='120' x2='38' y2='380' />
+          <line x1='1562' y1='120' x2='1562' y2='380' />
+        </g>
+
+        {/* Guilloché rosette — faint engraved gold rings on the right */}
+        <g
+          fill='none'
+          stroke='url(#atlas-foil)'
+          className='opacity-[0.16] dark:opacity-[0.1]'
+        >
+          <g transform='translate(1140 470)'>
+            <circle r='70' strokeDasharray='2 6' />
+            <circle r='120' strokeDasharray='1 9' />
+            <circle r='175' strokeDasharray='3 10' />
+            <circle r='235' />
+            <rect
+              x='-88'
+              y='-88'
+              width='176'
+              height='176'
+              transform='rotate(45)'
+            />
+          </g>
+        </g>
+      </svg>
       {/* Emerald masthead banner — full-bleed lacquer band carrying the
           label and table of contents. The band IS the masthead: horizontal,
           content-bearing, edge-to-edge (why this reads as structure). */}
       <div
-        className='landing-animate-fade-up absolute inset-x-0 top-0 z-10 flex h-14 items-center md:h-16'
+        className='landing-animate-fade-up absolute inset-x-0 top-16 z-10 flex h-14 items-center md:top-16 md:h-14'
         style={{
           background:
             'linear-gradient(180deg, #2a6b54 0%, #1a4d3e 58%, #143d30 100%)',
@@ -110,20 +236,6 @@ export function Hero(props: HeroProps) {
         aria-hidden
         className='border-[color:var(--platinum)]/12 pointer-events-none absolute inset-4 border md:inset-7'
       />
-      {(
-        [
-          'top-3 left-3 md:top-5 md:left-5',
-          'top-3 right-3 md:top-5 md:right-5',
-          'bottom-3 left-3 md:bottom-5 md:left-5',
-          'bottom-3 right-3 md:bottom-5 md:right-5',
-        ] as const
-      ).map((pos) => (
-        <span
-          key={pos}
-          aria-hidden
-          className={`bg-[var(--platinum)]/55 pointer-events-none absolute size-1.5 rotate-45 ${pos}`}
-        />
-      ))}
 
       <div className='mx-auto flex w-full max-w-6xl flex-1 flex-col'>
         {/* Breathing void — the luxury of confident emptiness */}
