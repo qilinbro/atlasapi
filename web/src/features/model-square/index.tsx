@@ -44,6 +44,8 @@ import {
 import type { PricingModel } from '@/features/pricing/types'
 import { cn } from '@/lib/utils'
 
+import { getPlateArt } from './lib/plate-art'
+
 /** Category chips mapping the reference layout (all / chat / image /
  * embeddings / video) onto the structured endpoint-type dimension. */
 const CATEGORY_CHIPS: { key: string; labelKey: string }[] = [
@@ -124,7 +126,7 @@ export function ModelSquare() {
             )}
           </div>
 
-          {renderModelSquareBody({ isLoading, filteredModels, t, setSelectedModelName, priceRate, usdExchangeRate })}
+          {renderModelSquareBody({ isLoading, filteredModels, t, setSelectedModelName, priceRate, usdExchangeRate, getCoverArt: getPlateArt })}
         </div>
       </SectionPageLayout.Content>
 
@@ -157,6 +159,7 @@ function renderModelSquareBody(props: {
   setSelectedModelName: (name: string) => void
   priceRate: number
   usdExchangeRate: number
+  getCoverArt: (model: PricingModel) => string | undefined
 }) {
   if (props.isLoading) {
     return (
@@ -193,6 +196,7 @@ function renderModelSquareBody(props: {
       columns={4}
       priceRate={props.priceRate}
       usdExchangeRate={props.usdExchangeRate}
+      getCoverArt={props.getCoverArt}
     />
   )
 }

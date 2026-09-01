@@ -39,6 +39,8 @@ export interface ModelCardGridProps {
   selectedGroup?: string
   /** Grid density: 3 columns (default) or 4 columns on wide screens. */
   columns?: 3 | 4
+  /** Optional resolver returning per-model artwork banner for its cards. */
+  getCoverArt?: (model: PricingModel) => string | undefined
 }
 
 export function ModelCardGrid(props: ModelCardGridProps) {
@@ -92,6 +94,7 @@ export function ModelCardGrid(props: ModelCardGridProps) {
             showRechargePrice={props.showRechargePrice}
             selectedGroup={props.selectedGroup}
             perf={perfMap.get(model.model_name || '')}
+            coverArt={props.getCoverArt?.(model)}
             onClick={() => props.onModelClick(model.model_name || '')}
           />
         ))}

@@ -45,6 +45,8 @@ export interface ModelCardProps {
   showRechargePrice?: boolean
   selectedGroup?: string
   perf?: ModelPerfBadgeData
+  /** Optional vendor artwork banner rendered above the card content. */
+  coverArt?: string
 }
 
 export const ModelCard = memo(function ModelCard(props: ModelCardProps) {
@@ -200,6 +202,23 @@ export const ModelCard = memo(function ModelCard(props: ModelCardProps) {
         'hover:bg-muted/20'
       )}
     >
+      {/* Vendor artwork banner (model square only) */}
+      {props.coverArt && (
+        <div className='bg-muted/40 relative mb-3 h-20 shrink-0 overflow-hidden rounded-lg sm:mb-4 sm:h-24'>
+          <img
+            src={props.coverArt}
+            alt=''
+            loading='lazy'
+            className='absolute inset-0 h-full w-full object-cover'
+          />
+          {/* Soft edge fade so the engraving blends into the card body */}
+          <div
+            aria-hidden
+            className='from-card absolute inset-x-0 bottom-0 h-8 bg-gradient-to-b to-transparent'
+          />
+        </div>
+      )}
+
       {/* Header: icon + name + price + actions */}
       <div className='flex items-start justify-between gap-2.5 sm:gap-3'>
         <div className='flex min-w-0 items-start gap-2.5 sm:gap-3'>
