@@ -1,0 +1,27 @@
+# 任务 09 · 封底 backcover
+输出文件名: backcover.png
+比例: 16:9 (宽屏横图)
+数量: 1 张
+
+## 英文提示词（Midjourney / Flux / DALL·E，整段复制粘贴）
+
+A deep emerald green lacquer field, ornate antique platinum gold engraved
+border frame with corner flourishes and fine guilloché lines, an empty
+circular medallion at the center with a delicate engraved ring (leave the
+medallion interior plain), luxury book back cover design, matte finish,
+museum print quality
+--ar 16:9
+--no text, letters, words, monogram, logo, watermark, glossy, 3D render
+
+## 中文提示词（即梦 / 可灵 / 通义万相，整段复制粘贴）
+
+深祖母绿漆面底色，古董铂金色雕花边框（四角涡卷饰+纤细扭索纹），中心一枚空的白金刻线圆徽章（徽章内部留空），奢华典籍封底设计，哑光，博物馆印刷品质。不要任何文字、字母、花押字、水印，不要光泽，不要 3D
+
+## 负面提示词（如工具支持单独填写）
+
+text, letters, words, monogram, logo, watermark, glossy, 3D render
+
+## 硬性约束
+- 图内不得出现任何文字、字母、数字、logo
+- 祖母绿仅作为一处点缀，主体保持铂金线+香槟纸
+- 哑光版画质感，拒绝 3D 渲染与光泽

@@ -1,0 +1,27 @@
+# 任务 08 · minimax
+输出文件名: minimax.png
+比例: 2:1 (宽屏横图)
+数量: 1 张
+
+## 英文提示词（Midjourney / Flux / DALL·E，整段复制粘贴）
+
+Antique copperplate engraving illustration of a minimal hexagonal lattice built from tiny precise triangles, printed on warm
+champagne ivory paper, fine cross-hatching linework in antique platinum gold
+ink, one single deep emerald green accent element, luxurious limited-edition
+print plate aesthetic, matte finish, museum print quality, subtle paper
+grain, generous empty margins
+--ar 2:1
+--no text, letters, words, logo, watermark, signature, colored background, gradient poster, 3D render, glossy
+
+## 中文提示词（即梦 / 可灵 / 通义万相，整段复制粘贴）
+
+古典铜版雕版画插图：微小精确三角形构成的极简六边形晶格，印在香槟米白色艺术纸上，古董铂金色细线交叉排线，唯一一点祖母绿作为点缀色，奢华限量版画质感，哑光，博物馆版画印刷品质，轻微纸张纹理，四周留白充足。不要任何文字、字母、水印、logo，不要彩色背景，不要 3D 渲染，不要光泽感
+
+## 负面提示词（如工具支持单独填写）
+
+text, letters, words, logo, watermark, signature, colored background, gradient poster, 3D render, glossy
+
+## 硬性约束
+- 图内不得出现任何文字、字母、数字、logo
+- 祖母绿仅作为一处点缀，主体保持铂金线+香槟纸
+- 哑光版画质感，拒绝 3D 渲染与光泽

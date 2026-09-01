@@ -1,0 +1,132 @@
+{
+  "project": "Atlas homepage plates + back cover",
+  "version": 1,
+  "tasks": [
+    {
+      "id": "01",
+      "output_filename": "deepseek.png",
+      "aspect_ratio": "3:2",
+      "count": 1,
+      "prompt_en": "Antique copperplate engraving illustration of a sperm whale diving through layered geometric ocean waves, printed on warm\nchampagne ivory paper, fine cross-hatching linework in antique platinum gold\nink, one single deep emerald green accent element, luxurious limited-edition\nprint plate aesthetic, matte finish, museum print quality, subtle paper\ngrain, generous empty margins\n--ar 3:2\n--no text, letters, words, logo, watermark, signature, colored background, gradient poster, 3D render, glossy",
+      "prompt_zh": "古典铜版雕版画插图：抹香鲸潜入层叠的几何海浪，印在香槟米白色艺术纸上，古董铂金色细线交叉排线，唯一一点祖母绿作为点缀色，奢华限量版画质感，哑光，博物馆版画印刷品质，轻微纸张纹理，四周留白充足。不要任何文字、字母、水印、logo，不要彩色背景，不要 3D 渲染，不要光泽感",
+      "negative_prompt": "text, letters, words, logo, watermark, signature, colored background, gradient poster, 3D render, glossy",
+      "constraints": [
+        "no text/letters/numbers/logo in image",
+        "single emerald accent only, platinum-led",
+        "matte engraving print, no 3D render, no gloss"
+      ]
+    },
+    {
+      "id": "02",
+      "output_filename": "qwen.png",
+      "aspect_ratio": "3:2",
+      "count": 1,
+      "prompt_en": "Antique copperplate engraving illustration of a thousand fine silk threads converging into a single elegant knot, printed on warm\nchampagne ivory paper, fine cross-hatching linework in antique platinum gold\nink, one single deep emerald green accent element, luxurious limited-edition\nprint plate aesthetic, matte finish, museum print quality, subtle paper\ngrain, generous empty margins\n--ar 3:2\n--no text, letters, words, logo, watermark, signature, colored background, gradient poster, 3D render, glossy",
+      "prompt_zh": "古典铜版雕版画插图：千缕丝线汇聚成一个优雅的结，印在香槟米白色艺术纸上，古董铂金色细线交叉排线，唯一一点祖母绿作为点缀色，奢华限量版画质感，哑光，博物馆版画印刷品质，轻微纸张纹理，四周留白充足。不要任何文字、字母、水印、logo，不要彩色背景，不要 3D 渲染，不要光泽感",
+      "negative_prompt": "text, letters, words, logo, watermark, signature, colored background, gradient poster, 3D render, glossy",
+      "constraints": [
+        "no text/letters/numbers/logo in image",
+        "single emerald accent only, platinum-led",
+        "matte engraving print, no 3D render, no gloss"
+      ]
+    },
+    {
+      "id": "03",
+      "output_filename": "glm.png",
+      "aspect_ratio": "2:1",
+      "count": 1,
+      "prompt_en": "Antique copperplate engraving illustration of a crystal prism splitting one ray of light into a fine spectrum, printed on warm\nchampagne ivory paper, fine cross-hatching linework in antique platinum gold\nink, one single deep emerald green accent element, luxurious limited-edition\nprint plate aesthetic, matte finish, museum print quality, subtle paper\ngrain, generous empty margins\n--ar 2:1\n--no text, letters, words, logo, watermark, signature, colored background, gradient poster, 3D render, glossy",
+      "prompt_zh": "古典铜版雕版画插图：水晶棱镜将一束光分解成精细光谱，印在香槟米白色艺术纸上，古董铂金色细线交叉排线，唯一一点祖母绿作为点缀色，奢华限量版画质感，哑光，博物馆版画印刷品质，轻微纸张纹理，四周留白充足。不要任何文字、字母、水印、logo，不要彩色背景，不要 3D 渲染，不要光泽感",
+      "negative_prompt": "text, letters, words, logo, watermark, signature, colored background, gradient poster, 3D render, glossy",
+      "constraints": [
+        "no text/letters/numbers/logo in image",
+        "single emerald accent only, platinum-led",
+        "matte engraving print, no 3D render, no gloss"
+      ]
+    },
+    {
+      "id": "04",
+      "output_filename": "kimi.png",
+      "aspect_ratio": "2:1",
+      "count": 1,
+      "prompt_en": "Antique copperplate engraving illustration of a crescent moon rising over a dark mountain ridge, the far side in shadow, printed on warm\nchampagne ivory paper, fine cross-hatching linework in antique platinum gold\nink, one single deep emerald green accent element, luxurious limited-edition\nprint plate aesthetic, matte finish, museum print quality, subtle paper\ngrain, generous empty margins\n--ar 2:1\n--no text, letters, words, logo, watermark, signature, colored background, gradient poster, 3D render, glossy",
+      "prompt_zh": "古典铜版雕版画插图：弯月升起于暗色山脊之上，月之暗面隐入阴影，印在香槟米白色艺术纸上，古董铂金色细线交叉排线，唯一一点祖母绿作为点缀色，奢华限量版画质感，哑光，博物馆版画印刷品质，轻微纸张纹理，四周留白充足。不要任何文字、字母、水印、logo，不要彩色背景，不要 3D 渲染，不要光泽感",
+      "negative_prompt": "text, letters, words, logo, watermark, signature, colored background, gradient poster, 3D render, glossy",
+      "constraints": [
+        "no text/letters/numbers/logo in image",
+        "single emerald accent only, platinum-led",
+        "matte engraving print, no 3D render, no gloss"
+      ]
+    },
+    {
+      "id": "05",
+      "output_filename": "doubao.png",
+      "aspect_ratio": "2:1",
+      "count": 1,
+      "prompt_en": "Antique copperplate engraving illustration of a single bean seed cracking open with a young sprout and two leaves, printed on warm\nchampagne ivory paper, fine cross-hatching linework in antique platinum gold\nink, one single deep emerald green accent element, luxurious limited-edition\nprint plate aesthetic, matte finish, museum print quality, subtle paper\ngrain, generous empty margins\n--ar 2:1\n--no text, letters, words, logo, watermark, signature, colored background, gradient poster, 3D render, glossy",
+      "prompt_zh": "古典铜版雕版画插图：一粒豆种裂开，抽出双叶嫩芽，印在香槟米白色艺术纸上，古董铂金色细线交叉排线，唯一一点祖母绿作为点缀色，奢华限量版画质感，哑光，博物馆版画印刷品质，轻微纸张纹理，四周留白充足。不要任何文字、字母、水印、logo，不要彩色背景，不要 3D 渲染，不要光泽感",
+      "negative_prompt": "text, letters, words, logo, watermark, signature, colored background, gradient poster, 3D render, glossy",
+      "constraints": [
+        "no text/letters/numbers/logo in image",
+        "single emerald accent only, platinum-led",
+        "matte engraving print, no 3D render, no gloss"
+      ]
+    },
+    {
+      "id": "06",
+      "output_filename": "hunyuan.png",
+      "aspect_ratio": "2:1",
+      "count": 1,
+      "prompt_en": "Antique copperplate engraving illustration of concentric ripples spreading on still water, forming one perfect circle, printed on warm\nchampagne ivory paper, fine cross-hatching linework in antique platinum gold\nink, one single deep emerald green accent element, luxurious limited-edition\nprint plate aesthetic, matte finish, museum print quality, subtle paper\ngrain, generous empty margins\n--ar 2:1\n--no text, letters, words, logo, watermark, signature, colored background, gradient poster, 3D render, glossy",
+      "prompt_zh": "古典铜版雕版画插图：静水面同心圆涟漪聚成一个完美的圆，印在香槟米白色艺术纸上，古董铂金色细线交叉排线，唯一一点祖母绿作为点缀色，奢华限量版画质感，哑光，博物馆版画印刷品质，轻微纸张纹理，四周留白充足。不要任何文字、字母、水印、logo，不要彩色背景，不要 3D 渲染，不要光泽感",
+      "negative_prompt": "text, letters, words, logo, watermark, signature, colored background, gradient poster, 3D render, glossy",
+      "constraints": [
+        "no text/letters/numbers/logo in image",
+        "single emerald accent only, platinum-led",
+        "matte engraving print, no 3D render, no gloss"
+      ]
+    },
+    {
+      "id": "07",
+      "output_filename": "ernie.png",
+      "aspect_ratio": "2:1",
+      "count": 1,
+      "prompt_en": "Antique copperplate engraving illustration of an ink brush stroke unfurling across an open book page, printed on warm\nchampagne ivory paper, fine cross-hatching linework in antique platinum gold\nink, one single deep emerald green accent element, luxurious limited-edition\nprint plate aesthetic, matte finish, museum print quality, subtle paper\ngrain, generous empty margins\n--ar 2:1\n--no text, letters, words, logo, watermark, signature, colored background, gradient poster, 3D render, glossy",
+      "prompt_zh": "古典铜版雕版画插图：一笔水墨在摊开的书页上舒展，印在香槟米白色艺术纸上，古董铂金色细线交叉排线，唯一一点祖母绿作为点缀色，奢华限量版画质感，哑光，博物馆版画印刷品质，轻微纸张纹理，四周留白充足。不要任何文字、字母、水印、logo，不要彩色背景，不要 3D 渲染，不要光泽感",
+      "negative_prompt": "text, letters, words, logo, watermark, signature, colored background, gradient poster, 3D render, glossy",
+      "constraints": [
+        "no text/letters/numbers/logo in image",
+        "single emerald accent only, platinum-led",
+        "matte engraving print, no 3D render, no gloss"
+      ]
+    },
+    {
+      "id": "08",
+      "output_filename": "minimax.png",
+      "aspect_ratio": "2:1",
+      "count": 1,
+      "prompt_en": "Antique copperplate engraving illustration of a minimal hexagonal lattice built from tiny precise triangles, printed on warm\nchampagne ivory paper, fine cross-hatching linework in antique platinum gold\nink, one single deep emerald green accent element, luxurious limited-edition\nprint plate aesthetic, matte finish, museum print quality, subtle paper\ngrain, generous empty margins\n--ar 2:1\n--no text, letters, words, logo, watermark, signature, colored background, gradient poster, 3D render, glossy",
+      "prompt_zh": "古典铜版雕版画插图：微小精确三角形构成的极简六边形晶格，印在香槟米白色艺术纸上，古董铂金色细线交叉排线，唯一一点祖母绿作为点缀色，奢华限量版画质感，哑光，博物馆版画印刷品质，轻微纸张纹理，四周留白充足。不要任何文字、字母、水印、logo，不要彩色背景，不要 3D 渲染，不要光泽感",
+      "negative_prompt": "text, letters, words, logo, watermark, signature, colored background, gradient poster, 3D render, glossy",
+      "constraints": [
+        "no text/letters/numbers/logo in image",
+        "single emerald accent only, platinum-led",
+        "matte engraving print, no 3D render, no gloss"
+      ]
+    },
+    {
+      "id": "09",
+      "output_filename": "backcover.png",
+      "aspect_ratio": "16:9",
+      "count": 1,
+      "prompt_en": "A deep emerald green lacquer field, ornate antique platinum gold engraved\nborder frame with corner flourishes and fine guilloché lines, an empty\ncircular medallion at the center with a delicate engraved ring (leave the\nmedallion interior plain), luxury book back cover design, matte finish,\nmuseum print quality\n--ar 16:9\n--no text, letters, words, monogram, logo, watermark, glossy, 3D render",
+      "prompt_zh": "深祖母绿漆面底色，古董铂金色雕花边框（四角涡卷饰+纤细扭索纹），中心一枚空的白金刻线圆徽章（徽章内部留空），奢华典籍封底设计，哑光，博物馆印刷品质。不要任何文字、字母、花押字、水印，不要光泽，不要 3D",
+      "negative_prompt": "text, letters, words, monogram, logo, watermark, glossy, 3D render",
+      "constraints": [
+        "no text/letters/numbers/logo in image",
+        "single emerald accent only, platinum-led",
+        "matte engraving print, no 3D render, no gloss"
+      ]
+    }
+  ]
+}
