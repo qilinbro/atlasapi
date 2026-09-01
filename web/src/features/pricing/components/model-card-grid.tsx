@@ -41,6 +41,8 @@ export interface ModelCardGridProps {
   columns?: 3 | 4
   /** Optional resolver returning per-model artwork banner for its cards. */
   getCoverArt?: (model: PricingModel) => string | undefined
+  /** When false cards are display-only (no details action). */
+  interactive?: boolean
 }
 
 export function ModelCardGrid(props: ModelCardGridProps) {
@@ -95,6 +97,7 @@ export function ModelCardGrid(props: ModelCardGridProps) {
             selectedGroup={props.selectedGroup}
             perf={perfMap.get(model.model_name || '')}
             coverArt={props.getCoverArt?.(model)}
+            interactive={props.interactive}
             onClick={() => props.onModelClick(model.model_name || '')}
           />
         ))}

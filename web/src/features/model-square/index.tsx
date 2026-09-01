@@ -31,10 +31,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { Skeleton } from '@/components/ui/skeleton'
 import { ENDPOINT_TYPES, SORT_OPTIONS } from '@/features/pricing/constants'
-import {
-  ModelCardGrid,
-  ModelDetailsDrawer,
-} from '@/features/pricing/components'
+import { ModelCardGrid } from '@/features/pricing/components'
 import { usePricingData } from '@/features/pricing/hooks/use-pricing-data'
 import {
   filterByEndpointType,
@@ -58,31 +55,22 @@ const CATEGORY_CHIPS: { key: string; labelKey: string }[] = [
 
 /**
  * In-console model square: search + category chips on top, dense 4-column
- * card grid below, with the pricing details drawer on card click. Reuses
- * the pricing feature's data layer and cards.
+ * card grid below. Display-only — cards carry vendor plate artwork and do
+ * not open the details drawer.
  */
 export function ModelSquare() {
   const { t } = useTranslation()
-  const { models, groupRatio, usableGroup, endpointMap, autoGroups, isLoading, priceRate, usdExchangeRate } =
-    usePricingData()
+  const { models, isLoading, priceRate, usdExchangeRate } = usePricingData()
 
   const [category, setCategory] = useState<string>(ENDPOINT_TYPES.ALL)
   const [searchInput, setSearchInput] = useState('')
   const search = useDeferredValue(searchInput)
-  const [selectedModelName, setSelectedModelName] = useState<string | null>(
-    null
-  )
 
   const filteredModels = useMemo(() => {
     const searched = filterBySearch(models, search)
     const categorized = filterByEndpointType(searched, category)
     return sortModels(categorized, SORT_OPTIONS.NAME)
   }, [models, search, category])
-
-  const selectedModel = useMemo(
-    () => models.find((m) => m.model_name === selectedModelName) ?? null,
-    [models, selectedModelName]
-  )
 
   return (
     <SectionPageLayout>
@@ -126,28 +114,15 @@ export function ModelSquare() {
             )}
           </div>
 
-          {renderModelSquareBody({ isLoading, filteredModels, t, setSelectedModelName, priceRate, usdExchangeRate, getCoverArt: getPlateArt })}
+          {renderModelSquareBody({
+            isLoading,
+            filteredModels,
+            t,
+            priceRate,
+            usdExchangeRate,
+          })}
         </div>
       </SectionPageLayout.Content>
-
-      {selectedModel && (
-        <ModelDetailsDrawer
-          open={selectedModelName === selectedModel.model_name}
-          onOpenChange={(open) => {
-            if (!open) setSelectedModelName(null)
-          }}
-          model={selectedModel}
-          groupRatio={groupRatio}
-          usableGroup={usableGroup}
-          endpointMap={
-            endpointMap as Record<string, { path?: string; method?: string }>
-          }
-          autoGroups={autoGroups}
-          priceRate={priceRate}
-          usdExchangeRate={usdExchangeRate}
-          tokenUnit='M'
-        />
-      )}
     </SectionPageLayout>
   )
 }
@@ -156,10 +131,8 @@ function renderModelSquareBody(props: {
   isLoading: boolean
   filteredModels: PricingModel[]
   t: (key: string) => string
-  setSelectedModelName: (name: string) => void
   priceRate: number
   usdExchangeRate: number
-  getCoverArt: (model: PricingModel) => string | undefined
 }) {
   if (props.isLoading) {
     return (
@@ -192,11 +165,12 @@ function renderModelSquareBody(props: {
   return (
     <ModelCardGrid
       models={props.filteredModels}
-      onModelClick={props.setSelectedModelName}
+      onModelClick={() => {}}
+      interactive={false}
       columns={4}
       priceRate={props.priceRate}
       usdExchangeRate={props.usdExchangeRate}
-      getCoverArt={props.getCoverArt}
+      getCoverArt={getPlateArt}
     />
   )
 }

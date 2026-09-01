@@ -47,6 +47,8 @@ export interface ModelCardProps {
   perf?: ModelPerfBadgeData
   /** Optional vendor artwork banner rendered above the card content. */
   coverArt?: string
+  /** When false the card is display-only: no details action. */
+  interactive?: boolean
 }
 
 export const ModelCard = memo(function ModelCard(props: ModelCardProps) {
@@ -240,14 +242,16 @@ export const ModelCard = memo(function ModelCard(props: ModelCardProps) {
         </div>
 
         <div className='flex shrink-0 items-center gap-1.5'>
-          <button
-            type='button'
-            onClick={props.onClick}
-            className='text-muted-foreground hover:text-foreground hover:bg-muted inline-flex items-center gap-1 rounded-md border px-2 py-1 text-xs transition-colors sm:px-2.5 sm:py-1.5'
-          >
-            {t('Details')}
-            <ChevronRight className='size-3.5' />
-          </button>
+          {props.interactive !== false && (
+            <button
+              type='button'
+              onClick={props.onClick}
+              className='text-muted-foreground hover:text-foreground hover:bg-muted inline-flex items-center gap-1 rounded-md border px-2 py-1 text-xs transition-colors sm:px-2.5 sm:py-1.5'
+            >
+              {t('Details')}
+              <ChevronRight className='size-3.5' />
+            </button>
+          )}
           <button
             type='button'
             onClick={handleCopy}
